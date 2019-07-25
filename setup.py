@@ -32,17 +32,14 @@ with open("README.txt", "r") as fh:
 
 
 ### Packages  ####################################################
-packages = ["aapackage"] + ["aapackage." + p for p in find_packages("aapackage")]
+packages = ["cli_code"] + ["cli_code." + p for p in find_packages("cli_code")]
 
 
 ### CLI Scripts
 scripts = [
-    "aapackage/batch/batch_daemon_launch_cli.py",
-    "aapackage/batch/batch_daemon_monitor_cli.py",
-    "aapackage/batch/batch_daemon_autoscale_cli.py",
-    "aapackage/cli_module_autoinstall.py",  #
-    "aapackage/cli_module_analysis.py",  #
-    "aapackage/cli_convert_ipny.py",  #  ipny to py scrips
+    "cli_code/cli_module_autoinstall.py",  #
+    "cli_code/cli_module_analysis.py",  #
+    "cli_code/cli_convert_ipny.py",  #  ipny to py scrips
 ]
 
 
@@ -50,12 +47,12 @@ scripts = [
 
 
 setup(
-    name="aapackage",
+    name="cli_code",
     version=version,
     description="Tools for Python",
     uthor="KN",
     author_email="brookm291 gmail.com",
-    url="https://github.com/arita37/a_aapackage",
+    url="https://github.com/arita37/a_cli_code",
     install_requires=["numpy"],
     packages=packages,
     scripts=scripts,
