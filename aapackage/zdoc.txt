@@ -1,0 +1,203 @@
+###############################################################################
+#######  Cloud9 usage #########################################################
+### DO NOT restart the instance 
+source activate py36
+which python
+which conda
+
+
+
+zbatch.sh   : Launch the processes
+zbatch_kill :  Kill the 2 processes
+
+
+cd  /home/ubuntu/aagit/aapackage/batch     #Root of github repo
+
+
+/home/ubuntu/tasks      :   Folder of the tasks
+/home/ubuntu/zlog       :   Folder of the logs
+/home/ubuntu/tasks_out  :   Folder of the tasks out
+
+
+git add --all 
+git commit -m "your msg"
+
+
+topc    : Show all python processes running
+
+gitpush :   send to github
+gitpull :   get from github
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#CFG   = {'plat': sys.platform[:3]+"-"+os.path.expanduser('~').split("\\")[-1].split("/")[-1], "ver": sys.version_info.major}
+#DIRCWD= {'win-asus1': 'D:/_devs/Python01/project27/', 'win-unerry': 'G:/_devs/project27/' , 'lin-noel': '/home/noel/project27/', 'lin-ubuntu': '/home/ubuntu/project27/' }[CFG['plat']]
+#print(os.environ)
+#DIRCWD= os.environ["DIRCWD"];
+# import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
+
+
+
+
+###############################################################################
+
+'''
+https://console.developers.google.com/iam-admin/projects
+Google Drive API
+https://googledrive.github.io/PyDrive/docs/_build/html/quickstart.html#authentication
+
+https://console.developers.google.com/iam-admin/quotas?project=refreshing-code-142020
+
+Create an empty file called __init__.py in all you folders. Then you can import using . as a folder separator. Documentation here.
+
+
+#--------------------Utilities-------------------------------------------------------------------
+# http://win32com.goermezer.de/content/blogsection/7/284/
+
+WhenPackage is destroyed resintall and copy paste the data.
+from saved package
+
+ps://pythonconquerstheuniverse.wordpress.com/2009/10/15/python-packages/
+
+import spyderlib
+74	os.environ["SPYDER_PARENT_DIR"] = os.path.abspath(os.path.join(spyderlib.__file__, "../.."))
+…
+199	from spyderlib.utils.programs import (run_python_script, is_module_installed,
+200	                                      start_file, run_python_script_in_terminal)
+201	from spyderlib.utils.iofuncs import load_session, save_session, reset_session
+
+
+https://service.wi2.ne.jp/wi2net/SbjLogin/2/
+
+klepto is built on top of dill, and can cache function inputs and outputs to memory (so that calculations don't need to be run twice), and it can seamlessly persist objects in the cache to disk or to a database.
+The versions on github are the ones you want. https://github.com/uqfoundation/klepto or https://github.com/joblib/joblib. Klepto is newer, but has a much broader set of caching and archiving solutions than joblib. Joblib has been in production use longer, so it's better tested -- especially for parallel computing.
+Here's an example of typical klepto workflow: https://github.com/uqfoundation/klepto/blob/master/tests/test_workflow.py
+Here's another that has some numpy in it: https://github.com/uqfoundation/klepto/blob/master/tests/test_cache.py
+
+'''
+
+'''
+Unpacking dictionaries
+
+** unpacks dictionaries.
+
+func(a=1, b=2, c=3)
+is the same as
+
+args = {'a': 1, 'b': 2, 'c':3}
+func(**args)
+It's useful if you have to construct parameters:
+
+args = {'name': person.name}
+if hasattr(person, "address"):
+    args["address"] = person.address
+func(**args)  # either expanded to func(name=person.name) or
+              #                    func(name=person.name, address=person.address)
+Packing parameters of a function
+
+def setstyle(**styles):
+    for key, value in styles.iteritems():      # styles is a regular dictionary
+        setattr(someobject, key, value)
+This lets you use the function like this:
+
+setstyle(color="red", bold=False)
+
+'''
+
+
+
+
+
+class testclass(object):
+   def __init__(self,x) :
+       pass
+
+   def z_autotest(self) :
+     import sys, io
+     # create file-like string to capture output
+     codeOut = io.StringIO()
+     codeErr = io.StringIO()
+
+     code = """
+         def f(x):
+         x = x + 1
+         return x
+         print 'This is my output.'
+     """
+
+     # capture output and errors
+     sys.stdout = codeOut
+     sys.stderr = codeErr
+
+     exec(code)
+
+     # restore stdout and stderr
+     sys.stdout = sys.__stdout__
+     sys.stderr = sys.__stderr__
+
+     print(f(4))
+     s = codeErr.getvalue(); print("error:\n%s\n" % s)
+     s = codeOut.getvalue(); print("output:\n%s" % s)
+     codeOut.close()
+     codeErr.close()
+
+
+
+
+# https://github.com/uqfoundation/dill
+
+
+'''
+Run Unit test   python aapackage/util.py --do  test01
+
+#### System Variables == os.environ, Admin right
+setx DIRCWD "D:/_devs/Python01/project27/"   /M
+
+
+This is actually already done for you in config._sections. Example:
+
+$ cat test.ini
+[DIRCWD]
+win-asus1 = D:/_devs/Python01/project27/
+key = item
+
+[Second Section]
+othervar = othervalue
+otherkey = otheritem
+And then:
+
+from ConfigParser import ConfigParser;config = ConfigParser(); config.read('config.ini'); config_dict= {s:dict(config.items(s)) for s in config.sections()}
+config_dict= []
+
+
+PLOTLY_APIKEY=    'aBq2k5nrzLK0chV5T32x'
+PLOTLY_USERNAME=  'kevinno'
+
+import plotly.tools as tls
+tls.set_credentials_file(username=PLOTLY_USERNAME, api_key=PLOTLY_APIKEY)
+'''
+
+
+
+
+
+
+
+
+
+
+
+

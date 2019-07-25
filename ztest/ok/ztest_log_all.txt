@@ -1,0 +1,16 @@
+
+
+###################### Start datanalysis :2017-09-07 22:48:12+09:00#############################
+<module 'os' from 'D:\\_devs\\Python01\\Anaconda27\\envs\\tf_gpu_12\\lib\\os.py'>
+<module 'datanalysis' from 'D:\\_devs\\Python01\\project27\\aapackage\\datanalysis.py'>
+[[ 0.94299908  0.69207153  0.54585     0.85951206  0.68881976  0.81257488
+   0.71866957  0.57192884  0.32322335  0.75094306]]
+######################### Finish datanalysis   #################################################
+
+
+###################### Start datanalysis :2017-09-07 23:00:45+09:00###########################
+<module 'os' from 'D:\\_devs\\Python01\\Anaconda27\\envs\\tf_gpu_12\\lib\\os.py'>
+<module 'datanalysis' from 'D:\\_devs\\Python01\\project27\\aapackage\\datanalysis.py'>
+[[ 0.43737768  0.50287268  0.9709394   0.14499406  0.94251752  0.13173546
+   0.05309946  0.96254099  0.63532314  0.97570141]]
+######################### Finish datanalysis   #################################################

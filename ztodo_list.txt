@@ -1,0 +1,349 @@
+
+
+
+Generate time series 
+
+
+raw data : time series as main factors, PCA.
+
+
+Feature data : combinaison of time series
+   ratio1, substract,
+   1mth ma, 2mth ma.
+   1 mth regression slope,
+   3 mth slope.
+
+
+PCA on all time series.
+
+
+Supervised Learning :
+   regime detection :  Linear regression
+   0 : bear
+   1 : bull.
+
+6 months, 1 months, 3 months, slope return : bottom  -2%
+    remove noise :
+
+
+Vector of prediction regime :
+    3 states :
+    increase, medium, decrease
+
+Regime users patterns are stable.
+
+
+
+
+
+
+
+
+
+#############################################################################
+ENV install
+    conda create -n testenv --yes $TO_INSTALL --file zbuild/py36.txt
+    source activate testenv
+    pip install arrow==0.10.0 attrdict==2.0.0 backports.shutil-get-terminal-size==1.0.0 configmy==0.14.87 github3.py==1.2.0 jwcrypto==0.6.0 kmodes==0.9 rope-py3k==0.9.4.post1 tables==3.3.0 tabulate==0.8.2 uritemplate==3.0.0
+
+    conda upgrade psutil
+
+
+
+#############################################################################
+Test :
+python ztest_import.py
+
+
+MainFolder
+  aapackage Folder
+  myscript.py
+
+myscript.py
+  from aapackage import util
+  util.a_get_pythonversion()
+
+
+
+    conda install -c conda-forge  pygmo  pagmo
+    pip install dcgpy
+
+
+
+
+
+
+git clone https://github.com/arita37/a_aapackage.git  aapackage
+cd dython
+pip install . -e
+
+
+
+
+
+
+
+
+
+
+
+##################################################################################
+Task 1 :
+  Create/Update large scale Genetic OPtimizer batch
+
+
+### Existing code is here:
+  https://github.com/arita37/a_aapackage/tree/master/batch/batch_aws/task/elvis_prod_20161231/
+
+
+
+Launch the batcher for each set of hyper-parameters.
+  pygmo_batch_generic.py
+
+Launch 1 single Optimization for 1 hyper parameters
+  elvis_pygmo_optim.py
+
+
+A)
+  this fileis using old pygmo
+  code should be updated to use new pygmo 2.0
+
+
+B)
+  Current batch code is quite ad hoc...
+  would like to make it generic as follow :
+     function to be optimized in one file.
+     list of hyper parameters into a csv file
+
+     for EACH set of hyper-parameters (1 line of pandas csv file) :
+        1 subprocess is launched and optimization done by  pygmo
+        result are saved somewhere.
+
+
+
+
+###################################################################################################
+######### Architecture :  #########################################################################
+1)  mybatch.py
+  from aapackage.batch import batch
+
+  batch.batch_run(
+      file_script      = "folder/myscript_optim.py",
+      hyperparam_file  = "hyperparam_list.csv",
+      out_folder       = "/myresult/batch1/",
+      schedule         = "11/02/2019 12:30"
+  )  :
+
+      for ii, row of df_hyperparam_list.iterrows() ,
+          pid = subprocess  row["file_script"]  ii  "hyperparam_list.csv"  out_folder   ###All subprocess are independdant !!!!
+          server_info = "_".join( util.os_server_info())
+          logs(arrow.timestamp, pid, server_info,  row["file_script"]  ii  hyperparam_file )
+          wait(waitsecs)
+
+  batch.monitor_pid(auto_close=True)  ### Auto close the EC2 instance when no PID is running.
+
+
+
+
+3) myscript_optim.py  ii  hyperparam_file
+   from aapackage import optim  ### Layer above pygmo to abstract under functional form.
+
+   df = pd.csv_read( args.hyperparam_file )
+   df = df.iloc[ii, :]  # only 1 line
+
+   import_load(  df["myfun_file"].values )  as myfun_file # "folder/myfun.py"   string load of module.
+
+   optim1 = optim.optim(
+              fun_eval=     myfun_file.mypersoname_eval,
+              fun_bound=    myfun_file.mypersoname_bound,
+              fun_gradient= None,
+              algo= "de_1227",
+              algo_origin="scipy/pygmo/...",
+              dict_params = df.to_dict()
+            )
+
+   res = optim1.optimize()
+   vv  = res.dump()
+   util.logs( vv , type="csv")
+
+
+
+3) User define function is defined into a python file : myfun.py
+  myfun_file.py
+
+     def mypersoname_eval_()
+        return np.float    or vector of float
+
+     def mypersoname_bound_()
+       return [(-0.1 , 0.4)   ,  (0.1 , 0.4)   ]
+
+     def fun_gradient_()
+
+
+
+####################################################################################
+#### Version with auto-launch of AWS  ##############################################
+0) mybatch_ssh.py
+  import util_aws
+
+  ip0 = util_aws.aws_launch()  # start ec2
+
+  ssh0 = ssh(ip0, ...)
+  ssh.put( from="local/task/", to="ec2/task/"  )
+
+  ssh.exec( "python mybatch.py"  )   ####
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  from myscript import fun_eval, boun
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################
+############# Details  #######################################
+
+
+
+
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+.idea
+
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+
+
+
+
+
+
+
+
+
