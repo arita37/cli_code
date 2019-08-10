@@ -41,7 +41,7 @@ gpu_available = len(out) > 0
 
 
 ##### Version
-version ='6.1.0'
+version ='10.1.0'
 """"
 with io.open(os.path.join(root, 'nlp_architect', 'version.py'), encoding='utf8') as f:
     version_f = {}
@@ -58,7 +58,9 @@ with open("README.md", "r") as fh:
 packages = ["cli_code"] + ["cli_code." + p for p in find_packages("cli_code")]
 
 
-### CLI Scripts
+
+
+### CLI Scripts  #################################################
 scripts = [
     "cli_code/cli_module_autoinstall.py",  #
     "cli_code/cli_module_analysis.py",  #
@@ -72,8 +74,9 @@ scripts = [
 setup(
     name="cli_code",
     version=version,
-    description="Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter",
-    author="arita37",
+    description=long_description,
+    long_description_content_type='text/markdown',    
+    author="arita37, Kevin Noel",
     url="https://github.com/arita37/cli_code",
     install_requires=["numpy"],
     packages=packages,
