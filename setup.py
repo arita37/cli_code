@@ -1,4 +1,27 @@
 
+"""
+Pypi Uploader
+Usage:
+First of all, you need to copy the script to /usr/bin directory and mark it as an executable, like so:
+
+$ ~ sudo cp script.py /usr/bin/NAMEYOUWANT
+$ ~ sudo chmod +x /usr/bin/NAMEYOUWANT
+
+And then to upload PyPI, you need to create a file called .pypirc that has to contain login credentials.
+
+
+$ ~ YOURTEXTEDITOR ~/.pypirc
+Open a file and paste this to in it:
+
+[pypi]
+username = token
+password = pypi-AgEI
+
+
+"""
+
+
+
 import io
 import os
 import subprocess
