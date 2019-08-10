@@ -29,6 +29,9 @@ import os.path as op
 curdir = op.abspath(op.curdir)
 setup_file = op.join(curdir, 'setup.py')
 
+
+
+
 class Version(object):
     pattern = re.compile(r"(version\s*=\s*['\"]\s*(\d+)\s*\.\s*(\d+)\s*\.\s*(\d+)\s*['\"])")
 
@@ -57,6 +60,7 @@ class Version(object):
 
         return re_result[0][0], cls(*re_result[0][1:])
 
+
 def ask(question, ans='yes'):
     return input(question).lower() == ans.lower()
 
@@ -64,9 +68,11 @@ def pypi_upload():
     os.system('python setup.py sdist bdist_wheel')
     os.system('twine upload dist/*')
 
+    """
     for item in os.listdir(op.abspath(op.join(setup_file, '..'))):
         if item.endswith('.egg-info') or item in ['dist', 'build']:
             os.system(f'rm -rf {item}')
+    """
 
 def update_version(path, n):
     content = open(path, 'r').read()

@@ -41,7 +41,7 @@ gpu_available = len(out) > 0
 
 
 ##### Version
-version = "0.1.0"
+version ='5.1.0'
 """"
 with io.open(os.path.join(root, 'nlp_architect', 'version.py'), encoding='utf8') as f:
     version_f = {}
@@ -50,7 +50,7 @@ with io.open(os.path.join(root, 'nlp_architect', 'version.py'), encoding='utf8')
 """
 
 
-with open("README.txt", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
@@ -72,10 +72,10 @@ scripts = [
 setup(
     name="cli_code",
     version=version,
-    description="Tools for Python",
-    uthor="KN",
-    author_email="brookm291 gmail.com",
-    url="https://github.com/arita37/a_cli_code",
+    description="Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter",
+    author="Kevin Noel",
+    author_email="brookm@gmail.com",
+    url="https://github.com/arita37/cli_code",
     install_requires=["numpy"],
     packages=packages,
     scripts=scripts,
