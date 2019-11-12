@@ -1,0 +1,20 @@
+module conda")
+" not in line:
+"jedi
+%s '" % package]
+submodule
+wget
+"
+selenium
+= code_extract_pattern(
+" + module_name
+regex
+{}\n\n"
+jedi"
+tensorflow
+tabulate
+")[1]
+aapackage
+"]
+" + package
+pypandoc

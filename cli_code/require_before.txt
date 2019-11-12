@@ -1,0 +1,16 @@
+package
+tensorflow
+wget
+regex
+not in line
+jedi
+s      package
+module conda
+tabulate
+pypandoc
+aapackage
+submodule
+code extract pattern
+module name
+selenium
+n n
