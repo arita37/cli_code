@@ -6,18 +6,20 @@ Auto install missing package by scanning error message
 conda create -y -n ztest  python=3.6.5
 source activate Emptyconda
 
-cd /home/ubuntu/aagit/aapackage/aapackage/
-
-python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch
 
 
-Using python in the PATH !!!
+
+python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  ----packages "tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib"
+
+
 
 ### tobe visible in jputer
 conda install ipykernel 
 
+
 """
 
+import sys, os
 import glob
 # from IPython.nbformat import current as nbformat
 # from IPython.nbconvert import PythonExporter
@@ -26,10 +28,16 @@ import glob
 # from tqdm import tqdm
 from time import sleep
 
+import platform
+
 #### Not to install
 white_lists = ["resnet", "mobilenet", "inception", "utils", "aapackage" "util", "task_config"]
+curr_os = "linux" if "Linux" in platform.platform() else "win"
 
 
+
+
+##################################################################################
 def os_system(cmds, stdout_only=1):
     """
      Get print output from command line
@@ -56,7 +64,7 @@ def scan(data_file):
 
 
 def get_packages(file):
-
+    ### get package name from python code source
     with open(file, "r") as fp:
         contents = fp.read()
 
@@ -133,20 +141,12 @@ def get_missing(all_packages):
     return miss_package
 
 
-def load_arguments():
-    """
-       --param_file /zs3drive/config_batch.toml --param_mode test_launch
-  """
-    import argparse
 
-    cur_path = os.path.dirname(os.path.realpath(__file__))
-    config_file = os.path.join(cur_path, "config.toml")
 
-    p = argparse.ArgumentParser()
-    p.add_argument("--folder_input", default=config_file, help="Params File")
-    p.add_argument("--mode", default="test", help=" test/ prod /uat")
-    args = p.parse_args()
-    return args
+import re
+regex = re.compile('[^a-zA-Z]')
+#First parameter is the replacement, second parameter is your input string
+regex.sub('', 'ab3d*E')
 
 
 def write_requirements(source_files):
@@ -162,77 +162,123 @@ def write_requirements(source_files):
         #     print('-'*10, file)
         #     print(miss_packages)
 
-    need_to_install_package_set = list(set(need_to_install_package_list))
-    # print(need_to_install_package_set)
-    # print(len(need_to_install_package_set))
+    #### Clean Up
+    ll = []
+    for t in need_to_install_package_list :
+        t = t.replace('"', " ").strip()
+        t = regex.sub(' ', t).strip()
+        ll.append(t)
 
-    need_to_install_package_set = [s for s in need_to_install_package_set if s]
-    need_to_install_package_set = [
-        s for s in need_to_install_package_set if not any([w in s for w in white_lists])
+
+    package_list = list(set(ll))
+    # print(package_list)
+    # print(len(package_list))
+
+    package_list = [s for s in package_list if s]
+    package_list = [
+        s for s in package_list if not any([w in s for w in white_lists])
     ]
-    need_to_install_package_set = list(set(need_to_install_package_set))
+    package_list = list(set(package_list))
 
-    print(need_to_install_package_set)
-    print(len(need_to_install_package_set))
+    print(package_list)
+    print(len(package_list))
 
     with open("./require_before.txt", "w") as fp:
-        fp.write("\n".join(need_to_install_package_set))
+        fp.write("\n".join(package_list))
 
-    return need_to_install_package_set
+    return package_list
 
 
-def Run():
-    args = load_arguments()
-    data_file = args.folder_input
+def os_exec(x) :
+    print(x)
+    os.system(x)
 
-    # if args.conda_env != "" :
-    #  os.system('conda create --yes  -n %s  '%args.conda_env  )
-    #  os.system('source activate  -n %s  '%args.conda_env  )
 
-    # scan file recursively
+
+############################################################################
+def load_arguments():
+    """
+       --param_file /zs3drive/config_batch.toml --param_mode test_launch
+  """
+    import argparse
+
+    cur_path = os.path.dirname(os.path.realpath(__file__))
+    config_file = os.path.join(cur_path, "config.toml")
+
+    p = argparse.ArgumentParser()
+    p.add_argument("--folder_input", default="D:/_devs/Python01/gitdev/cli_code/cli_code/", help="Params File")
+    p.add_argument("--conda_env", default="test", help="Params File")
+    p.add_argument("--python_version", default="3.6.7", help="Params File")
+    p.add_argument("--packages", default="tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib", help="Params File")
+
+    p.add_argument("--mode", default="test", help=" test/ prod /uat")
+    arg = p.parse_args()
+    return arg
+
+
+
+def Run(arg):
+
+    data_file = arg.folder_input
+    pref = f" activate {arg.conda_env} && " if curr_os == "win" else f" source activate {arg.conda_env} && "
+    condax = f"conda install -n {arg.conda_env}   "
+    print(pref)
+
+
+    ############# scan file recursively  #########################################
     source_files = scan(data_file)
-    print(len(source_files))
+    print("all packages", source_files, flush=True)
+    print( write_requirements(source_files), flush=True )
 
-    # auto install conda install in Group
-    need_to_install_package_set = write_requirements(source_files)
+
+
+    ############# Conda Env  ####################################################
+    if arg.conda_env != "" :
+       os_exec( f"conda create --yes  -n {arg.conda_env}  python={arg.python_version}"  )
+
+
+    ############# Conda Default #################################################
+    os_exec( f"{pref}  {condax} -y {arg.packages}  " )
+
+
+
+    ############# auto install conda install in Group   #########################
+    package_list = write_requirements(source_files)
     # sys.exit()
 
     ss = ""
-    for package in need_to_install_package_set:
+    for package in package_list:
         ss = ss + " " + package
-    print("Install ALL", ss)
-    os.system("conda install -y %s  " % ss)
-
+    os_exec( f"{pref}  {condax} -y {ss}  --no-update-deps " )
     sleep(5)
 
-    # auto install conda
-    need_to_install_package_set = write_requirements(source_files)
-    for package in need_to_install_package_set:
-        os.system("conda install -y %s  " % package)
 
-    """
-    # auto install conda
-    need_to_install_package_set  = write_requirements(source_files) 
-    for package in need_to_install_package_set:
-        os.system('conda install -y %s --no-deps '%package  )    
-    """
+    ########### auto install conda individually  ################################
+    package_list = write_requirements(source_files)
+    for package in package_list:
+        os_exec( f"{pref}  {condax}  -y {package}   --no-update-deps   " )
 
-    # auto install pip
-    need_to_install_package_set = write_requirements(source_files)
-    for package in need_to_install_package_set:
-        # os.system('conda install %s'%package)
-        os.system("pip install %s --no-deps " % package)
 
-    # check again
-    miss_packages = get_missing(need_to_install_package_set)
+
+    ########### auto install pip  ###############################################
+    package_list = write_requirements(source_files)
+    for package in package_list:
+        os_exec( f"{pref}  pip install {package} --no-deps " )
+
+
+    # check again   #############################################################
+    miss_packages = get_missing(package_list)
     with open("./require_after.txt", "w") as fp:
         fp.write("\n".join(miss_packages))
 
-    os.system("conda list ")
+    os_exec( f" {pref}  conda list ")
+
 
 
 if __name__ == "__main__":
-    import os
-
     print(os)
-    Run()
+    print(curr_os)
+    arg = load_arguments()
+    Run(arg)
+
+
