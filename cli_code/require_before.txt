@@ -1,16 +1,10 @@
-package
-tensorflow
-wget
-regex
-not in line
-jedi
-s      package
-module conda
-tabulate
-pypandoc
 aapackage
+tensorflow
 submodule
-code extract pattern
-module name
 selenium
-n n
+wget
+package
+jedi
+pypandoc
+tabulate
+regex

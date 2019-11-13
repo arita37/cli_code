@@ -27,12 +27,47 @@ import glob
 # from nbconvert import PythonExporter
 # from tqdm import tqdm
 from time import sleep
+import re
 
 import platform
 
 #### Not to install
 white_lists = ["resnet", "mobilenet", "inception", "utils", "aapackage" "util", "task_config"]
 curr_os = "linux" if "Linux" in platform.platform() else "win"
+
+
+
+
+
+
+def setup_env(folder, url) :
+    reponame = url.split("/")[-1]
+    os.system( " cd '{folder}'  &&  git clone {url} ")
+    foldert = folder + "/" + reponame 
+    
+    ll  = []
+    for x in  ["requirements.txt", "requirement.txt"] :
+      try :  
+        with open(foldert + "/" +x , mode="r" ) as f :
+           ll = f.readlines()
+      except : pass
+
+    pkgs = " ".join(ll) ll is not None else  " pandas "
+    
+
+    arg = { "folder_input" : foldert
+      ,"conda_env" : "ztest" 
+      ,"python_version" :  "3.6.7" 
+      ,"packages" : pkgs
+    }
+
+
+    os.system( " conda remove -n ztest" )    
+
+    run(arg)
+
+    os.system( " conda export -n ztest" )    
+    os.system( " conda export -n ztest" )    
 
 
 
@@ -53,6 +88,7 @@ def os_system(cmds, stdout_only=1):
     return out, err
 
 
+
 def scan(data_file):
     # note: I have checked os_file_listall, I think the following will be better
     files = glob.glob(data_file + "/**/*.py", recursive=True)
@@ -61,6 +97,7 @@ def scan(data_file):
 
     print("scan files done ... ")
     return files
+
 
 
 def get_packages(file):
@@ -117,7 +154,8 @@ def get_packages(file):
     return packages
 
 
-def get_missing(all_packages):
+
+def get_missing(all_packages ):
     # # form import XX,XX,XX
     # run_string = 'import '+ ','.join(all_packages)
     # # maybe cd to the dir
@@ -126,7 +164,7 @@ def get_missing(all_packages):
     for package in all_packages:
         run_string = "import " + package
 
-        cmds = ["python -c ", "'import  %s '" % package]
+        #cmds = [ f"{prefix}  python -c ", "'import  %s '" % package]
         try:
             exec(run_string)
             # print(cmds)
@@ -142,11 +180,6 @@ def get_missing(all_packages):
 
 
 
-
-import re
-regex = re.compile('[^a-zA-Z]')
-#First parameter is the replacement, second parameter is your input string
-regex.sub('', 'ab3d*E')
 
 
 def write_requirements(source_files):
@@ -166,8 +199,9 @@ def write_requirements(source_files):
     ll = []
     for t in need_to_install_package_list :
         t = t.replace('"', " ").strip()
-        t = regex.sub(' ', t).strip()
-        ll.append(t)
+        t = s = re.sub('[^0-9a-zA-Z]+', ' ', t).strip()
+        if " " not in t and len(t) > 2 :
+          ll.append(t)
 
 
     package_list = list(set(ll))
@@ -189,13 +223,14 @@ def write_requirements(source_files):
     return package_list
 
 
+
 def os_exec(x) :
     print(x)
     os.system(x)
 
 
 
-############################################################################
+####################################################################################
 def load_arguments():
     """
        --param_file /zs3drive/config_batch.toml --param_mode test_launch
@@ -219,14 +254,13 @@ def load_arguments():
 
 def Run(arg):
 
-    data_file = arg.folder_input
     pref = f" activate {arg.conda_env} && " if curr_os == "win" else f" source activate {arg.conda_env} && "
     condax = f"conda install -n {arg.conda_env}   "
     print(pref)
 
 
-    ############# scan file recursively  #########################################
-    source_files = scan(data_file)
+    ############# Scan file recursively  ########################################
+    source_files = scan(arg.folder_input)
     print("all packages", source_files, flush=True)
     print( write_requirements(source_files), flush=True )
 
@@ -242,32 +276,31 @@ def Run(arg):
 
 
 
-    ############# auto install conda install in Group   #########################
-    package_list = write_requirements(source_files)
-    # sys.exit()
-
-    ss = ""
-    for package in package_list:
-        ss = ss + " " + package
+    ############# Auto install conda install in Group   #########################
+    package_list = write_requirements(source_files )
+    ss =  " ".join(package_list)
     os_exec( f"{pref}  {condax} -y {ss}  --no-update-deps " )
     sleep(5)
 
 
-    ########### auto install conda individually  ################################
-    package_list = write_requirements(source_files)
-    for package in package_list:
+    ########### Auto install conda individually  ################################
+    #package_list = write_requirements(source_files)
+    miss_packages = get_missing(package_list )
+    for package in miss_packages :
         os_exec( f"{pref}  {condax}  -y {package}   --no-update-deps   " )
 
 
 
-    ########### auto install pip  ###############################################
-    package_list = write_requirements(source_files)
-    for package in package_list:
+    ########### Auto install pip  ###############################################
+    # package_list = write_requirements(source_files)
+    miss_packages = get_missing(package_list )
+
+    for package in miss_packages :
         os_exec( f"{pref}  pip install {package} --no-deps " )
 
 
     # check again   #############################################################
-    miss_packages = get_missing(package_list)
+    miss_packages = get_missing(package_list )
     with open("./require_after.txt", "w") as fp:
         fp.write("\n".join(miss_packages))
 
@@ -275,10 +308,16 @@ def Run(arg):
 
 
 
+
+
+#################################################################################
+#################################################################################
 if __name__ == "__main__":
     print(os)
     print(curr_os)
     arg = load_arguments()
     Run(arg)
+
+
 
 
