@@ -15,17 +15,21 @@ import re
 
 start_time = time.time()
 
-my_parser = argparse.ArgumentParser(description='===============USAGE HELP===============')
-my_parser.add_argument('keyword', help="Keyword to search in format: 'keyword1 keyword2 keyword3...'")
-my_parser.add_argument('created', help="Created date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-my_parser.add_argument('pushed', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-# my_parser.add_argument('folder', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-args = my_parser.parse_args()
+p = argparse.ArgumentParser(description='===============USAGE HELP===============')
+p.add_argument('keyword', help="Keyword to search in format: 'keyword1 keyword2 keyword3...'")
+p.add_argument('created', help="Created date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
+p.add_argument('pushed', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
+p.add_argument('folder', help=" Folder")
+
+
+# p.add_argument('folder', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
+args = p.parse_args()
 #
 # print('Script name: ' + sys.argv[0])
 keyword = sys.argv[1]
 created = sys.argv[2]
 pushed = sys.argv[3]
+folder_name = sys.argv[4]
 # print('Keyword to search GitHub: ' + keyword)
 # print('Created: ' + created)
 # print('Pushed: ' + pushed)
@@ -108,7 +112,7 @@ if re.match('[<>]\d{4}-\d{2}-\d{2}', created) or \
             #folder_name = datetime.now().strftime("%Y-%m-%d")  + "_".join( keyword )
             filename = "_".join( keyword ) + "--" + datetime.now().strftime("%Y%m%d")   + ".csv"
             
-            folder_name = "D:/_devs/Python01/gitdev/aapackage/zrepo/"
+            # folder_name = "D:/_devs/Python01/gitdev/aapackage/zrepo/"
             try :
               os.makdirs(folder_name)
             except : pass
