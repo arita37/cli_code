@@ -1,9 +1,0 @@
-package
-aapackage
-regex
-selenium
-submodule
-pypandoc
-tabulate
-wget
-tensorflow

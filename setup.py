@@ -62,10 +62,13 @@ packages = ["cli_code"] + ["cli_code." + p for p in find_packages("cli_code")]
 
 ### CLI Scripts  #################################################
 scripts = [
-    "cli_code/cli_module_autoinstall.py",  #
-    "cli_code/cli_module_analysis.py",  #
-    "cli_code/cli_convert_ipny.py",  #  ipny to py scrips
+    "cli_code/cli_env_autoinstall.py",  #
+    "cli_code/cli_docs.py",  #
+    "cli_code/cli_convert_ipny.py",  #  
+    "cli_code/cli_repo_check.py",  #
+
 ]
+
 
 
 
