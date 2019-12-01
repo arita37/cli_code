@@ -57,7 +57,6 @@ Function: automate code check in repository
 """
 
 ######################################
-
 ######################################
 
 import os

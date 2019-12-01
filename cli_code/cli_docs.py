@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 """
- cli_module_generate_doc  --do docs    --module jedi
+ cli_doc  --do test  
+
+ cli__doc  --do docs    --module jedi
+
+Some issues with :
+    cannot find __path__ for os,sys modules
+    
+
+
 
 
 
@@ -20,11 +28,11 @@ from builtins import int, open, range, str, zip
 from collections import OrderedDict
 from importlib import import_module
 from pkgutil import walk_packages
-
-import pandas as pd
-
 import regex
 
+
+
+import pandas as pd
 ####################################################################################################
 
 
@@ -59,6 +67,21 @@ def np_merge(*dicts):
     for d in dicts:
         container.update(d)
     return container
+
+
+def module_load(name_or_path="") :
+  pass
+
+
+
+def module_path(module) :
+    path
+
+
+
+
+
+
 
 
 ##################################################################################################
@@ -311,14 +334,23 @@ def pd_df_expand(x):
 def pd_df_format(df, index, filter=True):
     level_to_drop = "level_{}".format(len(index))
     # if filter: df = filter_data(['private_methods'], pd.DataFrame(df))   # We keep ALL the data as RAW data in csv.
+    print(df)
+
+    df =  df.set_index(index)
+
+    #### Issues with Empty list
+    df = df.apply(lambda x: pd_df_expand(x), 1)
+
+
     formated_df = (
-        df.set_index(index)
-        .apply(lambda x: pd_df_expand(x), 1)
-        .stack()
+        df.stack()
         .reset_index()
         .drop(level_to_drop, 1)
     )
-    formated_df.columns = index + [x for x in df.columns if x not in index]
+
+    print(formated_df.columns)
+
+    #formated_df.columns = index + [x for x in df.columns if x not in index]
     return formated_df
 
 
@@ -510,8 +542,10 @@ def module_doc_write(
     """
     if filter_list is None:
         filter_list = [("public_only", "")]
+
     if module_name != "":
         df_data = module_signature_write(module_name, return_df=1)
+
     elif input_signature_csv_file != "":
         df_data = pd.read_csv(input_signature_csv_file)
     else:
@@ -738,32 +772,32 @@ def code_parse_line(li, pattern_type="import/import_externa"):
 IIX = 0
 
 
-def pprint(a):
+def log(a):
     global IIX
     IIX = IIX + 1
-    print("\n--" + str(IIX) + ": " + a, flush=True)
+    print( f"\n--{IIX} : {a}", flush=True)
 
 
 def ztest():
     DIRCWD = "/home/ubuntu/ztest/"
-    pprint("### Unit Tests")
+    log("### Unit Tests")
     # os_folder_create("/ztest")
 
-    pprint("module_doc_write")
+    log("module_doc_write")
     module_doc_write(module_name="json", outputfile="zz_doc_json.txt")
 
-    pprint("module_signature_write")
+    log("module_signature_write")
     module_signature_write(module_name="json", isdebug=1)
 
-    pprint("module_unitest_write")
+    log("module_unitest_write")
     module_unitest_write(
         input_signature_csv_file="doc_json.csv", outputfile="zz_unitest_run_json.txt", isdebug=1
     )
 
-    pprint("module_unitest_write: module name")
+    log("module_unitest_write: module name")
     module_unitest_write(module_name="json", outputfile="zz_unitest_run_json2.txt", isdebug=1)
 
-    pprint("module_signature_compare: version between 2 docs.")
+    log("module_signature_compare: version between 2 docs.")
     df = module_signature_compare(
         "doc_json.csv", "doc_json.csv", export_csv="zz_json_compare.csv", return_df=1
     )
@@ -787,23 +821,31 @@ if __name__ == "__main__":
 
     p = argparse.ArgumentParser()
     p.add_argument("--do", type=str, default="", help=" unit_test")
-    ppa.add_argument("--module", type=str, default="", help=" unit_test")
-    arg = ppa.parse_args()
+    p.add_argument("--module", type=str, default="jedi", help=" unit_test")
+    arg = p.parse_args()
+
+    module = arg.module
+    try :
+        import_module(module)
+        print("Module imported", module)
+    except :
+        sys.path.add(module_name)  ## Absolute path
+        module = module.split("/")[-1]
+        import_module(module)
+        print("Module imported", arg.module)
 
 
     if arg.do != "" and arg.module != "":
-        print("Running Task")
         if arg.do == "doc":
-            module_signature_write(arg.module)
-
+           print("Running Task", module, arg.do)
+           module_signature_write(module)
+           
 
         if arg.do == "module_unittest":
-            module_unitest_write(module_name=arg.module)
-        else:
-            globals()[arg.action](arg.module)  # Execute command
+            module_unitest_write(module_name=module)
 
-    if arg.do == "test":
-        ztest()
+        if arg.do == "test":
+            ztest()
 
 
 
