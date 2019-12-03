@@ -6,7 +6,7 @@
 
 Some issues with :
     cannot find __path__ for os,sys modules
-    
+
 
 
 
@@ -70,12 +70,22 @@ def np_merge(*dicts):
 
 
 def module_load(name_or_path="") :
-  pass
-
+    m_name = name_or_path=""
+    try :
+        module = import_module(m_name)
+        print("Module imported", module)
+        return module
+    except :
+        sys.path.add(m_name)  ## Absolute path
+        module = m_name.split("/")[-1]
+        import_module(module)
+        print("Module imported", module)
+        return module
 
 
 def module_path(module) :
-    path
+    # get the path of a module
+    pass
 
 
 
@@ -95,7 +105,7 @@ class Module:
 
     def __init__(self, module_name):
         self.module_name = module_name
-        self.module = import_module(self.module_name)
+        self.module = module_load(name_or_path= module_name) 
         self.submodules = self.get_submodules()
         self.functions = self.get_functions()
         self.classes = self.get_classes()
@@ -396,27 +406,34 @@ def obj_arg_filter_apply(df, filter_list=None):
     """
     if filter_list is None:
         filter_list = [("filter_name", "arg")]
+
     for filter0 in filter_list:
+
         f, farg = filter0
         if f == "class_only":
             df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
+
         if f == "function_only":
             df = df[(df["function_type"] == "function")]
 
         if f == "public_only":
             df = df[-df["obj_name"].str.startswith(r"__", na=False)]
+
         if f == "private_only":
             df = df[(df["obj_name"].str.startswith(r"__", na=False))]
 
         if f == "fullname_regex":
             df = df[df["full_name"].str.contains(farg, na=False)]
+
         if f == "fullname_startwith":
             df = df[df["full_name"].str.startswith(farg, na=False)]
+
         if f == "fullname_exclude":
             df = df[-df["full_name"].str.contains(farg, na=False)]
 
         if f == "sort_ascending":
             df = df.sort_values("full_name", ascending=farg)
+            
     return df
 
 
@@ -559,7 +576,11 @@ def module_doc_write(
     ## Generate  1 line function
     def agg_in_1line(dfi):
         full_name = dfi.full_name.values[0]
-        args = "(" + ",".join(list(dfi.arg.values)) + ")"
+        try :
+          args = "(" + ",".join(list(dfi["arg"].values)) + ")"
+        except :
+          args = "()"  
+
         function = full_name + args
         # function.replace( ["'", ",\)"], ["", ")"], regex=True,inplace=True )
         return pd.Series([args, function], ["arg", "function"])
@@ -687,7 +708,7 @@ def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
 
 
 ######################################################################################################
-############## Code Search #################################################################################
+############## Code Search ###########################################################################
 def conda_path_get(subfolder="package/F:/"):
     if os.__file__.find("envs") > -1:
         DIRANA = os.__file__.split("envs")[0] + "/"  # Anaconda from linux
