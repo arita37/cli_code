@@ -6,7 +6,7 @@
 
 Some issues with :
     cannot find __path__ for os,sys modules
-
+    
 
 
 
@@ -29,6 +29,7 @@ from collections import OrderedDict
 from importlib import import_module
 from pkgutil import walk_packages
 import regex
+import pkgutil
 
 
 
@@ -70,22 +71,12 @@ def np_merge(*dicts):
 
 
 def module_load(name_or_path="") :
-    m_name = name_or_path=""
-    try :
-        module = import_module(m_name)
-        print("Module imported", module)
-        return module
-    except :
-        sys.path.add(m_name)  ## Absolute path
-        module = m_name.split("/")[-1]
-        import_module(module)
-        print("Module imported", module)
-        return module
+  pass
+
 
 
 def module_path(module) :
-    # get the path of a module
-    pass
+    path
 
 
 
@@ -105,7 +96,7 @@ class Module:
 
     def __init__(self, module_name):
         self.module_name = module_name
-        self.module = module_load(name_or_path= module_name) 
+        self.module = import_module(self.module_name)
         self.submodules = self.get_submodules()
         self.functions = self.get_functions()
         self.classes = self.get_classes()
@@ -114,16 +105,29 @@ class Module:
     def get_module_version(self):
         """get_module_version(self) Module method
         return the version of the module taken as an instance argument."""
-        return self.module.__version__
+        try :
+            return self.module.__version__
+        except :
+            return
 
     def get_submodules(self):
         """get_submodules(self) Module method
         return a list of submodules of the module taken as an instance argument."""
-        submodules = {}
-        for loader, name, is_pkg in walk_packages(self.module.__path__, self.module.__name__ + "."):
-            if self.is_imported(name):
-                submodules[name] = self.get_submodule(self.get_mlattr(name))
+        submodules = {} 
+        
+        try:      
+            for loader, name, is_pkg in walk_packages(self.module.__path__, self.module.__name__ + "."):
+                if self.is_imported(name):
+                    submodules[name] = self.get_submodule(self.get_mlattr(name))
+        except:
+#            for loader, name, is_pkg in walk_packages(sys.path, self.module.__name__ + "."):
+            for loader, name, is_pkg in walk_packages(None, self.module.__name__ + "."):
+                if self.is_imported(name):
+                    submodules[name] = self.get_submodule(self.get_mlattr(name))
+                  
+
         return submodules
+        
 
     def get_functions(self):
         """get_functions(self) Module method
@@ -131,7 +135,7 @@ class Module:
         functions = {}
         for submodule_name, submodule in self.submodules.items():
             for function_name, function in inspect.getmembers(
-                submodule, lambda f: inspect.isfunction(f) or inspect.isbuiltin(f)
+                submodule, lambda f: inspect.isfunction(f) or inspect.isbuiltin(f) 
             ):
                 functions[str_join(submodule_name, function_name)] = function
         return functions
@@ -299,6 +303,7 @@ def module_signature_get(module_name):
        about the module functions and methods"""
     module = Module(module_name)
     members = np_merge(module.functions, module.classes, module.class_methods)
+    
     doc_df = {
         "module_name": module_name,
         "module_version": module.get_module_version(),
@@ -308,6 +313,7 @@ def module_signature_get(module_name):
         "obj_doc": [],
         ## TODO:   add function_type column
         # 'obj_type'    class / class.method /  function / decorator ....
+        #"function_type":[],
         "object_type": [],
         "arg": [],
         "arg_default_value": [],
@@ -316,10 +322,11 @@ def module_signature_get(module_name):
     }
 
     for member_name, member in members.items():
+        
         isclass = obj_class_ispecial(member)
         isfunction = inspect.isfunction(member)
         ismethod = inspect.ismethod(member)
-
+                        
         if isclass or isfunction or ismethod:
             doc_df["full_name"].append(member_name)
             doc_df["prefix"].append(obj_get_prefix(member_name))
@@ -332,7 +339,7 @@ def module_signature_get(module_name):
             )
             doc_df["arg_type"].append(obj_guess_arg_type(doc_df["arg_default_value"][-1]))
             doc_df["arg_info"].append(obj_get_arginfo(member, doc_df["arg"][-1]))
-
+            
     return doc_df
 
 
@@ -350,16 +357,14 @@ def pd_df_format(df, index, filter=True):
 
     #### Issues with Empty list
     df = df.apply(lambda x: pd_df_expand(x), 1)
-
+    
 
     formated_df = (
         df.stack()
         .reset_index()
         .drop(level_to_drop, 1)
     )
-
-    print(formated_df.columns)
-
+   
     #formated_df.columns = index + [x for x in df.columns if x not in index]
     return formated_df
 
@@ -369,9 +374,10 @@ def module_signature_write(module_name, file_out="", return_df=0, isdebug=0):
          
     """
     df = module_signature_get(module_name)
+   
     df = pd_df_format(pd.DataFrame(df), COLS_NAME)
     df = df.sort_values("full_name", ascending=True)
-
+       
     if return_df == 1:
         return df  # return df
     else:
@@ -406,34 +412,27 @@ def obj_arg_filter_apply(df, filter_list=None):
     """
     if filter_list is None:
         filter_list = [("filter_name", "arg")]
-
     for filter0 in filter_list:
-
         f, farg = filter0
         if f == "class_only":
             df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
-
         if f == "function_only":
             df = df[(df["function_type"] == "function")]
 
         if f == "public_only":
             df = df[-df["obj_name"].str.startswith(r"__", na=False)]
-
         if f == "private_only":
             df = df[(df["obj_name"].str.startswith(r"__", na=False))]
 
         if f == "fullname_regex":
             df = df[df["full_name"].str.contains(farg, na=False)]
-
         if f == "fullname_startwith":
             df = df[df["full_name"].str.startswith(farg, na=False)]
-
         if f == "fullname_exclude":
             df = df[-df["full_name"].str.contains(farg, na=False)]
 
         if f == "sort_ascending":
             df = df.sort_values("full_name", ascending=farg)
-            
     return df
 
 
@@ -480,9 +479,13 @@ def module_unitest_write(
     if isdebug:
         print(data0.head(5))
         print(data0.dtypes)
-
+    
     # Filtering  ###############################################################################
-    data = data0[data0["arg"] != "self"].copy(deep=True)  # self argument
+    try:
+        data = data0[data0["arg"] != "self"].copy(deep=True)  # self argument
+    except:
+        data = data0.copy(deep=True)
+        data["arg"] = "" 
     data = obj_arg_filter_apply(data, filter_list)  # Apply Sequential Fitlering
 
     ## Generate dummy variables aXXXX=  YYYY    for assignment
@@ -562,6 +565,7 @@ def module_doc_write(
 
     if module_name != "":
         df_data = module_signature_write(module_name, return_df=1)
+        
 
     elif input_signature_csv_file != "":
         df_data = pd.read_csv(input_signature_csv_file)
@@ -576,11 +580,12 @@ def module_doc_write(
     ## Generate  1 line function
     def agg_in_1line(dfi):
         full_name = dfi.full_name.values[0]
+        
         try :
           args = "(" + ",".join(list(dfi["arg"].values)) + ")"
         except :
-          args = "()"  
-
+           args = "()"
+        
         function = full_name + args
         # function.replace( ["'", ",\)"], ["", ")"], regex=True,inplace=True )
         return pd.Series([args, function], ["arg", "function"])
@@ -598,7 +603,10 @@ def module_doc_write(
     # Output writing
     write_mode = "wb" if sys.version_info.major == 2 else "w"
     with open(outputfile, "w") as template:
-        module_name1 = df_data["module_name"].values[0] + "_" + df_data["module_version"].values[0]
+        try:
+            module_name1 = df_data["module_name"].values[0] + "_" + df_data["module_version"].values[0]
+        except :
+            module_name1 = df_data["module_name"]
         template.write("#{}\n".format(module_name1))
 
         for row in df_out.itertuples():
@@ -645,8 +653,16 @@ Goal is to check the method which are deprecated / added from source file.
     ll_deprecated = df1_full_name.difference(df2_full_name)  # Not in new, but in old
 
     ### New Arguments in method (but method name unchanged)
-    df1["unique_name"] = df1.full_name + "-" + df1.arg
-    df2["unique_name"] = df2.full_name + "-" + df2.arg
+    try:
+        df1["unique_name"] = df1.full_name + "-" + df1.arg
+    except:
+        df1["unique_name"] = df1.full_name
+        
+    
+    try:
+        df2["unique_name"] = df2.full_name + "-" + df2.arg
+    except:
+        df2["unique_name"] = df2.full_name
 
     df1_unique_name = set(list(df1["unique_name"].unique()))
     df2_unique_name = set(list(df2["unique_name"].unique()))
@@ -708,7 +724,7 @@ def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
 
 
 ######################################################################################################
-############## Code Search ###########################################################################
+############## Code Search #################################################################################
 def conda_path_get(subfolder="package/F:/"):
     if os.__file__.find("envs") > -1:
         DIRANA = os.__file__.split("envs")[0] + "/"  # Anaconda from linux
@@ -801,27 +817,50 @@ def log(a):
 
 def ztest():
     DIRCWD = "/home/ubuntu/ztest/"
+   
     log("### Unit Tests")
     # os_folder_create("/ztest")
-
     log("module_doc_write")
     module_doc_write(module_name="json", outputfile="zz_doc_json.txt")
-
+    module_doc_write(module_name="numpy", outputfile="zz_doc_numpy.txt")
+    module_doc_write(module_name="os", outputfile="zz_doc_os.txt")
+  
     log("module_signature_write")
     module_signature_write(module_name="json", isdebug=1)
-
+    module_signature_write(module_name="numpy", isdebug=1)
+    module_signature_write(module_name="os", isdebug=1)
+    
+    
     log("module_unitest_write")
     module_unitest_write(
-        input_signature_csv_file="doc_json.csv", outputfile="zz_unitest_run_json.txt", isdebug=1
+        input_signature_csv_file="doc_json.csv", outputfile="zz_unitest_run_json.txt", isdebug=1      
+    )
+        
+    module_unitest_write(
+        input_signature_csv_file="doc_numpy.csv", outputfile="zz_unitest_run_numpy.txt", isdebug=1      
+    )
+
+    module_unitest_write(
+        input_signature_csv_file="doc_os.csv", outputfile="zz_unitest_run_os.txt", isdebug=1      
     )
 
     log("module_unitest_write: module name")
     module_unitest_write(module_name="json", outputfile="zz_unitest_run_json2.txt", isdebug=1)
+    module_unitest_write(module_name="numpy", outputfile="zz_unitest_run_numpy2.txt", isdebug=1)
+    module_unitest_write(module_name="os", outputfile="zz_unitest_run_os2.txt", isdebug=1)
+   
 
     log("module_signature_compare: version between 2 docs.")
     df = module_signature_compare(
-        "doc_json.csv", "doc_json.csv", export_csv="zz_json_compare.csv", return_df=1
+        "doc_json.csv", "doc_json.csv", export_csv="zz_json_compare.csv", return_df=1     
     )
+    df = module_signature_compare(
+       "doc_numpy.csv", "doc_numpy.csv", export_csv="zz_numpy_compare.csv", return_df=1
+    )
+    df = module_signature_compare(
+       "doc_os.csv", "doc_os.csv", export_csv="zz_os_compare.csv", return_df=1
+    )
+  
     print(df.head(5))
     """
     Might be tricky to get 2 version of numpy in same environnement....
@@ -830,6 +869,37 @@ def ztest():
 
 
 
+def ztest_mod(mod):
+    DIRCWD = "/home/ubuntu/ztest/"
+    
+    log("### Unit Tests")
+    # os_folder_create("/ztest")
+    log("module_doc_write")
+    module_doc_write(mod, outputfile="zz_doc_{}.txt".format(mod))
+   
+    log("module_signature_write")
+    module_signature_write(mod, isdebug=1)
+        
+    
+    log("module_unitest_write")
+    module_unitest_write(
+        input_signature_csv_file="doc_{}.csv".format(mod), outputfile="zz_unitest_run_{}.txt".format(mod), isdebug=1      
+    )
+  
+    log("module_unitest_write: module name")
+    module_unitest_write(module_name = mod, outputfile="zz_unitest_run_{}{}.txt".format(mod, "2"), isdebug=1)
+    
+
+    log("module_signature_compare: version between 2 docs.")
+    df = module_signature_compare(
+        "doc_{}.csv".format(mod), "doc_{}.csv".format(mod), export_csv="zz_{}_compare.csv".format(mod), return_df=1     
+    )
+   
+    print(df.head(5))
+    """
+    Might be tricky to get 2 version of numpy in same environnement....
+      Need to generate in 2 different python envs  and get the csv
+    """
 
 
 
@@ -865,8 +935,12 @@ if __name__ == "__main__":
         if arg.do == "module_unittest":
             module_unitest_write(module_name=module)
 
-        if arg.do == "test":
+        if arg.do == "test" and module != "" and module != "jedi":
+            ztest_mod(module)
+        elif arg.do == "test":
             ztest()
+
+        
 
 
 
