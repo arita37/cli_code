@@ -21,7 +21,7 @@ jobs:
     - name: Black Code Formatter
       uses: lgeiger/black-action@master
       with:
-        args: "--check"
+        args: ". --check"
 #    - name: Pyflakes Syntax Checker
 #      uses: lgeiger/pyflakes-action@v1.0.1
     - name: Install flake8
