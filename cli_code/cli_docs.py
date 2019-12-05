@@ -108,6 +108,7 @@ class Module:
     def __init__(self, module_name):
         self.module_name = module_name
         self.module = module_load(self.module_name)
+        self.module_isbuiltin = self.get_module_isbuiltin()
         self.submodules = self.get_submodules()
         self.functions = self.get_functions()
         self.classes = self.get_classes()
@@ -120,6 +121,13 @@ class Module:
             return self.module.__version__
         except :
             return
+
+    def get_module_isbuiltin(self):
+        builtin_modules = list(sys.builtin_module_names)
+        for x in builtin_modules:
+            if self.module.__name__ == x:
+                return True
+        return False 
 
     def get_submodules(self):
         """get_submodules(self) Module method
@@ -150,6 +158,18 @@ class Module:
             ):
                 functions[str_join(submodule_name, function_name)] = function
         return functions
+
+    def get_builtin_functions(self):
+        """get_functions(self) Module method
+        return a list of functions of the module taken as an instance argument."""
+        functions_built = {}
+        
+        for function_name, function in inspect.getmembers(
+            sys, lambda f: inspect.isfunction(f) or inspect.isbuiltin(f) 
+            ):
+                functions_built[str_join('sys', function_name)] = function
+        return functions_built
+
 
     def get_classes(self):
         """get_classes(self) Module method
@@ -313,7 +333,10 @@ def module_signature_get(module_name):
     """module_signature(module_name) return a dictionary containing information
        about the module functions and methods"""
     module = Module(module_name)
-    members = np_merge(module.functions, module.classes, module.class_methods)
+    if module.module_isbuiltin:
+        members = module.functions_built
+    else:
+        members = np_merge(module.functions, module.classes, module.class_methods)
     
     doc_df = {
         "module_name": module_name,
@@ -338,7 +361,7 @@ def module_signature_get(module_name):
         isfunction = inspect.isfunction(member)
         ismethod = inspect.ismethod(member)
                         
-        if isclass or isfunction or ismethod:
+        if isclass or isfunction or ismethod or module.module_isbuiltin:
             doc_df["full_name"].append(member_name)
             doc_df["prefix"].append(obj_get_prefix(member_name))
             doc_df["obj_name"].append(obj_get_name(member))
