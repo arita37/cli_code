@@ -71,7 +71,18 @@ def np_merge(*dicts):
 
 
 def module_load(name_or_path="") :
-  pass
+    m_name = name_or_path
+    try :
+        module = import_module(m_name)
+        print("Module imported", module)
+        return module
+    except :
+        sys.path.add(m_name)  ## Absolute path
+        module = m_name.split("/")[-1]
+        import_module(module)
+        print("Module imported", module)
+        return module
+
 
 
 
@@ -96,7 +107,7 @@ class Module:
 
     def __init__(self, module_name):
         self.module_name = module_name
-        self.module = import_module(self.module_name)
+        self.module = module_load(self.module_name)
         self.submodules = self.get_submodules()
         self.functions = self.get_functions()
         self.classes = self.get_classes()
@@ -369,7 +380,7 @@ def pd_df_format(df, index, filter=True):
     return formated_df
 
 
-def module_signature_write(module_name, file_out="", return_df=0, isdebug=0):
+def module_signature_write(module_name, outputfile="", return_df=0, isdebug=0):
     """  Write down the files.
          
     """
@@ -381,15 +392,15 @@ def module_signature_write(module_name, file_out="", return_df=0, isdebug=0):
     if return_df == 1:
         return df  # return df
     else:
-        file_out = (
-            file_out
-            if file_out != ""
+        outputfile = (
+            outputfile
+            if outputfile != ""
             else os.path.join(os.getcwd(), str_join("doc_" + module_name, "csv"))
         )
         if isdebug:
             print("Signature Writing")
-        print(file_out)
-        df.to_csv(file_out, index=False, mode="w")
+        print(outputfile)
+        df.to_csv(outputfile, index=False, mode="w")
 
 
 #############################################################################################################
@@ -809,63 +820,51 @@ def code_parse_line(li, pattern_type="import/import_externa"):
 IIX = 0
 
 
-def log(a):
+def log(*args):
     global IIX
     IIX = IIX + 1
+    a = ",".join(args)
     print( f"\n--{IIX} : {a}", flush=True)
 
 
 def ztest():
-    DIRCWD = "/home/ubuntu/ztest/"
-   
+    # DIRCWD = "/home/ubuntu/ztest/"
+    os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
-    # os_folder_create("/ztest")
-    log("module_doc_write")
-    module_doc_write(module_name="json", outputfile="zz_doc_json.txt")
-    module_doc_write(module_name="numpy", outputfile="zz_doc_numpy.txt")
-    module_doc_write(module_name="os", outputfile="zz_doc_os.txt")
-  
-    log("module_signature_write")
-    module_signature_write(module_name="json", isdebug=1)
-    module_signature_write(module_name="numpy", isdebug=1)
-    module_signature_write(module_name="os", isdebug=1)
-    
-    
-    log("module_unitest_write")
-    module_unitest_write(
-        input_signature_csv_file="doc_json.csv", outputfile="zz_unitest_run_json.txt", isdebug=1      
-    )
-        
-    module_unitest_write(
-        input_signature_csv_file="doc_numpy.csv", outputfile="zz_unitest_run_numpy.txt", isdebug=1      
-    )
 
-    module_unitest_write(
-        input_signature_csv_file="doc_os.csv", outputfile="zz_unitest_run_os.txt", isdebug=1      
-    )
+    for f in [  "json",  "os", "c:/mymodule/", "numpy",] :
+        try :
+            # os_folder_create("/ztest")
+            log("module_doc_write", f)
+            module_doc_write(module_name=f"{f}", outputfile= f"ztmp/doc_{f}.txt")
 
-    log("module_unitest_write: module name")
-    module_unitest_write(module_name="json", outputfile="zz_unitest_run_json2.txt", isdebug=1)
-    module_unitest_write(module_name="numpy", outputfile="zz_unitest_run_numpy2.txt", isdebug=1)
-    module_unitest_write(module_name="os", outputfile="zz_unitest_run_os2.txt", isdebug=1)
-   
+          
+            log("module_signature_write",f)
+            module_signature_write(module_name= f"{f}", outputfile= f"ztmp/list_{f}.csv", return_df=0 ,isdebug=1)
 
-    log("module_signature_compare: version between 2 docs.")
-    df = module_signature_compare(
-        "doc_json.csv", "doc_json.csv", export_csv="zz_json_compare.csv", return_df=1     
-    )
-    df = module_signature_compare(
-       "doc_numpy.csv", "doc_numpy.csv", export_csv="zz_numpy_compare.csv", return_df=1
-    )
-    df = module_signature_compare(
-       "doc_os.csv", "doc_os.csv", export_csv="zz_os_compare.csv", return_df=1
-    )
-  
-    print(df.head(5))
-    """
-    Might be tricky to get 2 version of numpy in same environnement....
-      Need to generate in 2 different python envs  and get the csv
-    """
+            
+            log("module_unitest_write", f)
+            module_unitest_write(
+                input_signature_csv_file= f"ztmp/list_{f}.csv", outputfile= f"ztmp/zz_unitest_run_{f}.py", isdebug=1)
+                
+
+            log("module_unitest_write: module name")
+            module_unitest_write(module_name="{f}", outputfile="ztmp/zz_unitest_run_{f}_02.py", isdebug=1)
+           
+
+            log("module_signature_compare: version between 2 docs.")
+            """
+            Might be tricky to get 2 version of numpy in same environnement....
+              Need to generate in 2 different python envs  and get the csv
+            """
+            df = module_signature_compare(
+                f"doc_{f}.csv", f"doc_{f}.csv", export_csv= f"zz_{f}_compare.csv", return_df=1     
+            )
+            print(df.head(5))
+        except Exception as e :
+            print(f, e)
+
+
 
 
 
@@ -916,19 +915,12 @@ if __name__ == "__main__":
     arg = p.parse_args()
 
     module = arg.module
-    try :
-        import_module(module)
-        print("Module imported", module)
-    except :
-        sys.path.add(module_name)  ## Absolute path
-        module = module.split("/")[-1]
-        import_module(module)
-        print("Module imported", arg.module)
+    module_load(module)
 
 
     if arg.do != "" and arg.module != "":
         if arg.do == "doc":
-           print("Running Task", module, arg.do)
+           print("Generate Signature", module, arg.do)
            module_signature_write(module)
            
 
@@ -937,6 +929,7 @@ if __name__ == "__main__":
 
         if arg.do == "test" and module != "" and module != "jedi":
             ztest_mod(module)
+
         elif arg.do == "test":
             ztest()
 
