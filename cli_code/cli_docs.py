@@ -119,7 +119,7 @@ class Module:
         try :
             return self.module.__version__
         except :
-            return
+            return 0
 
     def get_submodules(self):
         """get_submodules(self) Module method
@@ -423,28 +423,27 @@ def obj_arg_filter_apply(df, filter_list=None):
     """
     if filter_list is None:
         filter_list = [("filter_name", "arg")]
-    for filter0 in filter_list:
-        f, farg = filter0
-        if f == "class_only":
-            df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
-        if f == "function_only":
-            df = df[(df["function_type"] == "function")]
 
-        if f == "public_only":
-            df = df[-df["obj_name"].str.startswith(r"__", na=False)]
-        if f == "private_only":
-            df = df[(df["obj_name"].str.startswith(r"__", na=False))]
+    for (f, farg) in filter_list:
+        if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
 
-        if f == "fullname_regex":
-            df = df[df["full_name"].str.contains(farg, na=False)]
-        if f == "fullname_startwith":
-            df = df[df["full_name"].str.startswith(farg, na=False)]
-        if f == "fullname_exclude":
-            df = df[-df["full_name"].str.contains(farg, na=False)]
+        if f == "function_only":  df = df[(df["function_type"] == "function")]
 
-        if f == "sort_ascending":
-            df = df.sort_values("full_name", ascending=farg)
+        if f == "public_only":  df = df[-df["obj_name"].str.startswith(r"__", na=False)]
+
+        if f == "private_only":  df = df[(df["obj_name"].str.startswith(r"__", na=False))]
+
+        if f == "fullname_regex":df = df[df["full_name"].str.contains(farg, na=False)]
+
+        if f == "fullname_startwith":  df = df[df["full_name"].str.startswith(farg, na=False)]
+
+        if f == "fullname_exclude":   df = df[-df["full_name"].str.contains(farg, na=False)]
+
+        if f == "sort_ascending":  df = df.sort_values("full_name", ascending=farg)
+
     return df
+
+
 
 
 def obj_arg_filter_nonetype(x):
@@ -727,8 +726,6 @@ def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
                           language=python )
         
           Parse res to find method_name(  args=5 ....)
-        
-        
        """
 
     return 1
@@ -820,7 +817,7 @@ def code_parse_line(li, pattern_type="import/import_externa"):
 IIX = 0
 
 
-def log(*args):
+def log(*args, reset=0):
     global IIX
     IIX = IIX + 1
     a = ",".join(args)
