@@ -4,6 +4,11 @@
 
  cli__doc  --do docs    --module jedi
 
+
+python  cli_docs.py  --do doc    --module sys
+
+
+
 Some issues with :
     cannot find __path__ for os,sys modules
     
@@ -108,7 +113,6 @@ class Module:
     def __init__(self, module_name):
         self.module_name = module_name
         self.module = module_load(self.module_name)
-        self.module_isbuiltin = self.get_module_isbuiltin()
         self.submodules = self.get_submodules()
         self.functions = self.get_functions()
         self.classes = self.get_classes()
@@ -120,14 +124,7 @@ class Module:
         try :
             return self.module.__version__
         except :
-            return
-
-    def get_module_isbuiltin(self):
-        builtin_modules = list(sys.builtin_module_names)
-        for x in builtin_modules:
-            if self.module.__name__ == x:
-                return True
-        return False 
+            return 0
 
     def get_submodules(self):
         """get_submodules(self) Module method
@@ -158,18 +155,6 @@ class Module:
             ):
                 functions[str_join(submodule_name, function_name)] = function
         return functions
-
-    def get_builtin_functions(self):
-        """get_functions(self) Module method
-        return a list of functions of the module taken as an instance argument."""
-        functions_built = {}
-        
-        for function_name, function in inspect.getmembers(
-            sys, lambda f: inspect.isfunction(f) or inspect.isbuiltin(f) 
-            ):
-                functions_built[str_join('sys', function_name)] = function
-        return functions_built
-
 
     def get_classes(self):
         """get_classes(self) Module method
@@ -333,10 +318,7 @@ def module_signature_get(module_name):
     """module_signature(module_name) return a dictionary containing information
        about the module functions and methods"""
     module = Module(module_name)
-    if module.module_isbuiltin:
-        members = module.functions_built
-    else:
-        members = np_merge(module.functions, module.classes, module.class_methods)
+    members = np_merge(module.functions, module.classes, module.class_methods)
     
     doc_df = {
         "module_name": module_name,
@@ -361,7 +343,7 @@ def module_signature_get(module_name):
         isfunction = inspect.isfunction(member)
         ismethod = inspect.ismethod(member)
                         
-        if isclass or isfunction or ismethod or module.module_isbuiltin:
+        if isclass or isfunction or ismethod:
             doc_df["full_name"].append(member_name)
             doc_df["prefix"].append(obj_get_prefix(member_name))
             doc_df["obj_name"].append(obj_get_name(member))
@@ -446,28 +428,27 @@ def obj_arg_filter_apply(df, filter_list=None):
     """
     if filter_list is None:
         filter_list = [("filter_name", "arg")]
-    for filter0 in filter_list:
-        f, farg = filter0
-        if f == "class_only":
-            df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
-        if f == "function_only":
-            df = df[(df["function_type"] == "function")]
 
-        if f == "public_only":
-            df = df[-df["obj_name"].str.startswith(r"__", na=False)]
-        if f == "private_only":
-            df = df[(df["obj_name"].str.startswith(r"__", na=False))]
+    for (f, farg) in filter_list:
+        if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
 
-        if f == "fullname_regex":
-            df = df[df["full_name"].str.contains(farg, na=False)]
-        if f == "fullname_startwith":
-            df = df[df["full_name"].str.startswith(farg, na=False)]
-        if f == "fullname_exclude":
-            df = df[-df["full_name"].str.contains(farg, na=False)]
+        if f == "function_only":  df = df[(df["function_type"] == "function")]
 
-        if f == "sort_ascending":
-            df = df.sort_values("full_name", ascending=farg)
+        if f == "public_only":  df = df[-df["obj_name"].str.startswith(r"__", na=False)]
+
+        if f == "private_only":  df = df[(df["obj_name"].str.startswith(r"__", na=False))]
+
+        if f == "fullname_regex":df = df[df["full_name"].str.contains(farg, na=False)]
+
+        if f == "fullname_startwith":  df = df[df["full_name"].str.startswith(farg, na=False)]
+
+        if f == "fullname_exclude":   df = df[-df["full_name"].str.contains(farg, na=False)]
+
+        if f == "sort_ascending":  df = df.sort_values("full_name", ascending=farg)
+
     return df
+
+
 
 
 def obj_arg_filter_nonetype(x):
@@ -750,8 +731,6 @@ def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
                           language=python )
         
           Parse res to find method_name(  args=5 ....)
-        
-        
        """
 
     return 1
@@ -843,7 +822,7 @@ def code_parse_line(li, pattern_type="import/import_externa"):
 IIX = 0
 
 
-def log(*args):
+def log(*args, reset=0):
     global IIX
     IIX = IIX + 1
     a = ",".join(args)
