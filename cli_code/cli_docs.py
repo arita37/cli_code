@@ -35,6 +35,9 @@ from importlib import import_module
 from pkgutil import walk_packages
 import regex
 import pkgutil
+import shutil
+import stat
+import jedi
 
 
 
@@ -52,6 +55,7 @@ COLS_NAME = [
     "obj_name",
     "obj_doc",
     "object_type",
+    "arg_full",
 ]
 NAN = float("nan")
 
@@ -82,7 +86,8 @@ def module_load(name_or_path="") :
         print("Module imported", module)
         return module
     except :
-        sys.path.add(m_name)  ## Absolute path
+        #sys.path.add(m_name)  ## Absolute path
+        sys.path.insert(0,os.getcwd()+"\\template")  ## Absolute path
         module = m_name.split("/")[-1]
         import_module(module)
         print("Module imported", module)
@@ -149,8 +154,7 @@ class Module:
             for loader, name, is_pkg in walk_packages(None, self.module.__name__ + "."):
                 if self.is_imported(name):
                     submodules[name] = self.get_submodule(self.get_mlattr(name))
-                  
-
+                
         return submodules
     
     def get_functions(self):
@@ -168,10 +172,13 @@ class Module:
         """get_builtin_functions(self) Module method
         return a list of functions of the module taken as an instance argument."""
         functions_built = {}
-        mod = self.module.__name__
+        if self.module_isbuiltin:
+            mod = eval(self.module.__name__)
+        else:
+            mod = self.module.__name__
         for function_name, function in inspect.getmembers(
-            eval(mod), lambda f: inspect.isfunction(f) or inspect.isbuiltin(f) 
-            ):
+            mod, lambda f: inspect.isfunction(f) or inspect.isbuiltin(f) 
+            ):                
                 functions_built[str_join(self.module.__name__, function_name)] = function
         return functions_built
 
@@ -246,7 +253,18 @@ def obj_get_signature(obj):
     else:
         return ""
 
+def obj_get_full_signature(obj):
+    arg_full = OrderedDict()
+    try:
+        args = inspect.signature(obj)
+    except:
+        args = ""
+    arguments = str(args)
+    arguments = re.sub('()', '', arguments)
+    arg_full[1] = arguments
+    return arg_full
 
+    
 def obj_get_args(obj):
     arguments = OrderedDict()
     if inspect.isbuiltin(obj):
@@ -342,6 +360,7 @@ def module_signature_get(module_name):
     else:
         members = np_merge(module.functions, module.classes, module.class_methods)
     
+    
     doc_df = {
         "module_name": module_name,
         "module_version": module.get_module_version(),
@@ -357,6 +376,7 @@ def module_signature_get(module_name):
         "arg_default_value": [],
         "arg_type": [],
         "arg_info": [],
+        "arg_full": [],
     }
 
     for member_name, member in members.items():
@@ -377,7 +397,11 @@ def module_signature_get(module_name):
             )
             doc_df["arg_type"].append(obj_guess_arg_type(doc_df["arg_default_value"][-1]))
             doc_df["arg_info"].append(obj_get_arginfo(member, doc_df["arg"][-1]))
-            
+            if not module.module_isbuiltin:
+                doc_df["arg_full"].append(tuple(obj_get_full_signature(member.__init__ if isclass else member).values()))
+            else:
+                doc_df["arg_full"].append(None)
+                   
     return doc_df
 
 
@@ -390,9 +414,9 @@ def pd_df_format(df, index, filter=True):
     level_to_drop = "level_{}".format(len(index))
     # if filter: df = filter_data(['private_methods'], pd.DataFrame(df))   # We keep ALL the data as RAW data in csv.
     print(df)
-
-    df =  df.set_index(index)
-
+    
+    df =  df.set_index(index, drop=False)
+    
     #### Issues with Empty list
     df = df.apply(lambda x: pd_df_expand(x), 1)
     
@@ -412,10 +436,9 @@ def module_signature_write(module_name, outputfile="", return_df=0, isdebug=0):
          
     """
     df = module_signature_get(module_name)
-   
     df = pd_df_format(pd.DataFrame(df), COLS_NAME)
     df = df.sort_values("full_name", ascending=True)
-       
+    
     if return_df == 1:
         return df  # return df
     else:
@@ -470,6 +493,33 @@ def obj_arg_filter_apply(df, filter_list=None):
 
     return df
 
+def obj_arg_filter_apply_1(df, filter_list=None):
+    """  Apply Sequential Filtering to the frame of argument
+    :param df: Signature Datframe
+    :param filter_list:    ('sort_ascending', 1)  we can add very easily new filter
+    :return: dataframe filtering
+    """
+    if filter_list is None:
+        filter_list = [("filter_name", "arg_full")]
+
+    for (f, farg) in filter_list:
+        if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
+
+        if f == "function_only":  df = df[(df["function_type"] == "function")]
+
+        if f == "public_only":  df = df[-df["obj_name"].str.startswith(r"__", na=False)]
+
+        if f == "private_only":  df = df[(df["obj_name"].str.startswith(r"__", na=False))]
+
+        if f == "fullname_regex":df = df[df["full_name"].str.contains(farg, na=False)]
+
+        if f == "fullname_startwith":  df = df[df["full_name"].str.startswith(farg, na=False)]
+
+        if f == "fullname_exclude":   df = df[-df["full_name"].str.contains(farg, na=False)]
+
+        if f == "sort_ascending":  df = df.sort_values("full_name", ascending=farg)
+
+    return df
 
 
 
@@ -546,7 +596,7 @@ def module_unitest_write(
     # ndf['function'] = (ndf.reset_index()['full_name'] + ndf.reset_index()['arg'].astype(str)).tolist()
     ndf["function"].replace(["'", ",\)"], ["", ")"], regex=True, inplace=True)
     # ndf = ndf.reset_index(drop=True).drop('arg', 1)
-
+    
     ## Generate  1 line function
     # df1=  pd.DataFrame(data.groupby('full_name')['arg'].apply(tuple))
     # df2=  pd.DataFrame(data.groupby('full_name')['args_dummy'].apply(tuple))
@@ -597,6 +647,7 @@ def module_doc_write(
       numpy.core.sort(a, axis, kind, order) 
 
     """
+    print("writing outpit file ", outputfile)
     if filter_list is None:
         filter_list = [("public_only", "")]
 
@@ -609,25 +660,29 @@ def module_doc_write(
     else:
         print("Provide module name OR CSV file")
         return 1
-
+    
     # Filtering  ###############################################################################
-    df_data = obj_arg_filter_apply(df_data, filter_list)  # Apply Sequential Fitlering
+    df_data = obj_arg_filter_apply_1(df_data, filter_list)  # Apply Sequential Fitlering
     # print(data.head(5))
-
+    
     ## Generate  1 line function
     def agg_in_1line(dfi):
         full_name = dfi.full_name.values[0]
         
         try :
-          args = "(" + ",".join(list(dfi["arg"].values)) + ")"
+    #      args = "(" + ",".join(list(dfi["arg_full"].values)) + ")"
+          args = ",".join(dfi.arg_full.values[0])
         except :
            args = "()"
         
         function = full_name + args
+        
         # function.replace( ["'", ",\)"], ["", ")"], regex=True,inplace=True )
-        return pd.Series([args, function], ["arg", "function"])
+        #return pd.Series([args, function], ["arg", "function"])
+        return pd.Series([function], ["function"])
 
     df_out = df_data.groupby("full_name").apply(agg_in_1line)
+    
     if debug:
         print(df_out.columns)
         print(df_out.head(5))
@@ -643,7 +698,8 @@ def module_doc_write(
         try:
             module_name1 = df_data["module_name"].values[0] + "_" + df_data["module_version"].values[0]
         except :
-            module_name1 = df_data["module_name"]
+            module_name1 = df_data["module_name"].values[0]
+        
         template.write("#{}\n".format(module_name1))
 
         for row in df_out.itertuples():
@@ -758,7 +814,6 @@ def obj_guess_arg_type2(full_name, arg_name, type_guess_engine="pytype"):
     return 1
 
 
-
 ######################################################################################################
 ############## Code Search #################################################################################
 def conda_path_get(subfolder="package/F:/"):
@@ -856,7 +911,7 @@ def ztest():
     # DIRCWD = "/home/ubuntu/ztest/"
     os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
-
+    print(" inside ztest")
     for f in [  "json",  "os", "c:/mymodule/", "numpy",] :
         try :
             # os_folder_create("/ztest")
@@ -870,11 +925,11 @@ def ztest():
             
             log("module_unitest_write", f)
             module_unitest_write(
-                input_signature_csv_file= f"ztmp/list_{f}.csv", outputfile= f"ztmp/zz_unitest_run_{f}.py", isdebug=1)
+                input_signature_csv_file= f"ztmp/list_{f}.csv", outputfile= f"ztmp/zz_unitest_run_{f}.txt", isdebug=1)
                 
 
             log("module_unitest_write: module name")
-            module_unitest_write(module_name="{f}", outputfile="ztmp/zz_unitest_run_{f}_02.py", isdebug=1)
+            module_unitest_write(module_name="{f}", outputfile="ztmp/zz_unitest_run_{f}_02.txt", isdebug=1)
            
 
             log("module_signature_compare: version between 2 docs.")
@@ -888,8 +943,29 @@ def ztest():
             print(df.head(5))
         except Exception as e :
             print(f, e)
+        module_tofolder(f)
 
 
+def module_tofolder(module_name):
+        
+        module = Module(module_name)
+        module_version = module.get_module_version()
+        path = "./ztmp"
+        dest = "./ztmp/{}/{}".format(module_name, module_version)
+        
+        if not os.path.exists(dest):
+            os.makedirs(dest)
+        else:
+            try:
+                os.remove(dest)
+            except PermissionError as exc:
+                os.chmod(dest, stat.S_IRWXU)
+                os.remove(dest)
+                
+        for x , y , z in os.walk(path):
+            for file in z : 
+                if module_name in file : 
+                   shutil.copy(path+"/"+file, dest)
 
 
 
@@ -899,27 +975,28 @@ def ztest_mod(mod):
     log("### Unit Tests")
     # os_folder_create("/ztest")
     log("module_doc_write")
-    module_doc_write(mod, outputfile="zz_doc_{}.txt".format(mod))
+    module_doc_write(mod, outputfile="ztmp/doc_{}.txt".format(mod))
    
     log("module_signature_write")
-    module_signature_write(mod, isdebug=1)
+    module_signature_write(mod, outputfile="ztmp/list_{}.csv".format(mod), isdebug=1)
         
     
     log("module_unitest_write")
     module_unitest_write(
-        input_signature_csv_file="doc_{}.csv".format(mod), outputfile="zz_unitest_run_{}.txt".format(mod), isdebug=1      
+        input_signature_csv_file="ztmp/list_{}.csv".format(mod), outputfile="ztmp/zz_unitest_run_{}.txt".format(mod), isdebug=1      
     )
   
     log("module_unitest_write: module name")
-    module_unitest_write(module_name = mod, outputfile="zz_unitest_run_{}{}.txt".format(mod, "2"), isdebug=1)
+    module_unitest_write(module_name = mod, outputfile="ztmp/zz_unitest_run_{}{}.txt".format(mod, "2"), isdebug=1)
     
 
     log("module_signature_compare: version between 2 docs.")
     df = module_signature_compare(
-        "doc_{}.csv".format(mod), "doc_{}.csv".format(mod), export_csv="zz_{}_compare.csv".format(mod), return_df=1     
+        "doc_{}.csv".format(mod), "doc_{}.csv".format(mod), export_csv="ztmp/zz_{}_compare.csv".format(mod), return_df=1     
     )
    
     print(df.head(5))
+    module_tofolder(mod)
     """
     Might be tricky to get 2 version of numpy in same environnement....
       Need to generate in 2 different python envs  and get the csv
@@ -933,10 +1010,10 @@ def ztest_mod(mod):
 ####################################################################################################
 if __name__ == "__main__":
     import argparse
-
+    
     p = argparse.ArgumentParser()
     p.add_argument("--do", type=str, default="", help=" unit_test")
-    p.add_argument("--module", type=str, default="jedi", help=" unit_test")
+    p.add_argument("--module", type=str, default="jedi_test", help=" unit_test")
     arg = p.parse_args()
 
     module = arg.module
@@ -952,7 +1029,7 @@ if __name__ == "__main__":
         if arg.do == "module_unittest":
             module_unitest_write(module_name=module)
 
-        if arg.do == "test" and module != "" and module != "jedi":
+        if arg.do == "test" and module != "" and module != "jedi_test":
             ztest_mod(module)
 
         elif arg.do == "test":
