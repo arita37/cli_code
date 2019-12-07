@@ -1,5 +1,25 @@
 # -*- coding: utf-8 -*-
 """
+
+##############  TODO :   ##################################################
+  1) Arguments of functions or methos are missing in XXXX_doc.txt :
+       numpy.random.binomial(n, p, size=None)
+
+     Please add them
+
+  2) Create a function which export all docs into a specific folder :
+
+     def module_tofolder()
+
+         module_name/version_name/module_name
+         numpy/1_16/ numpy_doc.txt
+
+
+  3) Test with local packages (no pip packages) :  
+         cli_code/template/jedi_test/
+
+
+
  cli_doc  --do test  
 
  cli__doc  --do docs    --module jedi
@@ -857,7 +877,7 @@ def ztest():
     os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
 
-    for f in [  "json",  "os", "c:/mymodule/", "numpy",] :
+    for f in [  "json",  "os", "template/jedi_test/", "numpy",] :
         try :
             # os_folder_create("/ztest")
             log("module_doc_write", f)
@@ -937,16 +957,19 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--do", type=str, default="", help=" unit_test")
     p.add_argument("--module", type=str, default="jedi", help=" unit_test")
+    p.add_argument("--outputfolder", type=str, default="ztmp/", help=" file output")  
+    p.add_argument("--outputfile", type=str, default="", help=" file output")        
     arg = p.parse_args()
 
     module = arg.module
     module_load(module)
+    filename = str(arg.module) if arg.outputfile == "" else arg.outputfile
 
 
     if arg.do != "" and arg.module != "":
         if arg.do == "doc":
            print("Generate Signature", module, arg.do)
-           module_signature_write(module)
+           module_signature_write(module, outputfile= "{arg.outputfolder}/{filename}")
            
 
         if arg.do == "module_unittest":
