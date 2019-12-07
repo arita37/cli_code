@@ -512,33 +512,6 @@ def obj_arg_filter_apply(df, filter_list=None):
 
     return df
 
-def obj_arg_filter_apply_1(df, filter_list=None):
-    """  Apply Sequential Filtering to the frame of argument
-    :param df: Signature Datframe
-    :param filter_list:    ('sort_ascending', 1)  we can add very easily new filter
-    :return: dataframe filtering
-    """
-    if filter_list is None:
-        filter_list = [("filter_name", "arg_full")]
-
-    for (f, farg) in filter_list:
-        if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
-
-        if f == "function_only":  df = df[(df["function_type"] == "function")]
-
-        if f == "public_only":  df = df[-df["obj_name"].str.startswith(r"__", na=False)]
-
-        if f == "private_only":  df = df[(df["obj_name"].str.startswith(r"__", na=False))]
-
-        if f == "fullname_regex":df = df[df["full_name"].str.contains(farg, na=False)]
-
-        if f == "fullname_startwith":  df = df[df["full_name"].str.startswith(farg, na=False)]
-
-        if f == "fullname_exclude":   df = df[-df["full_name"].str.contains(farg, na=False)]
-
-        if f == "sort_ascending":  df = df.sort_values("full_name", ascending=farg)
-
-    return df
 
 
 
@@ -930,13 +903,7 @@ def ztest():
     # DIRCWD = "/home/ubuntu/ztest/"
     os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
-<<<<<<< HEAD
-
     for f in [  "json",  "os", "template/jedi_test/", "numpy",] :
-=======
-    print(" inside ztest")
-    for f in [  "json",  "os", "c:/mymodule/", "numpy",] :
->>>>>>> fcf29457b6e316da8cd793d045f749ea14692d03
         try :
             # os_folder_create("/ztest")
             log("module_doc_write", f)
@@ -1037,13 +1004,10 @@ if __name__ == "__main__":
     
     p = argparse.ArgumentParser()
     p.add_argument("--do", type=str, default="", help=" unit_test")
-<<<<<<< HEAD
-    p.add_argument("--module", type=str, default="jedi", help=" unit_test")
+    p.add_argument("--module", type=str, default="jedi_test", help=" unit_test")
+
     p.add_argument("--outputfolder", type=str, default="ztmp/", help=" file output")  
     p.add_argument("--outputfile", type=str, default="", help=" file output")        
-=======
-    p.add_argument("--module", type=str, default="jedi_test", help=" unit_test")
->>>>>>> fcf29457b6e316da8cd793d045f749ea14692d03
     arg = p.parse_args()
 
     module = arg.module
@@ -1054,15 +1018,8 @@ if __name__ == "__main__":
     if arg.do != "" and arg.module != "":
         if arg.do == "doc":
            print("Generate Signature", module, arg.do)
-<<<<<<< HEAD
            module_signature_write(module, outputfile= "{arg.outputfolder}/{filename}")
-=======
-           module_signature_write(module)
-           module_unitest_write(
-                    input_signature_csv_file="doc_{}.csv".format(module), outputfile="zz_unitest_run_{}.txt".format(module), isdebug=1      
-                        )
            module_unitest_write(module_name = module, outputfile="zz_unitest_run_{}{}.txt".format(module, "2"), isdebug=1)
->>>>>>> fcf29457b6e316da8cd793d045f749ea14692d03
            
 
         if arg.do == "module_unittest":
