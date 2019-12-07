@@ -484,14 +484,14 @@ def module_signature_write(module_name, outputfile="", return_df=0, isdebug=0):
 #    return data
 
 
-def obj_arg_filter_apply(df, filter_list=None):
+def obj_arg_filter_apply_1(df, filter_list=None):
     """  Apply Sequential Filtering to the frame of argument
     :param df: Signature Datframe
     :param filter_list:    ('sort_ascending', 1)  we can add very easily new filter
     :return: dataframe filtering
     """
     if filter_list is None:
-        filter_list = [("filter_name", "arg")]
+        filter_list = [("filter_name", "arg_full")]
 
     for (f, farg) in filter_list:
         if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
@@ -565,7 +565,7 @@ def module_unitest_write(
     except:
         data = data0.copy(deep=True)
         data["arg"] = "" 
-    data = obj_arg_filter_apply(data, filter_list)  # Apply Sequential Fitlering
+    data = obj_arg_filter_apply_1(data, filter_list)  # Apply Sequential Fitlering
 
     ## Generate dummy variables aXXXX=  YYYY    for assignment
     data["args_dummy"] = "a" + data.groupby("obj_name").cumcount().add(1).astype(str)
@@ -903,7 +903,7 @@ def ztest():
     # DIRCWD = "/home/ubuntu/ztest/"
     os.makedirs("ztmp",exist_ok=True)
     log("### Unit Tests")
-    for f in [  "json",  "os", "template/jedi_test/", "numpy",] :
+    for f in [  "json",  "os",  "numpy", "template/jedi_test/" ] :
         try :
             # os_folder_create("/ztest")
             log("module_doc_write", f)
@@ -932,9 +932,14 @@ def ztest():
                 f"doc_{f}.csv", f"doc_{f}.csv", export_csv= f"zz_{f}_compare.csv", return_df=1     
             )
             print(df.head(5))
+
+
+            log("Calcualte and store in specific folder")
+            module_tofolder(f)
+
         except Exception as e :
             print(f, e)
-        module_tofolder(f)
+        
 
 
 def module_tofolder(module_name):
@@ -1010,13 +1015,18 @@ if __name__ == "__main__":
     p.add_argument("--outputfile", type=str, default="", help=" file output")        
     arg = p.parse_args()
 
-    module = arg.module
-    module_load(module)
-    filename = str(arg.module) if arg.outputfile == "" else arg.outputfile
+
+    if arg.do == "test":
+            ztest()
 
 
     if arg.do != "" and arg.module != "":
+        module = arg.module
+        module_load(module)
+        filename = str(arg.module) if arg.outputfile == "" else arg.outputfile
+
         if arg.do == "doc":
+
            print("Generate Signature", module, arg.do)
            module_signature_write(module, outputfile= "{arg.outputfolder}/{filename}")
            module_unitest_write(module_name = module, outputfile="zz_unitest_run_{}{}.txt".format(module, "2"), isdebug=1)
@@ -1028,9 +1038,7 @@ if __name__ == "__main__":
         if arg.do == "test" and module != "" and module != "jedi_test":
             ztest_mod(module)
 
-        elif arg.do == "test":
-            ztest()
-
+        
         
 
 
