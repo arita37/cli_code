@@ -1020,6 +1020,10 @@ if __name__ == "__main__":
             ztest()
 
 
+    if arg.do == "test" and module != "" and module != "jedi_test":
+            ztest_mod(module)
+
+
     if arg.do != "" and arg.module != "":
         module = arg.module
         module_load(module)
@@ -1035,8 +1039,7 @@ if __name__ == "__main__":
         if arg.do == "module_unittest":
             module_unitest_write(module_name=module)
 
-        if arg.do == "test" and module != "" and module != "jedi_test":
-            ztest_mod(module)
+
 
         
         
