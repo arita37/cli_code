@@ -27,8 +27,8 @@ jobs:
     - name: Black Code Formatter
       uses: lgeiger/black-action@master
       with:
-        args: ". --check  --l 100   --py36  --verbose "
-        ## args: ". --check  --l 100   --py36  --verbose "
+        args: ". --check  -l 100   --py36  --verbose "
+        ## args: ". --check  -l 100   --py36  --verbose "
      
 #    - name: Pyflakes Syntax Checker
 #      uses: lgeiger/pyflakes-action@v1.0.1
