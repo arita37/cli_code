@@ -37,7 +37,6 @@ import regex
 import pkgutil
 import shutil
 import stat
-import jedi
 
 
 
