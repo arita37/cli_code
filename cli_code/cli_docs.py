@@ -1028,7 +1028,7 @@ if __name__ == "__main__":
         if arg.do == "doc":
 
            print("Generate Signature", module, arg.do)
-           module_signature_write(module, outputfile= "{arg.outputfolder}/{filename}")
+           module_signature_write(module, outputfile= f"{arg.outputfolder}/doc_{filename}.txt")
            module_unitest_write(module_name = module, outputfile="zz_unitest_run_{}{}.txt".format(module, "2"), isdebug=1)
            
 
