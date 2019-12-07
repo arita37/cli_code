@@ -1024,6 +1024,10 @@ if __name__ == "__main__":
         if arg.do == "doc":
            print("Generate Signature", module, arg.do)
            module_signature_write(module)
+           module_unitest_write(
+                    input_signature_csv_file="doc_{}.csv".format(module), outputfile="zz_unitest_run_{}.txt".format(module), isdebug=1      
+                        )
+           module_unitest_write(module_name = module, outputfile="zz_unitest_run_{}{}.txt".format(module, "2"), isdebug=1)
            
 
         if arg.do == "module_unittest":
