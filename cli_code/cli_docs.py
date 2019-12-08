@@ -391,11 +391,12 @@ def module_signature_get(module_name):
         # 'obj_type'    class / class.method /  function / decorator ....
         #"function_type":[],
         "object_type": [],
+        "arg_full": [],
         "arg": [],
         "arg_default_value": [],
         "arg_type": [],
         "arg_info": [],
-        "arg_full": [],
+        
     }
 
     for member_name, member in members.items():
@@ -434,7 +435,7 @@ def pd_df_format(df, index, filter=True):
     # if filter: df = filter_data(['private_methods'], pd.DataFrame(df))   # We keep ALL the data as RAW data in csv.
     print(df)
     
-    df =  df.set_index(index, drop=False)
+    df =  df.set_index(index)
     
     #### Issues with Empty list
     df = df.apply(lambda x: pd_df_expand(x), 1)
@@ -933,10 +934,6 @@ def ztest():
             )
             print(df.head(5))
 
-
-            log("Calcualte and store in specific folder")
-            module_tofolder(f)
-
         except Exception as e :
             print(f, e)
         
@@ -946,22 +943,33 @@ def module_tofolder(module_name):
         
         module = Module(module_name)
         module_version = module.get_module_version()
-        path = "./ztmp"
-        dest = "./ztmp/{}/{}".format(module_name, module_version)
         
-        if not os.path.exists(dest):
-            os.makedirs(dest)
-        else:
-            try:
-                os.remove(dest)
-            except PermissionError as exc:
-                os.chmod(dest, stat.S_IRWXU)
-                os.remove(dest)
-                
-        for x , y , z in os.walk(path):
-            for file in z : 
-                if module_name in file : 
-                   shutil.copy(path+"/"+file, dest)
+        path = "./ztmp/{}/{}".format(module_name, module_version)
+        
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+        log("module_doc_write")
+        module_doc_write(module_name, outputfile=path+"/doc_{}.txt".format(module_name))
+    
+        
+        log("module_signature_write")
+        module_signature_write(module_name, outputfile=path+"/list_{}.csv".format(module_name), isdebug=1)
+            
+        
+        log("module_unitest_write")
+        module_unitest_write(
+            input_signature_csv_file=path+"/list_{}.csv".format(module_name), outputfile=path+"/zz_unitest_run_{}.txt".format(module_name), isdebug=1      
+        )
+
+        log("module_unitest_write: module name")
+        module_unitest_write(module_name = module_name, outputfile=path+"/zz_unitest_run_{}{}.txt".format(module_name, "2"), isdebug=1)
+        
+
+        log("module_signature_compare: version between 2 docs.")
+        df = module_signature_compare(
+            path+"/list_{}.csv".format(module_name), path+"/list_{}.csv".format(module_name), export_csv=path+"/zz_{}_compare.csv".format(module_name), return_df=1     
+        )
 
 
 
@@ -992,7 +1000,7 @@ def ztest_mod(mod):
     )
    
     print(df.head(5))
-    module_tofolder(mod)
+    
     """
     Might be tricky to get 2 version of numpy in same environnement....
       Need to generate in 2 different python envs  and get the csv
@@ -1014,18 +1022,18 @@ if __name__ == "__main__":
     p.add_argument("--outputfolder", type=str, default="ztmp/", help=" file output")  
     p.add_argument("--outputfile", type=str, default="", help=" file output")        
     arg = p.parse_args()
-
+    module = arg.module
 
     if arg.do == "test":
+
+        if module != "" and module != "jedi_test":
+            ztest_mod(module)
+        else:
             ztest()
 
 
-    if arg.do == "test" and module != "" and module != "jedi_test":
-            ztest_mod(module)
-
-
     if arg.do != "" and arg.module != "":
-        module = arg.module
+        
         module_load(module)
         filename = str(arg.module) if arg.outputfile == "" else arg.outputfile
 
@@ -1039,6 +1047,8 @@ if __name__ == "__main__":
         if arg.do == "module_unittest":
             module_unitest_write(module_name=module)
 
+        if arg.do == "docs_to_folder":
+            module_tofolder(module)
 
 
         
