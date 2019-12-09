@@ -964,13 +964,7 @@ def module_tofolder(module_name):
 
         log("module_unitest_write: module name")
         module_unitest_write(module_name = module_name, outputfile=path+"/zz_unitest_run_{}{}.txt".format(module_name, "2"), isdebug=1)
-        
-
-        log("module_signature_compare: version between 2 docs.")
-        df = module_signature_compare(
-            path+"/list_{}.csv".format(module_name), path+"/list_{}.csv".format(module_name), export_csv=path+"/zz_{}_compare.csv".format(module_name), return_df=1     
-        )
-
+      
 
 
 def ztest_mod(mod):
