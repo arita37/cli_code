@@ -66,6 +66,9 @@ import pandas as pd
 
 
 ###################################################################################################
+SEP =  "\\"  if  "win" in sys.platform  else "/"
+
+
 COLS_NAME = [
     "module_name",
     "module_version",
@@ -99,24 +102,34 @@ def np_merge(*dicts):
 
 
 def module_load(name_or_path="") :
-    m_name = name_or_path
+    name_or_path = os.path.abspath(name_or_path)
+
     try :
         module = import_module(m_name)
         print("Module imported", module)
         return module
     except :
         #sys.path.add(m_name)  ## Absolute path
-        sys.path.insert(0,os.getcwd()+"\\template")  ## Absolute path
-        module = m_name.split("/")[-1]
-        import_module(module)
-        print("Module imported", module)
+        mpath = name_or_path.split(SEP)[:-1]
+        mpath = SEP.join( mpath )
+        print(mpath)
+        sys.path.insert(0, mpath )  ## Absolute path
+        m_name = name_or_path.split(SEP)[-1]
+        module = import_module(m_name)
+        print("Module imported", module, flush=True)
         return module
 
 
 
+def module_getname(name) :
+   if SEP not in name : return name 
+   else  :
+    return name.split(SEP)[-1]
 
-def module_path(module) :
-    path
+
+
+def module_getpath(name) :
+    return name
 
 
 
@@ -939,12 +952,14 @@ def ztest():
         
 
 
-def module_tofolder(module_name, outputfolder="./zmp"):
+def module_tofolder(name_or_path, outputfolder="./zmp", isdebug=1):
         ### Export docs to specific folder
-        
-        module = Module(module_name)
+        module_name = module_getname(module_name_or_path)
+
+        module = Module(name_or_path)
         module_version = module.get_module_version()
         
+
         path = f"{outputfolder}/{module_name}/{module_version}/"
         os.makedirs(path, exist_ok=True)
 
@@ -953,16 +968,16 @@ def module_tofolder(module_name, outputfolder="./zmp"):
     
         
         log("module_signature_write")
-        module_signature_write(module_name, outputfile= f"{path}/list_{module_name}.csv", isdebug=1)
+        module_signature_write(module_name, outputfile= f"{path}/list_{module_name}.csv", isdebug=isdebug)
             
         
         log("module_unitest_write")
         module_unitest_write(
-            input_signature_csv_file= f"{path}/list_{module_name}.csv", outputfile= f"{path}/zz_unitest_run_{module_name}.txt", isdebug=1      
+            input_signature_csv_file= f"{path}/list_{module_name}.csv", outputfile= f"{path}/zz_unitest_run_{module_name}.txt", isdebug=isdebug      
         )
 
         log("module_unitest_write: module name")
-        module_unitest_write(module_name = module_name, outputfile=path+"/zz_unitest_run_{}{}.txt".format(module_name, "2"), isdebug=1)
+        module_unitest_write(module_name = module_name, outputfile=path+ f"/zz_unitest_run_{module_name}{2}.txt", isdebug=isdebug)
       
 
 
@@ -1015,34 +1030,37 @@ if __name__ == "__main__":
     p.add_argument("--outputfolder", type=str, default="ztmp/", help=" file output")  
     p.add_argument("--outputfile", type=str, default="", help=" file output")        
     arg = p.parse_args()
-    module = arg.module
+
+    m_name = module_getname(arg.module)
+    m_path = module_getpath(arg.module)
+
 
     if arg.do == "test":
 
-        if module != "jedi_test":
-            ztest_mod(module)
+        if arg.module != "jedi_test":
+            ztest_mod(arg.module)
         else:
             ztest()
 
 
     if arg.do != "" and arg.module != "":
         
-        module_load(module)
-        filename = str(arg.module) if arg.outputfile == "" else arg.outputfile
+        module   = module_load( arg.module )
+        filename = m_name if arg.outputfile == "" else arg.outputfile
+
 
         if arg.do == "doc":
-
-           print("Generate Signature", module, arg.do)
-           module_signature_write(module, outputfile= f"{arg.outputfolder}/doc_{filename}.txt")
-           module_unitest_write(module_name = module, outputfile="zz_unitest_run_{}{}.txt".format(module, "2"), isdebug=1)
+           print("Generate Signature", arg.module, arg.do)
+           module_signature_write(arg.module, outputfile= f"{arg.outputfolder}/doc_{filename}.txt")
+           module_unitest_write(module_name = module, outputfile= f"zz_unitest_run_{module}{2}.txt", isdebug=1)
            
 
         if arg.do == "module_unittest":
-            module_unitest_write(module_name=module)
+            module_unitest_write(module_name= arg.module)
 
 
         if arg.do == "doc_tofolder":
-            module_tofolder(module, arg.outputfolder)
+            module_tofolder(arg.module, arg.outputfolder)
 
 
         else  :
