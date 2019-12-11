@@ -1333,20 +1333,20 @@ class str(object)
 ",class,"('(self, /, *args, **kwargs)',)",self,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module simplejson.decoder
 
-JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",state,,,arg_info
+JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",state,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module simplejson.decoder
 
-JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
+JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module simplejson.decoder
 
-JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>,builtin_function_or_method,arg_info
+JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module simplejson.decoder
 
-JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",_ws," 	
+JSONArray(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
 ",,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONDecodeError,decoder,JSONDecodeError,"Python Library Documentation: class JSONDecodeError in module simplejson.errors
 
@@ -1832,11 +1832,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -1929,11 +1929,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2026,11 +2026,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2123,11 +2123,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2220,11 +2220,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2317,11 +2317,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2414,11 +2414,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2511,11 +2511,11 @@ class JSONDecoder(builtins.object)
  |      ``True`` means that unescaped control characters are parse errors, if
  |      ``False`` then control characters will be allowed in strings.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Return the Python representation of ``s`` (a ``str`` or ``unicode``
  |      instance containing a JSON document)
  |  
- |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _PY3=True)
+ |  raw_decode(self, s, idx=0, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _PY3=True)
  |      Decode a JSON document from ``s`` (a ``str`` or ``unicode``
  |      beginning with a JSON document) and return a 2-tuple of the Python
  |      representation and the index in ``s`` where the document ended.
@@ -2536,48 +2536,48 @@ class JSONDecoder(builtins.object)
 ",class,"('(self, encoding=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, strict=True, object_pairs_hook=None)',)",self,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",object_hook,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",object_hook,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",strict,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",strict,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",object_pairs_hook,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",object_pairs_hook,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",_ws," 	
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
 ",,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>,builtin_function_or_method,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",encoding,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",encoding,,,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",memo,,NoneType,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",memo,,NoneType,arg_info
 simplejson,3.17.0,simplejson.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module simplejson.decoder
 
-JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \t\n\r')
-",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE73F0>, _ws=' \\t\\n\\r')"",)",state,,,arg_info
+JSONObject(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \t\n\r')
+",function,"(""(state, encoding, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE64B0>, _ws=' \\t\\n\\r')"",)",state,,,arg_info
 simplejson,3.17.0,simplejson.decoder.make_scanner,decoder,py_make_scanner,"Python Library Documentation: function py_make_scanner in module simplejson.scanner
 
 py_make_scanner(context)
 ",function,"('(context)',)",context,,,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2586,10 +2586,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",s,,,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",s,,,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2598,10 +2598,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>,builtin_function_or_method,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2610,10 +2610,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",end,,,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",end,,,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2622,10 +2622,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",encoding,,NoneType,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",encoding,,NoneType,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2634,10 +2634,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",strict,True,bool,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",strict,True,bool,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2646,10 +2646,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2658,10 +2658,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_join,<built-in method join of str object at 0x0000000000647AB0>,builtin_function_or_method,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_join,<built-in method join of str object at 0x0000000000637AB0>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2670,10 +2670,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_PY3,True,bool,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_PY3,True,bool,arg_info
 simplejson,3.17.0,simplejson.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2682,10 +2682,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_maxunicode,1114111,int,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_maxunicode,1114111,int,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2694,10 +2694,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_maxunicode,1114111,int,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_maxunicode,1114111,int,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2706,10 +2706,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_PY3,True,bool,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_PY3,True,bool,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2718,10 +2718,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",end,,,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",end,,,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2730,10 +2730,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",encoding,,NoneType,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",encoding,,NoneType,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2742,10 +2742,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",strict,True,bool,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",strict,True,bool,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2754,10 +2754,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2766,10 +2766,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>,builtin_function_or_method,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2778,10 +2778,10 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",_join,<built-in method join of str object at 0x0000000000647AB0>,builtin_function_or_method,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",_join,<built-in method join of str object at 0x0000000000637AB0>,builtin_function_or_method,arg_info
 simplejson,3.17.0,simplejson.decoder.scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module simplejson.decoder
 
-py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)
+py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -2790,7 +2790,7 @@ py_scanstring(s, end, encoding=None, strict=True, _b={'""': '""', '\\': '\\', '/
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000647AB0>, _PY3=True, _maxunicode=1114111)',)",s,,,arg_info
+",function,"('(s, end, encoding=None, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000000004DE1570>, _join=<built-in method join of str object at 0x0000000000637AB0>, _PY3=True, _maxunicode=1114111)',)",s,,,arg_info
 simplejson,3.17.0,simplejson.encoder.JSONEncoder,encoder,JSONEncoder,"Python Library Documentation: class JSONEncoder in module simplejson.encoder
 
 class JSONEncoder(builtins.object)
@@ -11175,7 +11175,7 @@ class TestMissingSpeedups(unittest.case.TestCase)
  |  skipTest(self, reason)
  |      Skip this test.
  |  
- |  subTest(self, msg=<object object at 0x000000000069B270>, **params)
+ |  subTest(self, msg=<object object at 0x000000000068B270>, **params)
  |      Return a context manager that will return the enclosed block
  |      of code in a subtest identified by the optional message and
  |      keyword parameters.  A failure in the subtest marks the test
@@ -11607,7 +11607,7 @@ class TestMissingSpeedups(unittest.case.TestCase)
  |  skipTest(self, reason)
  |      Skip this test.
  |  
- |  subTest(self, msg=<object object at 0x000000000069B270>, **params)
+ |  subTest(self, msg=<object object at 0x000000000068B270>, **params)
  |      Return a context manager that will return the enclosed block
  |      of code in a subtest identified by the optional message and
  |      keyword parameters.  A failure in the subtest marks the test

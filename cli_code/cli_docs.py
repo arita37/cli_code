@@ -954,7 +954,7 @@ def ztest():
 
 def module_tofolder(name_or_path, outputfolder="./zmp", isdebug=1):
         ### Export docs to specific folder
-        module_name = module_getname(module_name_or_path)
+        module_name = module_getname(name_or_path)
 
         module = Module(name_or_path)
         module_version = module.get_module_version()
