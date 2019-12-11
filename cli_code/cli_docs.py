@@ -939,27 +939,26 @@ def ztest():
         
 
 
-def module_tofolder(module_name):
+def module_tofolder(module_name, outputfolder="./zmp"):
+        ### Export docs to specific folder
         
         module = Module(module_name)
         module_version = module.get_module_version()
         
-        path = "./ztmp/{}/{}".format(module_name, module_version)
-        
-        if not os.path.exists(path):
-            os.makedirs(path)
+        path = f"{outputfolder}/{module_name}/{module_version}/"
+        os.makedirs(path, exist_ok=True)
 
         log("module_doc_write")
-        module_doc_write(module_name, outputfile=path+"/doc_{}.txt".format(module_name))
+        module_doc_write(module_name, outputfile= f"{path}/doc_{module_name}.txt")
     
         
         log("module_signature_write")
-        module_signature_write(module_name, outputfile=path+"/list_{}.csv".format(module_name), isdebug=1)
+        module_signature_write(module_name, outputfile= f"{path}/list_{module_name}.csv", isdebug=1)
             
         
         log("module_unitest_write")
         module_unitest_write(
-            input_signature_csv_file=path+"/list_{}.csv".format(module_name), outputfile=path+"/zz_unitest_run_{}.txt".format(module_name), isdebug=1      
+            input_signature_csv_file= f"{path}/list_{module_name}.csv", outputfile= f"{path}/zz_unitest_run_{module_name}.txt", isdebug=1      
         )
 
         log("module_unitest_write: module name")
@@ -1020,7 +1019,7 @@ if __name__ == "__main__":
 
     if arg.do == "test":
 
-        if module != "" and module != "jedi_test":
+        if module != "jedi_test":
             ztest_mod(module)
         else:
             ztest()
@@ -1041,11 +1040,13 @@ if __name__ == "__main__":
         if arg.do == "module_unittest":
             module_unitest_write(module_name=module)
 
-        if arg.do == "docs_to_folder":
-            module_tofolder(module)
+
+        if arg.do == "doc_tofolder":
+            module_tofolder(module, arg.outputfolder)
 
 
-        
+        else  :
+            print("No valid action")    
         
 
 
