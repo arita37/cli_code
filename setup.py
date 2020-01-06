@@ -61,6 +61,7 @@ packages = ["cli_code"] + ["cli_code." + p for p in find_packages("cli_code")]
 
 
 ### CLI Scripts  #################################################
+"""
 scripts = [
     "cli_code/cli_env_autoinstall.py",  #
     "cli_code/cli_docs.py",  #
@@ -68,8 +69,15 @@ scripts = [
     "cli_code/cli_repo_check.py",  #
 
 ]
+"""
 
-
+### CLI Scripts  #################################################   
+entry_points={ 'console_scripts': [
+    "cli_env_autoinstall  =  cli_code/cli_env_autoinstall.py",  
+    "cli_repo_docs        =  cli_code/cli_docs.py",  
+    "cli_convert_ipny     =  cli_code/cli_convert_ipny.py",    
+    "cli_repo_check       =  cli_code/cli_repo_check.py",  
+] }
 
 
 
@@ -79,11 +87,16 @@ setup(
     version=version,
     description=long_description,
     long_description_content_type='text/markdown',    
+    
     author="arita37, Kevin Noel",
     url="https://github.com/arita37/cli_code",
+    
     install_requires=["numpy"],
+    
+    entry_points= entry_points,
+    
     packages=packages,
-    scripts=scripts,
+    # scripts=scripts,
 )
 
 
