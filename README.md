@@ -1,5 +1,23 @@
 # cli_code
 Utilities to analyze python code
+```
+
+ python cli_docs.py   --do test  
+
+
+ python cli_docs.py   --do doc_tofolder  --module "D:\_devs\Python01\gitdev\cli_code\cli_code\template\simplejson"  
+
+
+ python cli_docs.py   --do doc_tofolder  --module numpy --outputfolder "C:\myfolder"  
+
+
+
+
+
+```
+
+
+
 
 ```
 python pypi.py  publish

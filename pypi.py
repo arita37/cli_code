@@ -42,6 +42,7 @@ class Version(object):
 
     def __str__(self):
         return f'Version({self.stringify()})'
+        return '='.join([orig.split('=')[0], self.stringify()])
 
     def __repr__(self):
         return self.__str__()
@@ -50,7 +51,6 @@ class Version(object):
         return f'\'{self.major}.{self.minor}.{self.patch}\''
 
     def new_version(self, orig):
-        return '='.join([orig.split('=')[0], self.stringify()])
 
     @classmethod
     def parse(cls, string):
