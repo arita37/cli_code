@@ -509,19 +509,12 @@ def obj_arg_filter_apply_1(df, filter_list=None):
 
     for (f, farg) in filter_list:
         if f == "class_only":  df = df[(df["function_type"] == "class_method") | (df["function_type"] == "class")]
-
         if f == "function_only":  df = df[(df["function_type"] == "function")]
-
         if f == "public_only":  df = df[-df["obj_name"].str.startswith(r"__", na=False)]
-
         if f == "private_only":  df = df[(df["obj_name"].str.startswith(r"__", na=False))]
-
         if f == "fullname_regex":df = df[df["full_name"].str.contains(farg, na=False)]
-
         if f == "fullname_startwith":  df = df[df["full_name"].str.startswith(farg, na=False)]
-
         if f == "fullname_exclude":   df = df[-df["full_name"].str.contains(farg, na=False)]
-
         if f == "sort_ascending":  df = df.sort_values("full_name", ascending=farg)
 
     return df
@@ -898,60 +891,7 @@ def code_parse_line(li, pattern_type="import/import_externa"):
         l = np_list_dropduplicate(l)
         return l
 
-
-
-
 ######################################################################################################
-######################################################################################################
-IIX = 0
-
-
-def log(*args, reset=0):
-    global IIX
-    IIX = IIX + 1
-    a = ",".join(args)
-    print( f"\n--{IIX} : {a}", flush=True)
-
-
-def ztest():
-    # DIRCWD = "/home/ubuntu/ztest/"
-    os.makedirs("ztmp",exist_ok=True)
-    log("### Unit Tests")
-    for f in [  "json",  "os",  "numpy", "template/jedi_test/" ] :
-        try :
-            # os_folder_create("/ztest")
-            log("module_doc_write", f)
-            module_doc_write(module_name=f"{f}", outputfile= f"ztmp/doc_{f}.txt")
-
-          
-            log("module_signature_write",f)
-            module_signature_write(module_name= f"{f}", outputfile= f"ztmp/list_{f}.csv", return_df=0 ,isdebug=1)
-
-            
-            log("module_unitest_write", f)
-            module_unitest_write(
-                input_signature_csv_file= f"ztmp/list_{f}.csv", outputfile= f"ztmp/zz_unitest_run_{f}.txt", isdebug=1)
-                
-
-            log("module_unitest_write: module name")
-            module_unitest_write(module_name="{f}", outputfile="ztmp/zz_unitest_run_{f}_02.txt", isdebug=1)
-           
-
-            log("module_signature_compare: version between 2 docs.")
-            """
-            Might be tricky to get 2 version of numpy in same environnement....
-              Need to generate in 2 different python envs  and get the csv
-            """
-            df = module_signature_compare(
-                f"doc_{f}.csv", f"doc_{f}.csv", export_csv= f"zz_{f}_compare.csv", return_df=1     
-            )
-            print(df.head(5))
-
-        except Exception as e :
-            print(f, e)
-        
-
-
 def module_tofolder(name_or_path, outputfolder="./zmp", isdebug=1):
         ### Export docs to specific folder
         module_name = module_getname(name_or_path)
@@ -980,6 +920,61 @@ def module_tofolder(name_or_path, outputfolder="./zmp", isdebug=1):
         module_unitest_write(module_name = module_name, outputfile=path+ f"/zz_unitest_run_{module_name}{2}.txt", isdebug=isdebug)
       
 
+
+
+
+
+
+######################################################################################################
+######################################################################################################
+IIX = 0
+
+
+def log(*args, reset=0):
+    global IIX
+    IIX = IIX + 1
+    a = ",".join(args)
+    print( f"\n--{IIX} : {a}", flush=True)
+
+
+def ztest():
+    # DIRCWD = "/home/ubuntu/ztest/"
+    print(os.getcwd())
+    os.makedirs("ztmp",exist_ok=True)
+    log("### Unit Tests")
+    for f in [  "json",  "os",  "numpy", "template/simplejson/" ] :
+        try :
+            # os_folder_create("/ztest")
+            log("module_doc_write", f)
+            module_doc_write(module_name=f, outputfile= f"ztmp/doc_{f}.txt")
+
+          
+            log("module_signature_write",f)
+            module_signature_write(module_name= f, outputfile= f"ztmp/list_{f}.csv", return_df=0 ,isdebug=1)
+
+            
+            log("module_unitest_write", f)
+            module_unitest_write(
+                input_signature_csv_file= f"ztmp/list_{f}.csv", outputfile= f"ztmp/zz_unitest_run_{f}.txt", isdebug=1)
+                
+
+            log("module_unitest_write: module name")
+            module_unitest_write(module_name=f, outputfile="ztmp/zz_unitest_run_{f}_02.txt", isdebug=1)
+           
+
+            log("module_signature_compare: version between 2 docs.")
+            """
+            Might be tricky to get 2 version of numpy in same environnement....
+              Need to generate in 2 different python envs  and get the csv
+            """
+            df = module_signature_compare(
+                f"doc_{f}.csv", f"doc_{f}.csv", export_csv= f"zz_{f}_compare.csv", return_df=1     
+            )
+            print(df.head(5))
+
+        except Exception as e :
+            print(f, e)
+        
 
 def ztest_mod(mod):
     DIRCWD = "/home/ubuntu/ztest/"
@@ -1020,7 +1015,7 @@ def main():
     
     p = argparse.ArgumentParser()
     p.add_argument("--do", type=str, default="", help=" unit_test")
-    p.add_argument("--module", type=str, default="jedi_test", help=" unit_test")
+    p.add_argument("--module", type=str, default="", help=" unit_test")
 
     p.add_argument("--outputfolder", type=str, default="ztmp/", help=" file output")  
     p.add_argument("--outputfile", type=str, default="", help=" file output")        
@@ -1038,7 +1033,7 @@ def main():
         """)
 
     if arg.do == "test":
-        if arg.module != "jedi_test":
+        if arg.module != "":
             ztest_mod(arg.module)
         else:
             ztest()
@@ -1067,8 +1062,6 @@ def main():
         else  :
             print("No valid action")    
         
-
-
 
 
 ####################################################################################################

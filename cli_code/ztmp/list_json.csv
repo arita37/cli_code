@@ -1,20 +1,20 @@
 module_name,module_version,full_name,prefix,obj_name,obj_doc,object_type,arg_full,0,1,2,3
 json,2.0.9,json.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module json.decoder
 
-JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",s_and_end,,,arg_info
+JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",s_and_end,,,arg_info
 json,2.0.9,json.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module json.decoder
 
-JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
+JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
 json,2.0.9,json.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module json.decoder
 
-JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>,builtin_function_or_method,arg_info
+JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>,builtin_function_or_method,arg_info
 json,2.0.9,json.decoder.JSONArray,decoder,JSONArray,"Python Library Documentation: function JSONArray in module json.decoder
 
-JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
+JSONArray(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, scan_once, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
 ",,arg_info
 json,2.0.9,json.decoder.JSONDecodeError,decoder,JSONDecodeError,"Python Library Documentation: class JSONDecodeError in module json.decoder
 
@@ -399,7 +399,7 @@ class JSONDecoder(builtins.object)
  |      this context are those with character codes in the 0-31 range,
  |      including ``'\t'`` (tab), ``'\n'``, ``'\r'`` and ``'\0'``.
  |  
- |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>)
+ |  decode(self, s, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>)
  |      Return the Python representation of ``s`` (a ``str`` instance
  |      containing a JSON document).
  |  
@@ -422,37 +422,37 @@ class JSONDecoder(builtins.object)
 ",class,"('(self, *, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, strict=True, object_pairs_hook=None)',)",self,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",object_hook,,,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",object_hook,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>,builtin_function_or_method,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",_w,<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>,builtin_function_or_method,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",_ws," 	
 ",,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",scan_once,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",strict,,,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",strict,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",s_and_end,,,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",s_and_end,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",object_pairs_hook,,,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",object_pairs_hook,,,arg_info
 json,2.0.9,json.decoder.JSONObject,decoder,JSONObject,"Python Library Documentation: function JSONObject in module json.decoder
 
-JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \t\n\r')
-",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE45C1B0>, _ws=' \\t\\n\\r')"",)",memo,,NoneType,arg_info
+JSONObject(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \t\n\r')
+",function,"(""(s_and_end, strict, scan_once, object_hook, object_pairs_hook, memo=None, _w=<built-in method match of _sre.SRE_Pattern object at 0x000002299344C1B0>, _ws=' \\t\\n\\r')"",)",memo,,NoneType,arg_info
 json,2.0.9,json.decoder._decode_uXXXX,decoder,_decode_uXXXX,"Python Library Documentation: function _decode_uXXXX in module json.decoder
 
 _decode_uXXXX(s, pos)
@@ -463,7 +463,7 @@ _decode_uXXXX(s, pos)
 ",function,"('(s, pos)',)",pos,,,arg_info
 json,2.0.9,json.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module json.decoder
 
-py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)
+py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -472,10 +472,10 @@ py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)',)",end,,,arg_info
+",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)',)",end,,,arg_info
 json,2.0.9,json.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module json.decoder
 
-py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)
+py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -484,10 +484,10 @@ py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>,builtin_function_or_method,arg_info
+",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)',)",_m,<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>,builtin_function_or_method,arg_info
 json,2.0.9,json.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module json.decoder
 
-py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)
+py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -496,10 +496,10 @@ py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
+",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)',)",_b,"{'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}",dict,arg_info
 json,2.0.9,json.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module json.decoder
 
-py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)
+py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -508,10 +508,10 @@ py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)',)",strict,True,bool,arg_info
+",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)',)",strict,True,bool,arg_info
 json,2.0.9,json.decoder.py_scanstring,decoder,py_scanstring,"Python Library Documentation: function py_scanstring in module json.decoder
 
-py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)
+py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\x08', 'f': '\x0c', 'n': '\n', 'r': '\r', 't': '\t'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)
     Scan the string s for a JSON string. End is the index of the
     character in s after the quote that started the JSON string.
     Unescapes all valid JSON string escape sequences and raises ValueError
@@ -520,7 +520,7 @@ py_scanstring(s, end, strict=True, _b={'""': '""', '\\': '\\', '/': '/', 'b': '\
     
     Returns a tuple of the decoded string and the index of the character in s
     after the end quote.
-",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000020DFE417810>)',)",s,,,arg_info
+",function,"('(s, end, strict=True, _b={\'""\': \'""\', \'\\\\\': \'\\\\\', \'/\': \'/\', \'b\': \'\\x08\', \'f\': \'\\x0c\', \'n\': \'\\n\', \'r\': \'\\r\', \'t\': \'\\t\'}, _m=<built-in method match of _sre.SRE_Pattern object at 0x0000022993408810>)',)",s,,,arg_info
 json,2.0.9,json.encoder.JSONEncoder,encoder,JSONEncoder,"Python Library Documentation: class JSONEncoder in module json.encoder
 
 class JSONEncoder(builtins.object)
