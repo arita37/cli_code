@@ -93,7 +93,7 @@ def check(file_list, dump=False):
     return error_list
 
 
-def Run():
+def main():
     # if len(sys.argv) != 3:
     #    print('Syntax: %s src_ipny_fold dst_py_fold' % sys.argv[0])
     #    sys.exit(0)
@@ -168,4 +168,4 @@ def convert_ipynb_to_gallery(file_name):
 
 
 if __name__ == "__main__":
-    Run()
+    main()

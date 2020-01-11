@@ -1,27 +1,3 @@
-# cli_code
-<<<<<<< HEAD
-Utilities to analyze python code
-```
-
- python cli_docs.py   --do test  
-
-
- python cli_docs.py   --do doc_tofolder  --module "D:\_devs\Python01\gitdev\cli_code\cli_code\template\simplejson"  
-
-
- python cli_docs.py   --do doc_tofolder  --module numpy --outputfolder "C:\myfolder"  
-
-
-
-
-
-```
-
-
-
-=======
->>>>>>> bdb0d69619766e5c0ca43332caa5114dcf2af616
-
 ```
 Utilities to analyze python code
 Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter

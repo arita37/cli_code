@@ -3,18 +3,21 @@
 """
 Pypi Uploader
 Usage:
+First of all, you need to copy the script to /usr/bin directory and mark it as an executable, like so:
 
-1)  need to create a file called .pypirc that has to contain login credentials.
-   $ ~ YOURTEXTEDITOR ~/.pypirc
-   Open a file and paste this to in it:
-   [pypi]
-   username = token
-   password = pypi-AgEI
+$ ~ sudo cp script.py /usr/bin/NAMEYOUWANT
+$ ~ sudo chmod +x /usr/bin/NAMEYOUWANT
+
+And then to upload PyPI, you need to create a file called .pypirc that has to contain login credentials.
 
 
-2)  python pypi.py
-   Will increment version and upload to Pypi server
- 
+$ ~ YOURTEXTEDITOR ~/.pypirc
+Open a file and paste this to in it:
+
+[pypi]
+username = token
+password = pypi-AgEI
+
 
 """
 
@@ -28,7 +31,6 @@ setup_file = op.join(curdir, 'setup.py')
 
 
 
-
 class Version(object):
     pattern = re.compile(r"(version\s*=\s*['\"]\s*(\d+)\s*\.\s*(\d+)\s*\.\s*(\d+)\s*['\"])")
 
@@ -39,7 +41,6 @@ class Version(object):
 
     def __str__(self):
         return f'Version({self.stringify()})'
-        return '='.join([orig.split('=')[0], self.stringify()])
 
     def __repr__(self):
         return self.__str__()
@@ -48,6 +49,7 @@ class Version(object):
         return f'\'{self.major}.{self.minor}.{self.patch}\''
 
     def new_version(self, orig):
+        return '='.join([orig.split('=')[0], self.stringify()])
 
     @classmethod
     def parse(cls, string):
@@ -88,12 +90,13 @@ def git_commit(message):
     if not ask(f'About to git commit {message}, are you sure: '):
         exit()
 
-    os.system(f'git commit -am "{message}"')
+   # os.system(f'git commit -am "{message}"')
     
     if not ask('About to git push, are you sure: '):
         exit()
 
     os.system('git push')
+
 
 
 def main(*args):
@@ -103,9 +106,11 @@ def main(*args):
     pypi_upload()
     print ('Program has ended')
 
+
+
 if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        print (f'Usage: python {sys.argv[0]} "commmit message"'); sys.exit()
+    # if len(sys.argv) == 1:
+    #    print (f'Usage: python {sys.argv[0]} "commmit message"'); sys.exit()
 
     main(*sys.argv[1:3])
 

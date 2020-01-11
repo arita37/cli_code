@@ -308,15 +308,17 @@ def Run(arg):
 
 
 
+def main():
+    print(os)
+    print(curr_os)
+    arg = load_arguments()
+    Run(arg)
 
 
 #################################################################################
 #################################################################################
 if __name__ == "__main__":
-    print(os)
-    print(curr_os)
-    arg = load_arguments()
-    Run(arg)
+   main()
 
 
 

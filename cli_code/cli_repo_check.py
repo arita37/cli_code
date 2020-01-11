@@ -177,7 +177,7 @@ def load_arguments():
 
 
 
-if __name__ == '__main__':
+def main():
     arg = load_arguments()
 
     reponame  = arg.url_repo.split("/")[-1]
@@ -185,17 +185,16 @@ if __name__ == '__main__':
 
     git_clone(arg.url, arg.folder, reponame)
 
-
     repo_build_conda(folder)
 
-
     repo_check_root_files(folder)
-
 
     repo_generate_signature(folder)
 
 
-
+   
+if __name__ == '__main__':
+   main()
 
 
 

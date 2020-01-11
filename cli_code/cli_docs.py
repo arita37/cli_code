@@ -1015,12 +1015,7 @@ def ztest_mod(mod):
     """
 
 
-
-
-
-####################################################################################################
-####################################################################################################
-if __name__ == "__main__":
+def main():
     import argparse
     
     p = argparse.ArgumentParser()
@@ -1034,9 +1029,15 @@ if __name__ == "__main__":
     m_name = module_getname(arg.module)
     m_path = module_getpath(arg.module)
 
+    if arg.do == "": 
+        print("""
+          cli_repo_docs  --do doc   --module  jedi    --outputfolder ztmp/ 
+
+
+
+        """)
 
     if arg.do == "test":
-
         if arg.module != "jedi_test":
             ztest_mod(arg.module)
         else:
@@ -1049,7 +1050,7 @@ if __name__ == "__main__":
         filename = m_name if arg.outputfile == "" else arg.outputfile
 
 
-        if arg.do == "doc":
+        if arg.do == "doc_single":
            print("Generate Signature", arg.module, arg.do)
            module_signature_write(arg.module, outputfile= f"{arg.outputfolder}/doc_{filename}.txt")
            module_unitest_write(module_name = module, outputfile= f"zz_unitest_run_{module}{2}.txt", isdebug=1)
@@ -1059,7 +1060,7 @@ if __name__ == "__main__":
             module_unitest_write(module_name= arg.module)
 
 
-        if arg.do == "doc_tofolder":
+        if arg.do == "doc":
             module_tofolder(arg.module, arg.outputfolder)
 
 
@@ -1067,5 +1068,12 @@ if __name__ == "__main__":
             print("No valid action")    
         
 
+
+
+
+####################################################################################################
+####################################################################################################
+if __name__ == "__main__":
+   main()
 
 

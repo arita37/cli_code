@@ -41,17 +41,46 @@ gpu_available = len(out) > 0
 
 
 ##### Version
-version ='11.1.0'
+version ='26.1.0'
 """"
 with io.open(os.path.join(root, 'nlp_architect', 'version.py'), encoding='utf8') as f:
     version_f = {}
     exec(f.read(), version_f)
     version = version_f['NLP_ARCHITECT_VERSION']
-"""
+
 
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+
+
+
+
+
+"""
+
+
+
+long_description =  """
+```
+Utilities to analyze python code
+Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter
+
+
+    "cli_repo_docs        =  cli_code/cli_docs.py",    Auto generate Documentation fron source code    
+    
+    "cli_env_autoinstall  =  cli_code/cli_env_autoinstall.py",  Auto generate from parsing source code.
+
+    "cli_convert_ipny     =  cli_code/cli_convert_ipny.py",     Convert a folder of notebook to python script
+
+    "cli_repo_check       =  cli_code/cli_repo_check.py",       Check a repo.
+
+
+```
+
+"""
+
+
 
 
 ### Packages  ####################################################
@@ -73,10 +102,10 @@ scripts = [
 
 ### CLI Scripts  #################################################   
 entry_points={ 'console_scripts': [
-    "cli_env_autoinstall  =  cli_code/cli_env_autoinstall.py",  
-    "cli_repo_docs        =  cli_code/cli_docs.py",  
-    "cli_convert_ipny     =  cli_code/cli_convert_ipny.py",    
-    "cli_repo_check       =  cli_code/cli_repo_check.py",  
+    "cli_env_autoinstall  =  cli_code.cli_env_autoinstall:main",  
+    "cli_repo_docs        =  cli_code.cli_docs:main",  
+    "cli_convert_ipny     =  cli_code.cli_convert_ipny:main",    
+    "cli_repo_check       =  cli_code.cli_repo_check:main",  
 ] }
 
 
@@ -85,7 +114,7 @@ entry_points={ 'console_scripts': [
 setup(
     name="cli_code",
     version=version,
-    description=long_description,
+    description="long_description",
     long_description_content_type='text/markdown',    
     
     author="arita37, Kevin Noel",
@@ -97,7 +126,32 @@ setup(
     
     packages=packages,
     # scripts=scripts,
+
+    classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Intended Audience :: End Users/Desktop',
+          'Intended Audience :: Developers',
+          'Intended Audience :: Science/Research',
+          'License :: OSI Approved :: Apache Software License',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.6',
+          'Topic :: Scientific/Engineering',
+          'Topic :: Scientific/Engineering :: ' +
+          'Artificial Intelligence',
+          'Topic :: Software Development :: Libraries',
+          'Topic :: Software Development :: Libraries :: ' +
+          'Python Modules',
+          'Topic :: Scientific/Engineering :: Information Analysis',
+          'Environment :: Console',
+          'Environment :: Web Environment',
+          'Operating System :: POSIX',
+          'Operating System :: MacOS :: MacOS X',
+      ]
+      
+
 )
+
+
 
 
 ################################################################################
