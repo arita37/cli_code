@@ -5,4 +5,5 @@ dependencies:
   - celery==3.1.25
   - django-celery
   - pytorch
+  - h5py
   - fabric
