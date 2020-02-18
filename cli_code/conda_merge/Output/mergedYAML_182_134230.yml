@@ -1,0 +1,15 @@
+channels:
+- defaults
+- conda
+- conda-forge
+- auto
+dependencies:
+- Django
+- fabric
+- h5py
+- python=2.7
+- scikit-learn=0.17
+- pip:
+  - Keras>=1.2.2,<1.2.99
+  - genty
+name: example
