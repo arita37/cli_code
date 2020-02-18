@@ -1,17 +1,15 @@
 """
-
 # Merge-Conda-YAML
-
 This is a very simple piece of script that allows user to merge multiple YAML files generated anaconda into a single unified YAML.
 The output of this script is two files, one is the merged YAML file while the other is the requirements.txt file ready to be scanned by pip.
 
-## Usage
 
-Using this script is very simple. Just call the package using "merge-conda-yaml" and specify the paths to all the yaml files you need to merge.
 
 ## Example
+python cli_conda_merge.py ./file1.yml ./file2.yml ./file3.yml
+cli_conda_merge.py ./file1.yml ./file2.yml ./file3.yml
 
--> merge-conda-yaml ./file1.yml ./file2.yml ./file3.yml
+
 
 ## Changing Output Filenames
 
