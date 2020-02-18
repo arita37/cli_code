@@ -40,6 +40,100 @@ def parse_args(argv=None):
     parser.add_argument('yamls', nargs='+')     # Place the files that were recieved in 'yamls' namespace
     return parser.parse_args(argv)
 
+def getPriorityList():
+    """ 
+    A simple funciton that reutrns all the packages that 
+    need to be treated as high-priority dependencies 
+    """
+    priorities = ['pytorch', 'tensorflow']
+    return priorities
+
+def prioritySort (dependencies):
+    """ 
+    Function that will sort the dependencies for pip's requirements.txt format
+    while prioritizing the packages defined in getPriorityList() function
+    """
+    priorityList = getPriorityList()
+
+    # Removing duplicates
+    dependencies = list(dict.fromkeys(dependencies))
+
+    for i in dependencies:
+        if i in priorityList:
+            dependencies.insert(0, dependencies.pop(dependencies.index(i)))
+    
+    return dependencies
+
+def getPipRequirementsContent(dependencies):
+    """ Function to convert conda dependencies and pip dependencies to a single pip list and sort it """
+    pips = dependencies[len(dependencies)-1]
+    dependencies.pop(len(dependencies)-1)
+
+    for pip in pips.get('pip'):
+        dependencies.append(pip)
+    
+    dependencies = prioritySort(dependencies)
+    return dependencies
+
+def sortYamlDeps(dependencies):
+    """ Function that will sort and prioritize dependencies of the environment YAML """
+    # Separate out pips and conda dependencies
+    pips = dependencies[len(dependencies)-1]
+    dependencies.pop(len(dependencies)-1)
+
+    # Convert pips to list
+    """
+    remember to convert it back to dict. like this:
+    """
+    pips = pips.get('pip')
+
+    # Remove duplicates from pip. If conda ackage of the same 
+    # name is available, remove its counterpart from pip.
+    for condadep in dependencies:
+        for pipdep in pips:
+            if condadep.startswith(pipdep) or pipdep.startswith(condadep):
+                pips.remove(pipdep)
+
+    # Sort both lists based on priorities
+    dependencies = prioritySort(dependencies)
+    pips = prioritySort(pips)
+
+    # Put pips back in dependencies list
+    dependencies.append({'pip': pips})
+    
+    return dependencies
+
+def dump(output_yaml):
+    """Function used to dump the final state of the output files
+
+    This Function will deal with the dumping of the merged YAML
+    file as well as the requirements.txt file formatted to be used by PIP
+    
+    """
+    # Outputting to files
+    cwd = os.getcwd()
+    today = datetime.datetime.today()
+    suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
+    outputyamlfilename = "mergedYAML_{}.yml".format(suffix)
+    outputreqfilename = "mergedPIPs_{}.txt".format(suffix)
+
+    # Writing YAML file
+    output_yaml['dependencies'] = sortYamlDeps(output_yaml.get('dependencies'))
+    with open(path.join(cwd, outputyamlfilename), 'w') as f:
+        yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
+
+    # Writing requirements.txt file
+    piplist = getPipRequirementsContent(output_yaml.get('dependencies'))
+
+    with open (path.join(cwd, outputreqfilename), 'w') as rf:
+        for pipdep in piplist:
+            rf.write(pipdep)
+            rf.write("\n")
+    
+    print ("\nThe output YAML and pip requirements have been written in {} and {}.".format(outputyamlfilename, outputreqfilename))
+
+
+
 def merge_envs (args):
     """Main entry point for the script"""
     # Check if all the yaml files exist 
@@ -59,37 +153,10 @@ def merge_envs (args):
         if i==0:
             output_yaml = yaml_files[i]
             continue
-        output_yaml, piplist = merge(output_yaml, yaml_files[i])
+        output_yaml = merge(output_yaml, yaml_files[i])
     
-    dump(output_yaml, piplist)
+    dump(output_yaml)
     
-def dump(output_yaml, piplist):
-    """Function used to dump the final state of the output files
-
-    This Function will deal with the dumping of the merged YAML
-    file as well as the requirements.txt file formatted to be used by PIP
-    
-    """
-    # Outputting to files
-    cwd = os.getcwd()
-    today = datetime.datetime.today()
-    suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
-    outputyamlfilename = "mergedYAML_{}.yml".format(suffix)
-    outputreqfilename = "mergedPIPs_{}.txt".format(suffix)
-
-    # Writing YAML file
-    with open(path.join(cwd, outputyamlfilename), 'w') as f:
-        yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
-
-    # Writing requirements.txt file
-    with open (path.join(cwd, outputreqfilename), 'w') as rf:
-        for pipdep in piplist.get('pip'):
-            rf.write(pipdep)
-            rf.write("\n")
-    
-    print ("\nThe output YAML and pip requirements have been written in {} and {}.".format(outputyamlfilename, outputreqfilename))
-
-
 
 def merge (yaml1, yaml2):
     """Function that will handle the merging of two yamls"""
@@ -130,11 +197,11 @@ def merge (yaml1, yaml2):
         merged_yaml[keys_output[1]] = output_channels
 
     # Merging dependencies (including pip dependencies)
-    output_dependencies, piplist = resolve_dependencies(env.get('dependencies') for env in env_definitions)
+    output_dependencies = resolve_dependencies(env.get('dependencies') for env in env_definitions)
 
     if output_dependencies:
         merged_yaml[keys_output[2]] = output_dependencies
-    return merged_yaml, piplist
+    return merged_yaml
 
 def resolve_dependencies (dependencies_list):
     """Merge all dependencies to one list and return it.
@@ -158,7 +225,7 @@ def resolve_dependencies (dependencies_list):
     if pips:
         piplist = merge_pips(pips)
         merged_dependencies.append(piplist)
-    return merged_dependencies, piplist
+    return merged_dependencies
 
 def merge_pips (pips):
     """Merge pip requirements lists the same way as `merge_dependencies` work"""
