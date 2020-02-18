@@ -11,3 +11,4 @@ dependencies:
   - h5py
   - pip:
     - Keras>=1.2.2,<1.2.99
+    - tensorflow
