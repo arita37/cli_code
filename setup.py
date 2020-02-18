@@ -105,7 +105,9 @@ entry_points={ 'console_scripts': [
     "cli_env_autoinstall  =  cli_code.cli_env_autoinstall:main",  
     "cli_repo_docs        =  cli_code.cli_docs:main",  
     "cli_convert_ipny     =  cli_code.cli_convert_ipny:main",    
-    "cli_repo_check       =  cli_code.cli_repo_check:main",  
+    "cli_repo_check       =  cli_code.cli_repo_check:main", 
+    "cli_repo_check       =  cli_code.cli_conda_merge:main",
+    
 ] }
 
 
