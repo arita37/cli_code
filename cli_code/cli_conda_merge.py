@@ -116,10 +116,12 @@ def dump(output_yaml):
     # Outputting to files
     cwd = os.getcwd()
     today = datetime.datetime.today()
-    suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
-    outputyamlfilename = "mergedYAML_{}.yml".format(suffix)
-    outputreqfilename = "mergedPIPs_{}.txt".format(suffix)
+    # suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
+    suffix = "merged"
+    outputyamlfilename = f"conda_env__{suffix}.yml"
+    outputreqfilename = f"requirementx_{suffix}.txt"
 
+    
     # Writing YAML file
     output_yaml['dependencies'] = sortYamlDeps(output_yaml.get('dependencies'))
     with open(path.join(cwd, outputyamlfilename), 'w') as f:
