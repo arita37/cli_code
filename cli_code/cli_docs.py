@@ -1,40 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-
-##############  TODO :   ##################################################
-  1) Arguments of functions or methos are missing in XXXX_doc.txt :
-       numpy.random.binomial(n, p, size=None)
-
-     Please add them
-
-  2) Create a function which export all docs into a specific folder :
-
-     def module_tofolder()
-
-         module_name/version_name/module_name
-         numpy/1_16/ numpy_doc.txt
-
-
-  3) Test with local packages (no pip packages) :  
-         cli_code/template/jedi_test/
-
-
+ python  cli_docs.py  --do doc    --module sys
 
  cli_doc  --do test  
 
  cli__doc  --do docs    --module jedi
 
 
-python  cli_docs.py  --do doc    --module sys
+##############  TODO :   ###########################################################
+  1) Arguments of functions or methos are missing in XXXX_doc.txt :
+       numpy.random.binomial(n, p, size=None)
+       Please add them
 
-
-
-Some issues with :
-    cannot find __path__ for os,sys modules
+  Some issues with :
+      cannot find __path__ for os,sys modules
     
-
-
-
 
 
 """
@@ -918,12 +898,11 @@ def module_tofolder(name_or_path, outputfolder="./zmp", isdebug=1):
 
         log("module_unitest_write: module name")
         module_unitest_write(module_name = module_name, outputfile=path+ f"/zz_unitest_run_{module_name}{2}.txt", isdebug=isdebug)
-      
 
-
-
-
-
+        
+        
+        
+        
 
 ######################################################################################################
 ######################################################################################################
@@ -1027,9 +1006,6 @@ def main():
     if arg.do == "": 
         print("""
           cli_repo_docs  --do doc   --module  jedi    --outputfolder ztmp/ 
-
-
-
         """)
 
     if arg.do == "test":
@@ -1062,7 +1038,6 @@ def main():
         else  :
             print("No valid action")    
         
-
 
 ####################################################################################################
 ####################################################################################################
