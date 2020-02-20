@@ -30,7 +30,7 @@ pip install -e .
 
     "cli_repo_check       =  cli_code/cli_repo_check.py",       Check a repo.
 
-    "cli_conda_merge      =  cli_code/cli_repo_check.py",       Check a repo.
+    "cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
 
 
 
