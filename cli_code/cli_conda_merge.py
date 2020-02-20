@@ -1,8 +1,17 @@
 """
 # Merge-Conda-YAML
 This is a very simple piece of script that allows user to merge multiple YAML files generated anaconda into a single unified YAML.
-The output of this script is two files, one is the merged YAML file while the other is the requirements.txt file ready to be scanned by pip.
-
+The output of this script is two filetypes, one is the merged YAML file while the other is the requirements.txt file ready to be scanned by pip.
+    - Four yamls are saved in a directory: 
+        - One with default entries
+        - One with versions of all entries
+        - One with versions of only prioritized entries
+        - One with only the names of the packages
+    
+    - Three .txts are saved in the same directory:
+        - One with versions of all entries
+        - One with versions of only prioritized entries
+        - One with only the names of the packages
 
 
 ## Example
@@ -10,10 +19,9 @@ python cli_conda_merge.py ./file1.yml ./file2.yml ./file3.yml
 cli_conda_merge.py ./file1.yml ./file2.yml ./file3.yml
 
 
-
 ## Changing Output Filenames
 
-In order to change the name of the output files, edit the "dump(output_yaml, piplist)" function definition.
+In order to change the name of the output files, edit the "dump(output_yaml)" function definition.
 
 ## Changing Priority List
 
@@ -62,21 +70,64 @@ def prioritySort (dependencies):
     dependencies = list(dict.fromkeys(dependencies))
 
     for i in dependencies:
-        if i in priorityList:
-            dependencies.insert(0, dependencies.pop(dependencies.index(i)))
+        for priority in priorityList:
+            if i.startswith(priority):
+                dependencies.insert(0, dependencies.pop(dependencies.index(i)))
+                continue
     
     return dependencies
 
-def getPipRequirementsContent(dependencies):
+def getPipRequirementsContent(dependencies, versions = True, priorityVersions = True):
     """ Function to convert conda dependencies and pip dependencies to a single pip list and sort it """
+    priorityList = getPriorityList()
     pips = dependencies[len(dependencies)-1]
     dependencies.pop(len(dependencies)-1)
 
+    # Add one "=" sign to match with pip's requirements
+    if versions:
+        for i in range(0, len(dependencies)):
+            entry = dependencies[i]
+            if "=" in entry:
+                name =  entry[:entry.index("=")]
+                entry = entry[entry.index("="):]
+                formattedEntry = name + "=" + entry
+                dependencies[i] = formattedEntry
+
+    # Add pips in the full list
     for pip in pips.get('pip'):
         dependencies.append(pip)
     
+    # Priority sort pips
     dependencies = prioritySort(dependencies)
-    return dependencies
+    
+    # Manipulate version numbers based on function arguments
+    if versions:
+        # Remove duplicates
+        dependencies = list(dict.fromkeys(dependencies))
+        return dependencies
+    else:
+        if priorityVersions:
+            for i in range(0, len(dependencies)):
+                isPriority = False
+                for priority in priorityList:
+                    if dependencies[i].startswith(priority):
+                        isPriority = True
+                        break
+                if isPriority:
+                    continue
+                else:
+                    if "=" in dependencies[i]:
+                        dependencies[i] = dependencies[i][:dependencies[i].index("=")]
+            # Remove duplicates
+            dependencies = list(dict.fromkeys(dependencies))
+            return dependencies
+        else:
+            for i in range(0, len(dependencies)):
+                if "=" in dependencies[i]:
+                    dependencies[i] = dependencies[i][:dependencies[i].index("=")]
+            # Remove duplicates
+            dependencies = list(dict.fromkeys(dependencies))
+            return dependencies
 
 def sortYamlDeps(dependencies):
     """ Function that will sort and prioritize dependencies of the environment YAML """
@@ -100,11 +151,75 @@ def sortYamlDeps(dependencies):
     # Sort both lists based on priorities
     dependencies = prioritySort(dependencies)
     pips = prioritySort(pips)
-
+    
     # Put pips back in dependencies list
     dependencies.append({'pip': pips})
     
     return dependencies
+
+def stripPinnedDep(dep):
+    """ Function to strip the pinned dependency from an entry """
+    if "=" in dep:
+        name = dep[:dep.index("=")]
+    
+    dep = dep[dep.index("=")+1:]
+    
+    if "=" in dep:
+        version = dep[:dep.index("=")]
+    else:
+        version = dep
+
+    return (name + "=" + version)
+
+def stripPinnedVerDep(dep):
+    """ Function to keep only the package name and remove everything else """
+    if "=" in dep:
+        name = dep[:dep.index("=")]
+    else:
+        return dep
+    return name
+
+def removePinnedDependencies(dependencies, versions = True, priorityVersions = True):
+    """ 
+    Function that will strip down each dpendency based on the arguments recieved.
+     -If versions is True, version of all entries will be left untouched, if it 
+      is False, all versions will be removed.
+     -If priorityVersions is True, the versions of prioritized package's will be
+      untouched regardless of the 'version' variable.
+    """
+    newDeps = []
+    priorityList = getPriorityList()
+    for i in dependencies:
+        isPriority = False
+        # Ignore pip as they already have pinned versions and nothing else
+        if isinstance(i, dict):
+            pips = i
+            continue
+
+        # Dealing with entries and keeping pinned versions of all entries
+        if (versions):
+            newDeps.append(stripPinnedDep(i))
+        
+        # Dealing with entries and keeping pinned versions of only the priorities
+        if not versions:
+            if priorityVersions:
+                for priority in priorityList:
+                    if i.startswith(priority):
+                        isPriority = True
+                        break
+                if isPriority:
+                    newDeps.append(stripPinnedDep(i))
+                    continue
+                else:
+                    newDeps.append(stripPinnedVerDep(i))
+            else:
+                newDeps.append(stripPinnedVerDep(i))
+    
+    # Removing duplicates
+    newDeps = list(dict.fromkeys(newDeps))
+    newDeps.append(pips)
+    
+    return newDeps
 
 def dump(output_yaml):
     """Function used to dump the final state of the output files
@@ -112,32 +227,68 @@ def dump(output_yaml):
     This Function will deal with the dumping of the merged YAML
     file as well as the requirements.txt file formatted to be used by PIP
     
-    """
+    """    
     # Outputting to files
-    cwd = os.getcwd()
     today = datetime.datetime.today()
-    # suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
-    suffix = "merged"
-    outputyamlfilename = f"conda_env__{suffix}.yml"
-    outputreqfilename = f"requirementx_{suffix}.txt"
-
+    suffix = str(today.day) + str(today.month) + "_" + str(today.hour) + str(today.minute) + str(today.second)
+    directory = "conda_merge_result_{}".format(suffix)
+    cwd = os.getcwd()
+    cwd = path.join(cwd, directory)
+    if not path.isdir(cwd):
+        try:
+            os.mkdir(cwd)
+        except OSError:
+            print ("Creation of the directory %s failed" % path)
     
-    # Writing YAML file
-    output_yaml['dependencies'] = sortYamlDeps(output_yaml.get('dependencies'))
-    with open(path.join(cwd, outputyamlfilename), 'w') as f:
+    outputyamlfilename = "conda_env_merged"
+    outputreqfilename = "requirements_merged"
+
+    # Writing YAML file with pinned versions and dependencies
+    pVpDDeps = sortYamlDeps(output_yaml.get('dependencies'))
+    output_yaml['dependencies'] = pVpDDeps
+    with open(path.join(cwd, outputyamlfilename + "_default.yml"), 'w') as f:
         yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
 
-    # Writing requirements.txt file
-    piplist = getPipRequirementsContent(output_yaml.get('dependencies'))
+    # Writing YAML file with pinned versions only
+    pVDeps = removePinnedDependencies(pVpDDeps.copy())
+    output_yaml['dependencies'] = pVDeps
+    with open(path.join(cwd, outputyamlfilename + "_versions_all.yml"), 'w') as f:
+        yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
 
-    with open (path.join(cwd, outputreqfilename), 'w') as rf:
-        for pipdep in piplist:
+    # Writing YAML file with pinned versions of prioritized packages only
+    pVPriorityDeps = removePinnedDependencies(pVpDDeps.copy(), versions=False, priorityVersions=True)
+    output_yaml['dependencies'] = pVPriorityDeps
+    with open(path.join(cwd, outputyamlfilename + "_versions_priority.yml"), 'w') as f:
+        yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
+
+    # Writing YAML file with package names only
+    nameOnlyDeps = removePinnedDependencies(pVpDDeps.copy(), versions=False, priorityVersions=False)
+    output_yaml['dependencies'] = nameOnlyDeps
+    with open(path.join(cwd, outputyamlfilename + "_names_only.yml"), 'w') as f:
+        yaml.dump(output_yaml, f, indent=2, default_flow_style=False)
+
+    # Writing requirements.txt file with versions
+    pipListVersionsAll = getPipRequirementsContent(pVDeps.copy())
+    with open (path.join(cwd, outputreqfilename + "_versions_all.txt"), 'w') as rf:
+        for pipdep in pipListVersionsAll:
+            rf.write(pipdep)
+            rf.write("\n")
+    
+    # Writing requirements.txt file with versions of prioritized packages only
+    pipListVersionsPriority = getPipRequirementsContent(pVDeps.copy(), versions=False)
+    with open (path.join(cwd, outputreqfilename + "_versions_priority.txt"), 'w') as rf:
+        for pipdep in pipListVersionsPriority:
+            rf.write(pipdep)
+            rf.write("\n")
+    
+    # Writing requirements.txt file with no versions
+    pipListVersionsNone = getPipRequirementsContent(pVDeps.copy(), versions=False, priorityVersions=False)
+    with open (path.join(cwd, outputreqfilename + "_names_only.txt"), 'w') as rf:
+        for pipdep in pipListVersionsNone:
             rf.write(pipdep)
             rf.write("\n")
     
     print ("\nThe output YAML and pip requirements have been written in {} and {}.".format(outputyamlfilename, outputreqfilename))
-
-
 
 def merge_envs (args):
     """Main entry point for the script"""
@@ -160,8 +311,7 @@ def merge_envs (args):
             continue
         output_yaml = merge(output_yaml, yaml_files[i])
     
-    dump(output_yaml)
-    
+    dump(output_yaml)   
 
 def merge (yaml1, yaml2):
     """Function that will handle the merging of two yamls"""
