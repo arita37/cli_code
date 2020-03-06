@@ -6,18 +6,10 @@ Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter
 
 
 #### Install for dev
-git clone
-cd yourfolder
+cd YourFolder
+git clone  https://github.com/arita37/cli_code.git
+cd cli_code
 pip install -e .
-
-
-
-#### Tests:
-  cd  cli_code\cli_code
-  cli_code>python cli_docs.py --do test   
-
-
-
 
 
 
@@ -31,6 +23,17 @@ pip install -e .
     "cli_repo_check       =  cli_code/cli_repo_check.py",       Check a repo.
 
     "cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
+
+
+
+
+
+#### Tests:
+  cd  cli_code\cli_code
+  cli_code>python cli_docs.py --do test   
+
+
+
 
 
 
