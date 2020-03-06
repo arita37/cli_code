@@ -4,17 +4,9 @@ Auto install missing package by scanning error message
 
 
 conda create -y -n ztest  python=3.6.5
-source activate Emptyconda
-
-
-
-
+source activate ztest
 python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  ----packages "tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib"
 
-
-
-### tobe visible in jputer
-conda install ipykernel 
 
 
 """
