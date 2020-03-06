@@ -13,7 +13,7 @@ pip install -e .
 
 
 
-#### CLI Command
+################ CLI Command
     "cli_repo_docs        =  cli_code/cli_docs.py",    Auto generate Documentation fron source code    
     
     "cli_env_autoinstall  =  cli_code/cli_env_autoinstall.py",  Auto generate from parsing source code.
@@ -24,8 +24,10 @@ pip install -e .
 
     "cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
 
-#### cli_env_autoinstall 
 
+
+
+############## cli_env_autoinstall 
 cli_env_autoinstall 
       --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
       --python_version "3.6.7"
