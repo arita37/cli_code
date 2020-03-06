@@ -9,15 +9,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     
     
-    - name: Set up Python 3.6.9
+    - name: Set up Python 3.6.5
       uses: actions/setup-python@v1
       with:
-        python-version: 3.6.9
+        python-version: 3.6.5
     
     
     - name: Install pipenv
@@ -43,4 +42,8 @@ jobs:
         checkName: 'build'   # NOTE: this needs to be the same as the job name
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
 
