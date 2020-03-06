@@ -24,6 +24,26 @@ pip install -e .
 
     "cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
 
+#### cli_env_autoinstall 
+
+cli_env_autoinstall 
+      --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
+      --python_version "3.6.7"
+      --packages "tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
