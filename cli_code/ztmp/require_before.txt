@@ -1,0 +1,10 @@
+aapackage
+tensorflow
+submodule
+selenium
+wget
+package
+jedi
+pypandoc
+tabulate
+regex
