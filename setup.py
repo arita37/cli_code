@@ -106,6 +106,11 @@ entry_points={ 'console_scripts': [
     "cli_repo_docs        =  cli_code.cli_docs:main",  
     "cli_convert_ipny     =  cli_code.cli_convert_ipny:main",    
     "cli_repo_check       =  cli_code.cli_repo_check:main",     
+
+
+    "cli_doc       =  cli_code.cli_auto_doc.main:main",  ###new doc     
+
+
 ] }
 
 
