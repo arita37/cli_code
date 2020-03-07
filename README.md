@@ -3,6 +3,8 @@ Utilities to analyze python code
 Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter
 
 
+#### Install for dev
+pip install cli_code
 
 
 #### Install for dev
