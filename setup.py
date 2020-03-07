@@ -34,9 +34,9 @@ root = os.path.abspath(os.path.dirname(__file__))
 
 
 ##### check if GPU available  #######################################################
-p = subprocess.Popen(['command -v nvidia-smi'], stdout=subprocess.PIPE, shell=True)
-out = p.communicate()[0].decode('utf8')
-gpu_available = len(out) > 0
+# p = subprocess.Popen(['command -v nvidia-smi'], stdout=subprocess.PIPE, shell=True)
+# out = p.communicate()[0].decode('utf8')
+gpu_available = False
 
 
 
@@ -105,9 +105,7 @@ entry_points={ 'console_scripts': [
     "cli_env_autoinstall  =  cli_code.cli_env_autoinstall:main",  
     "cli_repo_docs        =  cli_code.cli_docs:main",  
     "cli_convert_ipny     =  cli_code.cli_convert_ipny:main",    
-    "cli_repo_check       =  cli_code.cli_repo_check:main", 
-    "cli_repo_check       =  cli_code.cli_conda_merge:main",
-    
+    "cli_repo_check       =  cli_code.cli_repo_check:main",     
 ] }
 
 
