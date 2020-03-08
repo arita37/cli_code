@@ -33,6 +33,7 @@ pip install -e .
 
 
 ############## cli_env_autoinstall   ########################################################
+Auto-install environnment by parsing the code source "import "
 cli_env_autoinstall 
       --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
       --python_version "3.6.7"
@@ -43,6 +44,7 @@ cli_env_autoinstall
 
 
 ############## cli_docs      ################################################################
+Generate doc of a repo by parsing the code source string
 cli_docs
     client/yakinoe/pyreg/dataset/requests/
     -vvv     : very verbose

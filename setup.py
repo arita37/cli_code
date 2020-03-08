@@ -108,7 +108,7 @@ entry_points={ 'console_scripts': [
     "cli_repo_check       =  cli_code.cli_repo_check:main",     
 
 
-    "cli_doc       =  cli_code.cli_auto_doc.main:main",  ###new doc     
+    "cli_doc       =  cli_code.cli_doc_auto.main:main",  ###new doc     
 
 
 ] }
