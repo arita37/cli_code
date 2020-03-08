@@ -55,3 +55,7 @@ def main():
     home.execute(cliargs)
 
 
+if __name__ == "__main__":
+    main()
+
+
