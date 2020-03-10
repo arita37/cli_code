@@ -23,10 +23,10 @@ usage:
 
 import logging
 
-from lib.common.argparse import cli
+from cli_code.cli_doc_auto.lib.common.argparse import cli
 
 
-from pyreg import home
+from cli_code.cli_doc_auto.pyreg import home
 
 
 
