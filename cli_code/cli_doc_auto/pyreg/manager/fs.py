@@ -13,6 +13,8 @@ LOGGER = logging.getLogger()
 def list_source_files(srcdir):
     srcs = []
 
+
+    print(srcdir)
     for dirpath, dirs, files in os.walk(srcdir):
         for fname in files:
             path = os.path.join(dirpath, fname)

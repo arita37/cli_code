@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os 
 import re
@@ -228,11 +228,15 @@ def _extract_classes(src):
 def _analyze_classes(sourcefiles):
     results = {}
     for path in sourcefiles:
-        with open(path, 'r') as f:
+        print(path)
+        try :
+          with open(path, 'r') as f:
             src = f.read()
-        src = _wipe_docstrings_comments(src)
+          src = _wipe_docstrings_comments(src)
 
-        results[path] = _extract_classes(src)
+          results[path] = _extract_classes(src)
+        except Exception as e :
+            print(e)
 
     path = os.path.join(os.path.dirname(config.OUT), 'classes.json')
     with open(path, 'w') as f:
@@ -246,11 +250,16 @@ def _analyze_functions(sourcefiles):
     results = {}
 
     for path in sourcefiles:
-        with open(path, 'r') as f:
+        print(path)
+        try :
+          with open(path, 'r') as f:
             src = f.read()
-        src = _wipe_docstrings_comments(src)
+          src = _wipe_docstrings_comments(src)
 
-        results[path] = _extract_functions(src)
+          results[path] = _extract_functions(src)
+        except Exception as e :
+            print(e)
+
 
     path = os.path.join(os.path.dirname(config.OUT), 'functions.json')
     with open(path, 'w') as f:
