@@ -1,6 +1,9 @@
 ```
-Utilities to analyze python code
+Collection of utilities 
 Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter
+
+1 task  ---> 1 file.
+
 
 
 #### Install for usage
@@ -15,7 +18,10 @@ pip install -e .
 
 
 
-############### CLI Command
+############### TASKS
+cli_docs
+
+
     "cli_docs        =  cli_code/cli_doc_auto/main.py",    Auto generate Documentation fron source code    
 
 
