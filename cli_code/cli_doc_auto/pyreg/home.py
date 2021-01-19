@@ -33,8 +33,52 @@ def execute(cliargs):
     for line in ll :
     	line = line.replace("D:\\_devs\\Python01\\gitdev\\mlmodels\\"  , "")
     	ll2.append(line)
+
+
+
+    with open(config.OUT +".txt", 'w') as f:
+        f.write(''.join(ll2))         
+
+
+    with open(config.OUT +".py", 'w') as f:
+        f.write(''.join(ll2))         
+
+
+    ###### HTML tag  ####################################################
+    head = """
+    <html>
+    <body>
+
+    """
+
+    end = """
+
+    </body>
+    </html>
+
+    """
+
+
+    pref = "<a href='     '>       </a>"  
+    ll3 = []
+    for line in ll2 :
+        if "mlmodels\\" in line :
+            line2 = line.replace("\\", "//")
+            url = f"https://github.com/arita37/mlmodels/tree/dev/{line2}"
+
+        if not "\\raw\\" in url  and  not "archive" in url  :   
+          #line = f"<a href='{url}' target='_blank' >{line}</a><br>"
+          line = f"[{line}]({url})\n" 
+
+          ll3.append(line)
+
+
     
-    with open(config.OUT, 'w') as f:
-       	f.write(''.join(ll2))       	
+
+    
+    with open(config.OUT + ".md", 'w') as f:
+        f.write(head)
+       	f.write('\n'.join(ll3))       	
+        f.write(end)
 
 

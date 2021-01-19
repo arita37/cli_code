@@ -36,6 +36,7 @@ class Downloader:
 
         self.adjust_url()
 
+
     def clean_netloc(self):
         clean_netloc = re.sub(r'^www\.', '', self.parsed.netloc)
         self.parsed = self.parsed._replace(netloc=clean_netloc)

@@ -34,6 +34,7 @@ pip install -e .
 
 ############## cli_env_autoinstall   ########################################################
 Auto-install environnment by parsing the code source "import "
+
 cli_env_autoinstall 
       --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
       --python_version "3.6.7"
@@ -59,7 +60,7 @@ produces 3 files in the current folder
     3. functions.json
 
 usage:
-    python main.py  -vvv --tab 4 --out docs.txt
+    cli_docs D:\_devs\Python01\gitdev\cli_code -vvv --tab 4 --out docs.txt
     python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt 
 
 
