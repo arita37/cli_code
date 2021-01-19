@@ -22,18 +22,20 @@ pip install -e .
 cli_docs
 
 
-    "cli_docs        =  cli_code/cli_doc_auto/main.py",    Auto generate Documentation fron source code    
+    cli_docs        =  cli_code/cli_doc_auto/main.py",    Auto generate Documentation fron source code    
 
 
-    "cli_repo_docs        =  cli_code/cli_docs.py",    Auto generate Documentation fron source code    
+    "cli_docs2        =  cli_code/cli_docs.py",    Auto generate Documentation fron source code    , verion 2
     
-    "cli_env_autoinstall  =  cli_code/cli_env_autoinstall.py",  Auto generate from parsing source code.
+    "cli_env_install      =  cli_code/cli_env_autoinstall.py",  Auto generate from parsing source code.
 
     "cli_convert_ipny     =  cli_code/cli_convert_ipny.py",     Convert a folder of notebook to python script
 
     "cli_repo_check       =  cli_code/cli_repo_check.py",       Check a repo.
 
-    "cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
+    cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
+
+     cli_search_github    = cli_code/cli_github_search.py
 
 
 
@@ -41,7 +43,7 @@ cli_docs
 ############## cli_env_autoinstall   ########################################################
 Auto-install environnment by parsing the code source "import "
 
-cli_env_autoinstall 
+cli_env_install 
       --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
       --python_version "3.6.7"
       --packages "tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib"
