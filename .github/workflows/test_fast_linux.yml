@@ -48,7 +48,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: /opt/hostedtoolcache/Python/
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/test/py36.txt') }}
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/requirements.txt') }}
           
 
     - name: Install numpy
@@ -59,7 +59,7 @@ jobs:
     - name: Install repo requirements  1
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-           pip install -r   test/py36.txt
+           pip install -r   requirements.txt
 
     - name: Install repo requirements   2
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
