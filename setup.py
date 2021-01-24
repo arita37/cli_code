@@ -6,17 +6,17 @@ setup(
     entry_points={
         'console_scripts':
             [
-                'convert_ipynb = cli_code.cli_convert_ipynb:main',
-                'env_autoinstall = cli_code.cli_env_autoinstall:main',
-                'github_srch = cli_code.cli_github_search:main',
-                'mod_parser = cli_code.cli_module_parser:main',
+                'cli_convert_jupyter = cli_code.cli_convert_ipynb:main',
+                'cli_env_autoinstall = cli_code.cli_env_autoinstall:main',
+                'cli_github_search = cli_code.cli_github_search:main',
+                'cli_env_module_parser = cli_code.cli_module_parser:main',
                 'cli_download=cli_code.cli_download:main',
-                'check_repo = cli_code.cli_check_repo:main',
-                'conda_merge = cli_code.cli_conda_merge:main',
+                'cli_repo_check = cli_code.cli_check_repo:main',
+                'cli_env_conda_merge = cli_code.cli_conda_merge:main',
             ],
     },
     license='MIT',
-    description='A simple commandline utility to convert IPython notebook to python scripts.',
+    description='A simple commandline utility for python scripts.',
     keywords=['PYTHON', 'CLI', 'UTILITIES'],
     install_requires=[
         'pypandoc',
