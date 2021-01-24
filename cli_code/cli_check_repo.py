@@ -37,7 +37,6 @@ import sys
 import platform
 import glob
 import re
-import logging
 
 # TODO: use these to check the files
 # from importlib import import_module
