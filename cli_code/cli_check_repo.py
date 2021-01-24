@@ -26,17 +26,10 @@ https://github.com/zhangqianhui/vae-gan-tensorflow.git
 
 
 import os
-import sys
-import errno
-import re
-import time
 import argparse
-import subprocess
-import logging
 import sys
 import platform
 import glob
-import re
 import logging
 
 # TODO: use these to check the files
@@ -57,9 +50,7 @@ def get_logger():
             logging.StreamHandler(sys.stdout),
         ]
     )
-    # get a logger
-    logger = logging.getLogger(__name__)
-    return logger
+    return logging.getLogger(__name__)
 
 
 logger = get_logger()
@@ -160,7 +151,7 @@ def repo_generate_signature(folder):
     variables = findVariablesInDir(folder)
     out_file = os.path.join(folder, "parsed_docs.csv")
     writeCSV(variables, out_file)
-    logger.info(f"Parsing of files completed. See {out_file}")
+    logger.info("Parsing of files completed. See {}".format(out_file))
 
 
 def load_arguments():
@@ -185,7 +176,6 @@ def load_arguments():
 
 def main():
     args = load_arguments()
-
     # this will be used for the repo name if no name was specified
     reponame = args.repo_url.split("/")[-1].split(".")[0]
 
@@ -201,7 +191,7 @@ def main():
             repo_check_root_files(reponame, reponame+"_env")
             repo_generate_signature(reponame)
     else:
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
