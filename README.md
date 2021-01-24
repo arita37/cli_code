@@ -1,8 +1,6 @@
 ![test_fast_linux](https://github.com/arita37/cli_code/workflows/test_fast_linux/badge.svg)
 
-
-
-# Command line utilities 
+# Command line utilities
 
 ## Install
 
@@ -11,20 +9,21 @@
 - cd repo_dir
 - pip install -e .
 
-
 ## List of command mapping
+
+```
 
                 'cli_convert_jupyter   = cli_code.cli_convert_ipynb:main',
 
                 'cli_env_autoinstall   = cli_code.cli_env_autoinstall:main',
                 'cli_env_module_parser = cli_code.cli_module_parser:main',
                 'cli_env_conda_merge   = cli_code.cli_conda_merge:main',
-                
+
                 'cli_github_search     = cli_code.cli_github_search:main',
                 'cli_download          = cli_code.cli_download:main',
                 'cli_repo_check        = cli_code.cli_check_repo:main',
-                
-                
+
+```
 
 ## 1) Convert Notebook
 
@@ -34,7 +33,8 @@ Usage:
 
 `cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
-`-i` argument is required and `-o` is optional. If you don't specify an output path, all results will be saved in `py-scripts` directory.
+`-i` or `--in_folder` argument is requiredand and specify the folder containing IPython notebooks
+`-o` or `--out_folder` optional argument for output directory (default results will be saved in `py-scripts` directory)
 
 ## 2) Search Github
 
@@ -46,7 +46,7 @@ Usage:
 
 or refine your search
 
-`cli_github_searrch keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
+`cli_github_search keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
 
 These are optional arguments:
 
@@ -64,7 +64,7 @@ Usage:
 
 or
 
-`env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
 `-n` or `--conda_env` specify name of our conda environment (if not specified, all required packages are installed in a default `test` environment)
 `-py` or `--python_version` specify the python version of the target environment (default is 3.6)
@@ -79,7 +79,7 @@ Function_or_class_name defaults to (global) when there's no enclosing function n
 
 Usage:
 
-`mod_parser /path/to/module(s) or package(s) -o module_parsed.csv`
+`cli_env_module_parser /path/to/module(s) or package(s) -o module_parsed.csv`
 
 `-o` or `--output` option is optional and if not specified, results will be shown on stdout.
 
@@ -103,7 +103,7 @@ Usage:
 
 The output of the script will be saved in a directory
 
-## 6) Get Github Repository and Check in a Newly created environment
+## 6) Get Github Repository and Check in a Newly Created Environment
 
 Goal is to automate code check using a python script. This scripts do the following
 For a given github repo url:
@@ -115,7 +115,7 @@ For a given github repo url:
 
 Usage:
 
-`check_repo https://www.github.com/{username}/{reponame}.git`
+`cli_repo_check https://www.github.com/{username}/{reponame}.git`
 
 `-o` or `--output` specify the name of target directory to clone the repo (default is {reponame})
 `-n` or `--conda_env` specify name of our conda environment (if not specified, `{reponame}_env` will be used)
@@ -142,9 +142,8 @@ What is a valid url?
 - Google Drive - Share link of a file on google drive (share setting must be set to `anyone with the link`) e.g., `https://drive.google.com/file/d/1FPn4Q4PClobHgEU4DglyF2Xbs5Boe1r_/view?usp=sharing`
 - Dropbox - TO BE TESTED, DON't OWN A DROPBOX ACCOUNT
 
-TODOs
+**TODOs**
 
 - Add an option for creating normal python virtual environment in cli_env_autoinstall module
-- Check if the user specified environment already exits before creating a new one
 - Resolve the problem `in cli_env_autoinstall's` function `get_missing` when package name is different from import name
 - Find a better way to check root files, because sometimes running some scripts without required arguments also throws error

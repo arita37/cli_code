@@ -4,7 +4,6 @@
 
 import os
 import argparse
-import sys
 import time
 from datetime import datetime
 import re
