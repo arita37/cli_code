@@ -1,4 +1,8 @@
-# Simple command line utilities 
+![test_fast_linux](https://github.com/arita37/cli_code/workflows/test_fast_linux/badge.svg)
+
+
+
+# Command line utilities 
 
 ## Install
 
