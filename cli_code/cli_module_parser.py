@@ -1,17 +1,4 @@
-"""This Python code parser fetches variable information from the given source
-
-The source may be given either as a .py filepath or as a directory path
-containing multiple .py source files
-
-The output is written to standard output in CSV format with the following
-columns; it starts with a header row:
-filepath,function_or_class_name,variable_name,is_local
-
-Function_or_class_name defaults to (global) when there's no enclosing function
-nor class
-
-# pythoncodeparser
-
+"""
 This Python code parser fetches variable information from the given source
 
 The source may be given either as a .py filepath or as a directory path
@@ -19,23 +6,20 @@ containing multiple .py source files
 
 The output is written to standard output in CSV format with the following
 columns; it starts with a header row:
-filepath,function\_or\_class\_name,variable\_name,is\_local
+filepath,function_or_class_name,variable_name,is_local
 
-Function\_or\_class\_name defaults to (global) when there's no enclosing
+Function_or_class_name defaults to (global) when there's no enclosing
 function nor class
 
 ### Example:
 
 **pythoncodeparser$ ./main.py src/file_finder.py**
 
-
 filepath,function_or_class_name,variable_name,is_local
 src/file_finder.py,findVariablesInFile,filepath,False
 src/file_finder.py,findVariablesInDir,findVariablesInFile,False
 src/file_finder.py,_walk,args,False
 src/file_finder.py,_walk,f,True
-
-
 
 ### Run all unittests
 **pythoncodeparser$ python3 -m unittest discover -p '*_test.py'**
@@ -45,18 +29,21 @@ import ast
 import os
 import sys
 
+# TODO: Use this to sort the output csv
+#import pandas as pd
+
 
 def analyzeSource(source):
     """Analyzes the given Python source
 
-  Args:
-    source: string
+    Args:
+        source: string
 
-  Returns:
-    A dict over all variables encountered in the tree, in following form:
-    {(ast.stmt function_or_class,
-      str variable_name): bool is_local, ...}
-  """
+    Returns:
+        A dict over all variables encountered in the tree, in following form:
+        {(ast.stmt function_or_class,
+        str variable_name): bool is_local, ...}
+    """
     tree = ast.parse(source)
     analyzer = ASTAnalyzer()
     analyzer.visit(tree)
@@ -163,44 +150,25 @@ def usage(message):
     print(message)
     print(
         f"""
-Usage:
-{sys.argv[0]} filepath|directory_path
-"""
+        Usage:
+        {sys.argv[0]} filepath|directory_path
+        """
     )
-
-
-def main():
-    """Entry point"""
-    try:
-        path = sys.argv[1]
-    except IndexError:
-        usage("Either a filepath or a directory path must be provided")
-        return
-
-    if os.path.isdir(path):
-        variables = findVariablesInDir(path)
-    elif os.path.isfile(path):
-        variables = findVariablesInFile(path)
-    else:
-        usage(f"The given path is neither a file nor a directory: {path}")
-        return
-
-    writeCSV(variables)
 
 
 def findVariablesInFile(filepath):
     """Lists variables parsed from the given file
 
-  Args:
-    filepath: A path to a file containing Python code to be parsed
+    Args:
+        filepath: A path to a file containing Python code to be parsed
 
-  Returns:
-    A set of 4-tuples describing found variables
-    {(str file,
-      ast.stmt function_or_class,
-      str variable,
-      bool is_local), ...}
-  """
+    Returns:
+        A set of 4-tuples describing found variables
+        {(str file,
+        ast.stmt function_or_class,
+        str variable,
+        bool is_local), ...}
+    """
     ret = set()
 
     with open(filepath, "r") as source_file:
@@ -216,23 +184,23 @@ def findVariablesInFile(filepath):
 def findVariablesInDir(directory):
     """Lists variables parsed from the given directory
 
-  Args:
-    directory: A path to a directory containing Python code to be parsed
+    Args:
+        directory: A path to a directory containing Python code to be parsed
 
-  Returns:
-    A set of 4-tuples describing found variables
-    {(str file,
-      ast.stmt function_or_class,
-      str variable,
-      bool is_local), ...}
-  """
+    Returns:
+        A set of 4-tuples describing found variables
+        {(str file,
+        ast.stmt function_or_class,
+        str variable,
+        bool is_local), ...}
+    """
     ret = set()
 
     for root, _, files in _walk(directory, onerror=_onerror_reraise, include_hidden=False):
         for filename in files:
             if filename.endswith(".py"):
                 filepath = os.path.join(root, filename)
-                ret |= findVariablesInFile(filepath)
+                ret.update(findVariablesInFile(filepath))
 
     return ret
 
@@ -255,21 +223,27 @@ def _walk(*args, include_hidden=None, **kwargs):
         yield root, dirs, files
 
 
-def writeCSV(variables, file_handle=sys.stdout):
+def writeCSV(variables, file_path=None):
     """Writes found variables' data to file_handle in CSV format
 
-  The output is written to standard output by default
+    The output is written to standard output by default
 
-  The output starts with a header row:
-  filepath,function_or_class_name,variable_name,is_local
+    The output starts with a header row:
+    filepath,function_or_class_name,variable_name,is_local
 
-  Function_or_class_name defaults to (global) when there's no enclosing function
-  nor class
+    Function_or_class_name defaults to (global) when there's no enclosing function
+    nor class
 
-  Args:
-    variables: A set of 4-tuples in format provided by the file_finder module
-  """
-    file_handle.write("filepath,function_or_class_name,variable_name,is_local\n")
+    Args:
+        variables: A set of 4-tuples in format provided by the file_finder module
+    """
+    if file_path == None:
+        file_handle = sys.stdout
+    else:
+        file_handle = open(file_path, "w", encoding='utf-8')
+
+    file_handle.write(
+        "filepath,function_or_class_name,variable_name,is_local\n")
 
     for filepath, function_or_class, variable_name, is_local in variables:
         function_or_class_name = (
@@ -277,8 +251,43 @@ def writeCSV(variables, file_handle=sys.stdout):
         )
 
         file_handle.write(
-            "%s,%s,%s,%s\n" % (filepath, function_or_class_name, variable_name, is_local)
+            "%s,%s,%s,%s\n" % (
+                filepath, function_or_class_name, variable_name, is_local)
         )
+    file_handle.close()
+
+
+def get_arguments():
+    import argparse
+    p = argparse.ArgumentParser(
+        description='This Python code parser fetches variable information from the given source files.')
+    p.add_argument(
+        'path', help="path to a module or directory containing multiple modules")
+    p.add_argument(
+        '--output', '-o', default=None, help="File name to save the output, if not specified, results will be shown on stdout.")
+    args = p.parse_args()
+
+    return args
+
+
+def main():
+    args = get_arguments()
+
+    # try:
+    path = args.path
+    # except IndexError:
+    #     usage("Either a filepath or a directory path must be provided")
+    #     return
+
+    if os.path.isdir(path):
+        variables = findVariablesInDir(path)
+        writeCSV(variables, args.output)
+    elif os.path.isfile(path):
+        variables = findVariablesInFile(path)
+        writeCSV(variables, args.output)
+    else:
+        usage(f"The given path is neither a file nor a directory: {path}")
+        return
 
 
 if __name__ == "__main__":
