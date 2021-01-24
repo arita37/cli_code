@@ -1,13 +1,12 @@
 """
-
-
-
+To be written
 """
 import cgi
 import os
 import re
 import sys
 import uuid
+import argparse
 
 import requests
 
@@ -36,7 +35,6 @@ class Downloader:
 
         self.adjust_url()
 
-
     def clean_netloc(self):
         clean_netloc = re.sub(r'^www\.', '', self.parsed.netloc)
         self.parsed = self.parsed._replace(netloc=clean_netloc)
@@ -64,7 +62,8 @@ class Downloader:
 
     def _transform_dropbox_url(self):
         """DropBox specific changes to get link to raw file"""
-        self.url = requests.utils.urlunparse(self.parsed._replace(query='dl=1'))
+        self.url = requests.utils.urlunparse(
+            self.parsed._replace(query='dl=1'))
 
     def get_filename(self, headers):
         """Attempt to get filename from content-dispositions header.
@@ -87,33 +86,59 @@ class Downloader:
 
     def download(self, filepath=''):
         '''Downloading and saving file'''
+
+        if not os.path.exists(filepath):
+            os.mkdir(filepath)
+
         response = requests.get(self.url)
         filename = self.get_filename(response.headers)
 
         full_filename = os.path.join(filepath, filename)
 
         if response.status_code == 200:
-            with open(full_filename, 'wb') as f:
+            with open(full_filename, "wb") as f:
                 f.write(response.content)
 
             print(f'File saved as {full_filename}')
         else:
             print('Bad request')
 
+
+def get_arguments():
+    a_p = argparse.ArgumentParser(
+        "Download content from github, googledrive and/or drop-box with a single url or list of urls in a file.")
+    a_p.add_argument("--url", "-u", default="",
+                     help="Url of the file to download, it must start with http(s)://'")
+    a_p.add_argument("--file", "-f", default="",
+                     help="File containing valid urls of objects to download.")
+    a_p.add_argument("--output", "-o", default="downloaded",
+                     help="Directory to save downloaded files.")
+    args = a_p.parse_args()
+
+    return args
+
+
+def main():
+    args = get_arguments()
+
+    if args.url != "":
+        downloader = Downloader(args.url)
+        downloader.download(args.output)
+
+    if args.file != "":
+        urls = []
+        try:
+            with open(args.file, "r") as rf:
+                for url in rf.readlines():
+                    urls.append(url.strip())
+        except FileNotFoundError:
+            print(f"No such file {args.file} found")
+
+        for url in urls:
+            downloader = Downloader(url)
+            downloader.download(args.output)
+
+
 if __name__ == "__main__":
-
-    args = sys.argv
-
-    try:
-        url = args[1]
-        filepath = args[2]
-    except IndexError:
-        print('Make sure you pass the file URL')
-        exit()
-
-    print("Downloading", filepath)
-    downloader = Downloader(url)
-    downloader.download(filepath)
-
-
-
+    main()
+    print("print all downloading completed!")
