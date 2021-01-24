@@ -145,6 +145,5 @@ What is a valid url?
 **TODOs**
 
 - Add an option for creating normal python virtual environment in cli_env_autoinstall module
-- Check if the user specified environment already exits before creating a new one
 - Resolve the problem `in cli_env_autoinstall's` function `get_missing` when package name is different from import name
 - Find a better way to check root files, because sometimes running some scripts without required arguments also throws error

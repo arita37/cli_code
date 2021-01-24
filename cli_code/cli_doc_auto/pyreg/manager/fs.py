@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import re 
+import re
 import os
 import logging
 
@@ -10,15 +10,14 @@ from pyreg.context import config
 
 LOGGER = logging.getLogger()
 
+
 def list_source_files(srcdir):
     srcs = []
 
-
-    print(srcdir)
     for dirpath, dirs, files in os.walk(srcdir):
         for fname in files:
             path = os.path.join(dirpath, fname)
-            if any(map(lambda ext:fname.endswith(ext), config.EXT)):
+            if any(map(lambda ext: fname.endswith(ext), config.EXT)):
                 srcs.append(path)
             else:
                 LOGGER.debug('skipping: {}'.format(path))
@@ -38,4 +37,3 @@ def filter_by_pattern(paths, patterns):
                 break
 
     return result
-

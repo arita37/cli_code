@@ -8,8 +8,8 @@ python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/a
 
 """
 
+import sys
 import os
-import subprocess
 import glob
 # from IPython.nbformat import current as nbformat
 # from IPython.nbconvert import PythonExporter
@@ -46,24 +46,21 @@ import platform
 
 ##################################################################################
 
-
+# # NOTE: not used in the main
 # def os_system(cmds, stdout_only=True):
 #     """
-#     Executes system command and
 #     Get print output from command line
-#     :param cmds a list containing command and its arguments
 #     """
 #     import subprocess
 
 #     p = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#     try:
-#         out, err = p.communicate(timeout=3)
-#         errcode = p.returncode
-#     except
-
+#     out, err = p.communicate()
+#     errcode = p.returncode
+#     print(err, errcode)
 #     if stdout_only:
 #         return out, errcode
 #     return out, err, errcode
+# ######################################################################################
 
 
 def get_os():
@@ -137,7 +134,7 @@ def get_packages(file):
                     packages.append(p.strip())
             else:
                 packages.append(package)
-        except IndexError:  # Exception as e:
+        except:  # Exception as e:
             pass
 
     return packages
@@ -160,14 +157,20 @@ def get_missing(all_packages, env_name="test"):
 
     miss_package = []
     for package in all_packages:
-        # run_string = "import " + package
-        # print(run_string)
-        # NOTE: This check packages in current environment not the target environment
-        # exec(run_string)
-        run_string = f"conda.bat {conda_activate} python -c \"import {package}\""
-        ret = os_exec(run_string)
-        if ret != 0:
-            miss_package.append(package)
+        #run_string = "import " + package
+
+        try:
+            # print(run_string)
+            # NOTE: This check packages in current environment not the target environment
+            # exec(run_string)
+            run_string = f"conda.bat {conda_activate} python -c \"import {package}\""
+            ret = os_exec(run_string)
+            if ret != 0:
+                miss_package.append(package)
+        except:  # Exception as e:
+            # print(e)
+            # miss_package.append(package)
+            pass
 
     return miss_package
 
@@ -239,17 +242,10 @@ def load_arguments():
     return arg
 
 
-def conda_env_exits(conda_env):
-    cmds = ['conda.bat', 'env', 'list']
-    p = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, _ = p.communicate()
-    # true if found, else false
-    return conda_env in out.decode("utf-8").split()
-
-
 def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
 
     # get conda activate handle, depending on os
+    # TODO: check if to use conda.bat activate or only activate
     conda_activate = f"activate {conda_env} &&" if get_os(
     ) == "win" else f"source activate {conda_env} &&"
     # conda install command
@@ -258,28 +254,26 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
     # Scan file recursively, to get all python modules in directory
     source_files = scan(folder_input)
 
-    if not conda_env_exits(conda_env):
-        # Create a new conda env if specified
-        os_exec(f"conda create -y -n {conda_env} python={python_version}")
+    # TODO: check if the environment is already present or not
+    # Create a new conda env if specified
+    if conda_env != "test":
+        os_exec(
+            f"conda create -y -n {conda_env} python={python_version}")
 
-        # Install default+user specified packages packages in the environment
-        os_exec(f"{conda_activate} {conda_install} -y {packages}")
+    # Install default+user specified packages packages in the environment
+    os_exec(f"{conda_activate} {conda_install} -y {packages}")
 
-        # Install required packages for the given repo
-        # TODO: improve it to handle the situation when import name
-        # is different from the package name like python-opencv is
-        # imported as cv2
-        package_list = get_required_packages(source_files, conda_env)
-        print(package_list)
-        if len(package_list) != 0:
-            ss = " ".join(package_list)
-            print(f"{conda_activate} {conda_install} -y {ss} --no-update-deps ")
-            os_exec(f"{conda_activate} {conda_install} -y {ss} --no-update-deps ")
-            sleep(5)
-
-        os_exec(f"{conda_activate} conda env list")
-    else:
-        print(f"{conda_env} conda virtual environment already exists.")
+    # Install required packages for the given repo
+    # TODO: improve it to handle the situation when import name
+    # is different from the package name like python-opencv is
+    # imported as cv2
+    package_list = get_required_packages(source_files, conda_env)
+    print(package_list)
+    if len(package_list) != 0:
+        ss = " ".join(package_list)
+        print(f"{conda_activate} {conda_install} -y {ss} --no-update-deps ")
+        os_exec(f"{conda_activate} {conda_install} -y {ss} --no-update-deps ")
+        sleep(5)
 
     # Auto install conda individually (NOTE: no need for now)
     # miss_packages = get_missing(package_list)
@@ -296,6 +290,8 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
     # miss_packages = get_missing(package_list)
     # with open("./require_after.txt", "w") as fp:
     #     fp.write("\n".join(miss_packages))
+
+    os_exec(f"{conda_activate} conda env list")
 
 
 def main():

@@ -1,63 +1,102 @@
 #!/usr/bin/env python
 
 """
+Takes a source dir as a positional argument.
 
-"""
-
-DESC = """
-takes a source dir as a positional argument.
-
-
-
-produces 3 files:
+Produces 3 files:
 
     1. documentation
     2. classes.json
     3. functions.json
 
 usage:
-    python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt
-    python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt --filter ".*?api.py"
 
+python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt
+python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt --filter ".*?api.py"
 """
 
 import logging
-
+import argparse
+import sys
 #from cli_code.cli_doc_auto.lib.common.argparse import cli
 #from cli_code.cli_doc_auto.pyreg import home
 
 
-
-from lib.common.argparse import cli
 from pyreg import home
 
 
+def get_arguments():
+    p = argparse.ArgumentParser(description="Produces documentation of python modules given a directory")
+    p.add_argument('srcdir',   help='Relative or absolute directory path that contains .py files')
+    p.add_argument('--out', '-o',  default='docs.txt', help='Relative or absolute output file location')
+    p.add_argument('--ext', nargs='+', default=['py'], help='Extensions of python source files to be analyzed by regex')
+    p.add_argument('--filter', help='regex patterns to MATCH from srcdir. ie: ".*?api.py"', nargs='*', default=[], )
+    p.add_argument('--tab', '-t', default=None, type=int, help='tabs with spaces')
+    p.add_argument('--verbosity', '-v', action='count', default=None, dest='verbosity',
+                   help='Verbosity level. dense: -vvvvv, sparse: -v')
+
+    args = p.parse_args()
+    return args
+
+
+def get_logger(verbosity=0):
+    logfile = "logs.txt"
+    log_format = (
+        '[%(asctime)s] %(levelname)-6s %(name)-12s %(message)s'
+    )
+    VERBOSITY = [
+        None,
+        logging.CRITICAL,
+        logging.ERROR,
+        logging.WARN,
+        logging.INFO,
+        logging.DEBUG,
+    ]
+    logging.basicConfig(
+        level=VERBOSITY[verbosity],
+        format=log_format,
+        handlers=[
+            logging.FileHandler(logfile),
+            logging.StreamHandler(sys.stdout),
+        ]
+    )
+    # get a logger
+    logger = logging.getLogger(__name__)
+    return logger
+
+
 def main():
-    cliargs = cli.CLI( description=DESC )\
-            .add('srcdir',   help='relative or absolute directory path that contains .py files')\
-            .add('--out',    help='relative or absolute output file location', default='docs.txt')\
-            .add('--ext',    help='extensions of python source files to be analyzed by regex', nargs='+', default=['py'], )\
-            .add('--filter', help='regex patterns to MATCH from srcdir. ie: ".*?api.py"', nargs='*', default=[], )\
-            .add('--tab',    help='tabs with spaces', default=None, type=int)\
-            .add('-v', '--verbosity', help='verbosity level. dense: -vvvvv, sparse: -v', dest='verbosity', action='count', default=None)\
-            .build()
 
     VERBOSITY = [
-            None,
-            logging.CRITICAL,
-            logging.ERROR,
-            logging.WARN,
-            logging.INFO,
-            logging.DEBUG,
+        None,
+        logging.CRITICAL,
+        logging.ERROR,
+        logging.WARN,
+        logging.INFO,
+        logging.DEBUG,
+    ]
+
+    args = get_arguments()
+    # providing same api as the previous cli interface
+    args = vars(args)
+
+    logfile = "logs.txt"
+    log_format = (
+        '[%(asctime)s] %(levelname)-6s %(name)-12s %(message)s'
+    )
+
+    if args['verbosity']:
+        logging.basicConfig(
+            level=VERBOSITY[args['verbosity']],
+            format=log_format,
+            handlers=[
+                logging.FileHandler(logfile),
+                logging.StreamHandler(sys.stdout),
             ]
+        )
 
-    if cliargs['verbosity']:
-        logging.basicConfig(level=VERBOSITY[cliargs['verbosity']])
-
-    home.execute(cliargs)
+    home.execute(args)
 
 
 if __name__ == "__main__":
     main()
-
-
