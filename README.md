@@ -10,13 +10,15 @@
 
 ## List of command mapping
 
-                'cli_convert_jupyter = cli_code.cli_convert_ipynb:main',
-                'cli_env_autoinstall = cli_code.cli_env_autoinstall:main',
-                'cli_github_search = cli_code.cli_github_search:main',
+                'cli_convert_jupyter   = cli_code.cli_convert_ipynb:main',
+
+                'cli_env_autoinstall   = cli_code.cli_env_autoinstall:main',
                 'cli_env_module_parser = cli_code.cli_module_parser:main',
-                'cli_download=cli_code.cli_download:main',
-                'cli_repo_check = cli_code.cli_check_repo:main',
-                'cli_env_conda_merge = cli_code.cli_conda_merge:main',
+                'cli_env_conda_merge   = cli_code.cli_conda_merge:main',
+                
+                'cli_github_search     = cli_code.cli_github_search:main',
+                'cli_download          = cli_code.cli_download:main',
+                'cli_repo_check        = cli_code.cli_check_repo:main',
                 
                 
 
@@ -26,7 +28,7 @@ convert all IPython notebooks inside a directory to python scripts and save them
 
 Usage:
 
-`convert_ipynb -i /path/to/notebooks -o path/to/python-scripts`
+`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
 `-i` argument is required and `-o` is optional. If you don't specify an output path, all results will be saved in `py-scripts` directory.
 
@@ -36,11 +38,11 @@ Search on github for keyword(s) with optional parameters to refine your search a
 
 Usage:
 
-`github_srch amazon scraper`
+`cli_github_search amazon scraper`
 
 or refine your search
 
-`github_srch keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
+`cli_github_searrch keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
 
 These are optional arguments:
 
@@ -54,7 +56,7 @@ Automatically create conda virtual environment for a specified repository. It al
 
 Usage:
 
-`env_autoinstall test -n notebook_cvt`
+`cli_env_autoinstall test -n notebook_cvt`
 
 or
 
@@ -93,7 +95,7 @@ This is a very simple piece of script that allows user to merge multiple YAML fi
 
 Usage:
 
-`conda_merge /path/to/env1.yaml /path/to/env2.yaml`
+`cli_env_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
 
 The output of the script will be saved in a directory
 
