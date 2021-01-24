@@ -1,98 +1,150 @@
-```
-Collection of utilities 
-Tools for Python Doc Generation, Tool analysis, Package Auto Install, Converter
-
-1 task  ---> 1 file.
+![test_fast_linux](https://github.com/arita37/cli_code/workflows/test_fast_linux/badge.svg)
 
 
 
-#### Install for usage
-pip install cli_code
+# Command line utilities 
+
+## Install
+
+- create a folder and run $ git clone this_repo_url
+- make a python virtual environment (optional but recommended)
+- cd repo_dir
+- pip install -e .
 
 
-#### Install for dev
-cd YourFolder
-git clone  https://github.com/arita37/cli_code.git
-cd cli_code
-pip install -e .
+## List of command mapping
 
+                'cli_convert_jupyter   = cli_code.cli_convert_ipynb:main',
 
+                'cli_env_autoinstall   = cli_code.cli_env_autoinstall:main',
+                'cli_env_module_parser = cli_code.cli_module_parser:main',
+                'cli_env_conda_merge   = cli_code.cli_conda_merge:main',
+                
+                'cli_github_search     = cli_code.cli_github_search:main',
+                'cli_download          = cli_code.cli_download:main',
+                'cli_repo_check        = cli_code.cli_check_repo:main',
+                
+                
 
-############### TASKS
-cli_docs
+## 1) Convert Notebook
 
+convert all IPython notebooks inside a directory to python scripts and save them to another directory. This also tests python scripts for potential syntax errors.
 
-    cli_docs        =  cli_code/cli_doc_auto/main.py",    Auto generate Documentation fron source code    
+Usage:
 
+`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
-    "cli_docs2        =  cli_code/cli_docs.py",    Auto generate Documentation fron source code    , verion 2
-    
-    "cli_env_install      =  cli_code/cli_env_autoinstall.py",  Auto generate from parsing source code.
+`-i` argument is required and `-o` is optional. If you don't specify an output path, all results will be saved in `py-scripts` directory.
 
-    "cli_convert_ipny     =  cli_code/cli_convert_ipny.py",     Convert a folder of notebook to python script
+## 2) Search Github
 
-    "cli_repo_check       =  cli_code/cli_repo_check.py",       Check a repo.
+Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
 
-    cli_conda_merge      =  cli_code/cli_conda_merge.py",      Merge a repo.
+Usage:
 
-     cli_search_github    = cli_code/cli_github_search.py
+`cli_github_search amazon scraper`
 
+or refine your search
 
+`cli_github_searrch keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
 
+These are optional arguments:
 
-############## cli_env_autoinstall   ########################################################
-Auto-install environnment by parsing the code source "import "
+`-c` or `--created` specify the period of repository creation
+`-p` or `--pushed` specify the period of pushing to repo
+`-o` or `--output` specify the output folder for storing results (default value is `results`)
 
-cli_env_install 
-      --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  
-      --python_version "3.6.7"
-      --packages "tensorflow=1.14  scikit-learn numpy pandas scipy matplotlib"
+## 3) Auto Create Conda Environment
 
+Automatically create conda virtual environment for a specified repository. It also autodetects all required packages and install them into the newly created environment.
 
+Usage:
 
+`cli_env_autoinstall test -n notebook_cvt`
 
+or
 
-############## cli_docs      ################################################################
-Generate doc of a repo by parsing the code source string
-cli_docs
-    client/yakinoe/pyreg/dataset/requests/
-    -vvv     : very verbose
-    --tab    : 4    indendation
-    --out    : docs.txt   output docs
-    --filter : ".*?api.py"   Fitlering files
+`env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
+`-n` or `--conda_env` specify name of our conda environment (if not specified, all required packages are installed in a default `test` environment)
+`-py` or `--python_version` specify the python version of the target environment (default is 3.6)
+`-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
 
-produces 3 files in the current folder
-    1. documentation
-    2. classes.json
-    3. functions.json
+## 4) Parse python modules
 
-usage:
-    cli_docs D:\_devs\Python01\gitdev\cli_code -vvv --tab 4 --out docs.txt
-    python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt 
+This Python code parser fetches variable information from the given source. The source may be given either as a .py filepath or as a directory path containing multiple .py source files.
 
+The output is written to standard output in CSV format with the following columns; it starts with a header row: `filepath,function_or_class_name,variable_name,is_local`.
+Function_or_class_name defaults to (global) when there's no enclosing function nor class.
 
+Usage:
 
+`mod_parser /path/to/module(s) or package(s) -o module_parsed.csv`
 
+`-o` or `--output` option is optional and if not specified, results will be shown on stdout.
 
+## 5) Easy Merge Conda Environmetns
 
+This is a very simple piece of script that allows user to merge multiple YAML files generated by anaconda into a single unified YAML. The output of this script is two filetypes, one is the merged YAML file while the other is the requirements.txt file ready to be scanned by pip.
 
+- Four yamls are saved in a directory:
+  - One with default entries
+  - One with versions of all entries
+  - One with versions of only prioritized entries (defined in `getPiorityList()` function)
+  - One with only the names of the packages
+- Three .txts are saved in the same directory:
+  - One with versions of all entries
+  - One with versions of only prioritized entries (defined in `getPiorityList()` function)
+  - One with only the names of the packages
 
+Usage:
 
+`cli_env_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
 
+The output of the script will be saved in a directory
 
-#### Tests:
-  cd  cli_code\cli_code
-  cli_code>python cli_docs.py --do test   
+## 6) Get Github Repository and Check in a Newly created environment
 
+Goal is to automate code check using a python script. This scripts do the following
+For a given github repo url:
 
+- Clone the repo with `git clone` and assign either a user specified name or repo's default name
+- Build a conda env with packages required to use the repo
+- Check if python code is running i.e., run main.py
+- Generate signature docs of python source code
 
+Usage:
 
+`check_repo https://www.github.com/{username}/{reponame}.git`
 
+`-o` or `--output` specify the name of target directory to clone the repo (default is {reponame})
+`-n` or `--conda_env` specify name of our conda environment (if not specified, `{reponame}_env` will be used)
+`-py` or `--python_version` specify the python version of the target environment (default is 3.6)
+`-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
 
+## 7) Automate Downloading from Dropbox, Google Drive, and Github
 
-```
+This script automates downloading of bulk files from github, google drive and dr0pbox. You can either provide a single url or a file containg multiple urls, one per line and an optional directory to store download results.
 
+Usage:
 
+`cli_download -u a_valid_url`
 
+`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
 
+`-u` or `--url` specify a valid url for the file to download
+`-f` or `--file` specify path to a file containing a list of valid urls, one per line
+`-o` or `--output` specify the output directory (default is `downloaded`)
+
+What is a valid url?
+
+- Github - Url of a _file_ in a github repo e.g., `https://github.com/Chhekur/amazon-scraper/blob/master/README.md`
+- Google Drive - Share link of a file on google drive (share setting must be set to `anyone with the link`) e.g., `https://drive.google.com/file/d/1FPn4Q4PClobHgEU4DglyF2Xbs5Boe1r_/view?usp=sharing`
+- Dropbox - TO BE TESTED, DON't OWN A DROPBOX ACCOUNT
+
+TODOs
+
+- Add an option for creating normal python virtual environment in cli_env_autoinstall module
+- Check if the user specified environment already exits before creating a new one
+- Resolve the problem `in cli_env_autoinstall's` function `get_missing` when package name is different from import name
+- Find a better way to check root files, because sometimes running some scripts without required arguments also throws error

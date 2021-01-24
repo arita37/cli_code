@@ -1,0 +1,98 @@
+name: test_fast_linux
+
+###  https://github.com/arita37/awesome-actions#static-analysis
+
+on:
+  push:
+    branches:
+      #- run_train
+      #- multi
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+   
+    - name: Set up Python 3.6.*
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6.*
+      
+    - name: Install pipenv
+      uses: dschep/install-pipenv-action@v1
+      
+
+    ##### Git Credemtials  ##################################################
+    #- name: ssh_gen
+    #  uses: webfactory/ssh-agent@v0.2.0
+    #  with:
+    #    ssh-private-key: ${{ secrets.GIT_RSA }}
+                
+
+    ########################################################################
+    #- uses: actions/cache@v1
+    #  id: cache
+    #  with:
+    #    path: ~/.cache/pip
+    #    key: ${{ runner.os }}-pip-${{ hashFiles('**/install/requirements.txt') }}
+    #    restore-keys: |
+    #      ${{ runner.os }}-pip-
+   
+
+    - name: Cache pipenv virtualenv
+      id: cache-pipenv
+      uses: actions/cache@v1
+      with:
+        path: /opt/hostedtoolcache/Python/
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/requirements.txt') }}
+          
+
+    - name: Install numpy
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: pip install numpy==1.18.2   pillow==6.2.1 
+      
+
+    - name: Install repo requirements  1
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: |
+           pip install -r   requirements.txt
+
+    - name: Install repo requirements   2
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run:  |
+        ls .
+        #pip install -r install/requirements_fake.txt
+
+    #- name: Install repo
+    #  run: pip install -e . -r install/py36.txt  --no-deps
+
+
+    - name: test_import
+      run: |
+           python -c "import os; print(os)"
+           # python -c "import tensorflow, torch ; print(tensorflow); print(torch)"
+
+
+    ########  Test running 
+    - name: run_all
+      run: |
+          mkdir -p    /home/runner/work/log_tmp/  
+          chmod -R 777 . && test/test_all.sh    2>&1 | tee   /home/runner/work/log_tmp/run_fast.py
+
+
+
+ 
+
+    #- name: log_gitcommit
+    #  run: |
+    #       python core_test_auto.py  log_remote_push --name test_fast_linux
+
+# https://ianwhitestone.work/AWS-Serverless-Deployments-With-Github-Actions/
+#
+#
+#
+#
