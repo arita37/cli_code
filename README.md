@@ -3,13 +3,9 @@
 # Command line utilities
 
 ## Install
-   pip install -e git://github.com/arita37/cli_code.git@0.1#egg=cli_codde
-
-   make a python virtual environment (optional but recommended)
-   cd repo_dir
-   pip install -e .
-
-
+   Stable    pip install -e git://github.com/arita37/cli_code.git@0.1#egg=cli_codde
+ 
+   Latest :  pip install -e git+git://github.com/arita37/cli_code.git#egg=clI_code
 
 
 ## List of command mapping
