@@ -150,7 +150,7 @@ def main():
             shutil.rmtree(out_dir)
         else:
             sys.exit(0)
-
+    #TODO: this is copying whole source dir to target, fix this
     shutil.copytree(data_file, out_dir)
     dst_files_to_delete = scan(out_dir)
     for s in dst_files_to_delete:
