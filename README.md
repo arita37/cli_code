@@ -29,35 +29,29 @@
 
 ```
 
-### 1) Convert Notebook
+#### 1) Convert Notebook
 
 convert all IPython notebooks inside a directory to python scripts and save them to another directory. This also tests python scripts for potential syntax errors.
 
   `cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
-   Doc [cli_code/cli_convert_ipny.py]
+   [doc](cli_code/cli_convert_ipny.py)
 
-
-
-### 2) Search Github
+___
+#### 2) Search Github
 
 Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
 
 Usage:
 
-`cli_github_search amazon scraper`
-
-or refine your search
-
-`cli_github_search keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
-
-These are optional arguments:
-
-`-c` or `--created` specify the period of repository creation
-`-p` or `--pushed` specify the period of pushing to repo
-`-o` or `--output` specify the output folder for storing results (default value is `results`)
+   `cli_github_search amazon scraper`
 
 
+   [Doc](cli_code/cli_code.cli_github_search.py)
+   
+   
+
+___
 ### 3) Auto Create Conda Environment
 
 Automatically create conda virtual environment for a specified repository. It also autodetects all required packages and install them into the newly created environment.

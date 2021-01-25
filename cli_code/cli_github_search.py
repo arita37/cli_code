@@ -1,6 +1,31 @@
 # About: Search & Scrape GitHub repositories
-# Version: 1.0
-# Date: November, 2019
+"""
+
+#### 2) Search Github
+
+Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
+
+Usage:
+
+`cli_github_search amazon scraper`
+
+
+   [Doc](cli_code/cli_code.cli_github_search.py)
+
+
+
+or refine your search
+
+`cli_github_search keyword1 keyword2 -c >2019-11-10 -p 2019-11-01..2019-11-10 -o results`
+
+These are optional arguments:
+
+`-c` or `--created` specify the period of repository creation
+`-p` or `--pushed` specify the period of pushing to repo
+`-o` or `--output` specify the output folder for storing results (default value is `results`)
+
+
+"""
 
 import os
 import argparse

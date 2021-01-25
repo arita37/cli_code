@@ -104,3 +104,9 @@ venv.bak/
 .mypy_cache/
 /*.sublime-project
 /*.sublime-workspace
+/.idea/cli_code.iml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
