@@ -320,14 +320,27 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
     # with open("./require_after.txt", "w") as fp:
     #     fp.write("\n".join(miss_packages))
 
-
+"""
 def main():
     args = load_arguments()
     create_env(
         args.folder_input, args.conda_env,
         args.python_version, args.packages
     )
+"""
 
+
+def main(folder_input, conda_env, python_version, packages):
+    create_env(folder_input, conda_env, python_version, packages
+    )
+   
+   
 
 if __name__ == "__main__":
-    main()
+    # main()
+    d = {'main' : main}  
+    import fire
+    fire.Fire({d)
+      
+      
+      
