@@ -20,7 +20,7 @@
 
                 'cli_github_search     = cli_code.cli_github_search:main',
                 'cli_download          = cli_code.cli_download:main',
-                'cli_repo_check        = cli_code.cli_check_repo:main',
+                'cli_repo_check        = cli_code.cli_repo_check:main',
 
 
 ```
