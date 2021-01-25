@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Convert notebook to Code
+### 1) Convert Notebook
 
-Usage: python cli_convert_ipny.py  --in_folder  notebook/  --out_folder  py_code/
+convert all IPython notebooks inside a directory to python scripts and save them to another directory. This also tests python scripts for potential syntax errors.
+
+Usage:
+
+`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
+
+`-i` or `--in_folder`  argument is requiredand and specify the folder containing IPython notebooks
+`-o` or `--out_folder` optional argument for output directory (default results will be saved in `py-scripts` directory)
+
 
 """
 import json
