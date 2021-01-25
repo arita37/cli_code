@@ -1,5 +1,28 @@
 # -*- coding: utf-8 -*-
 """
+
+### 3) Auto Create Conda Environment
+
+Automatically create conda virtual environment for a specified repository. It also autodetects all required packages and install them into the newly created environment.
+
+Usage:
+
+`cli_env_autoinstall test -n notebook_cvt`
+`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+
+
+   [Doc](cli_code/cli_env_autoinstall.py)
+
+or
+
+`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+
+`-n` or `--conda_env` specify name of our conda environment (if not specified, all required packages are installed in a default `test` environment)
+`-py` or `--python_version` specify the python version of the target environment (default is 3.6)
+`-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
+
+
+
 Auto install missing package by scanning error message
 
 conda create -y -n ztest  python=3.6.5

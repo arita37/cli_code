@@ -35,7 +35,7 @@ convert all IPython notebooks inside a directory to python scripts and save them
 
   `cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
-   [doc](cli_code/cli_convert_ipny.py)
+   [doc](cli_code/cli_convert_ipynb.py)
 
 ___
 #### 2) Search Github
@@ -47,7 +47,7 @@ Usage:
    `cli_github_search amazon scraper`
 
 
-   [Doc](cli_code/cli_code.cli_github_search.py)
+   [Doc](cli_code/cli_github_search.py)
    
    
 
@@ -59,16 +59,14 @@ Automatically create conda virtual environment for a specified repository. It al
 Usage:
 
 `cli_env_autoinstall test -n notebook_cvt`
-
-or
-
 `cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
-`-n` or `--conda_env` specify name of our conda environment (if not specified, all required packages are installed in a default `test` environment)
-`-py` or `--python_version` specify the python version of the target environment (default is 3.6)
-`-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
+
+   [Doc](cli_code/cli_env_autoinstall.py)
 
 
+
+___
 ### 4) Parse python modules
 
 This Python code parser fetches variable information from the given source. The source may be given either as a .py filepath or as a directory path containing multiple .py source files.
