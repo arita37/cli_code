@@ -8,3 +8,4 @@ tqdm
 requests
 beautifulsoup4
 lxml
+fire
