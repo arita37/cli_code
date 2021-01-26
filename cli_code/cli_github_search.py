@@ -1,18 +1,10 @@
 # About: Search & Scrape GitHub repositories
 """
-
-#### 2) Search Github
-
 Search on github for keyword(s) with optional parameters to refine your search and get all results in a CSV file.
 
 Usage:
 
 `cli_github_search amazon scraper`
-
-
-   [Doc](cli_code/cli_code.cli_github_search.py)
-
-
 
 or refine your search
 
@@ -23,8 +15,6 @@ These are optional arguments:
 `-c` or `--created` specify the period of repository creation
 `-p` or `--pushed` specify the period of pushing to repo
 `-o` or `--output` specify the output folder for storing results (default value is `results`)
-
-
 """
 
 import os
@@ -50,6 +40,7 @@ def search_github(args, start_time):
     df = pd.DataFrame()
     type = 'Repositories'
 
+    # TODO: I beleive we can do better thean this
     if re.match(r'[<>]\d{4}-\d{2}-\d{2}', created) or \
             re.match(r'[<>]=\d{4}-\d{2}-\d{2}', created) or \
             re.match(r'\d{4}-\d{2}-\d{2}..\d{4}-\d{2}-\d{2}', created):
@@ -131,7 +122,7 @@ def search_github(args, start_time):
 
                 try:
                     os.makedirs(folder_name)
-                except:
+                except OSError:
                     pass
 
                 df['Username'] = username

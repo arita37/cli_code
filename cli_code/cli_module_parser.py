@@ -11,18 +11,11 @@ filepath,function_or_class_name,variable_name,is_local
 Function_or_class_name defaults to (global) when there's no enclosing
 function nor class
 
-### Example:
+Usage:
 
-**pythoncodeparser$ ./main.py src/file_finder.py**
+`cli_env_module_parser /path/to/module(s) or package(s) -o module_parsed.csv`
 
-filepath,function_or_class_name,variable_name,is_local
-src/file_finder.py,findVariablesInFile,filepath,False
-src/file_finder.py,findVariablesInDir,findVariablesInFile,False
-src/file_finder.py,_walk,args,False
-src/file_finder.py,_walk,f,True
-
-### Run all unittests
-**pythoncodeparser$ python3 -m unittest discover -p '*_test.py'**
+`-o` or `--output` option is optional and if not specified, results will be shown on stdout.
 """
 
 import ast
