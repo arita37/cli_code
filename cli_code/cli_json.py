@@ -451,6 +451,10 @@ def test_json_conversion():
     return dicts2
 
 
+def main():
+   pass
+
+
 # Testing code
 if __name__ == "__main__":
     import fire

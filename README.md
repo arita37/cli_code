@@ -4,9 +4,12 @@
 
 ## Install
 
-Stable : pip install -e git://github.com/arita37/cli_code.git@0.1#egg=cli_codde
+    Stable : pip install -e git://github.com/arita37/cli_code.git@0.1#egg=cli_codde
 
-Latest : pip install -e git+git://github.com/arita37/cli_code.git#egg=clI_code
+    Latest : pip install -e git+git://github.com/arita37/cli_code.git#egg=clI_code
+
+    Or git clone, pip install -e .
+
 
 ## Utilities available
 
@@ -18,6 +21,9 @@ Latest : pip install -e git+git://github.com/arita37/cli_code.git#egg=clI_code
 - [Easy Merge Conda Environmetns](#6-easy-merge-conda-environmetns)
 - [Checkout any Github Repo](#7-get-github-repository-and-check-it-in-a-new-conda-environment)
 - [Automate Downloading from Dropbox, Google Drive, and Github](#8-automate-downloading-from-dropbox-google-drive-and-github)
+
+- [JSON parsing and code parsing utilities](# JSON and Code parsing utilities)
+
 
 ---
 
@@ -113,8 +119,17 @@ Usage:
 
 [More Documentation](cli_code/cli_download.py)
 
-**TODOs**
 
-- Add an option for creating normal python virtual environment in cli_env_autoinstall module
-- Resolve the problem `in cli_env_autoinstall's` function `get_missing` when package name is different from import name
-- Find a better way to check root files, because sometimes running some scripts without required arguments also throws error
+### JSON and Code parsing utilities
+
+    Parse python source code and put into json format.
+
+
+         cli_json  --path  
+
+
+[More Documentation](cli_code/cli_json.py)
+
+
+
+
