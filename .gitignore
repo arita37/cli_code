@@ -92,3 +92,5 @@ venv.bak/
 /cli_code/.idea/cli_code.iml
 /build
 /dist
+/cli_code/.idea/inspectionProfiles
+/cli_code/.idea
