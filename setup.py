@@ -28,7 +28,8 @@ setup(
         'requests',
         'lxml',
         'simplejson',
-        'pandas'
+        'pandas',
+        'pyyaml'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
