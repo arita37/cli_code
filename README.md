@@ -10,14 +10,14 @@ Latest : pip install -e git+git://github.com/arita37/cli_code.git#egg=clI_code
 
 ## Utilities available
 
-- [Convert Notebook](#1.-Convert-Notebook)
-- [Search Github](#2.-Search-Github)
-- [Auto Create Conda Environment](#3.-Auto-Create-Conda-Environment)
-- [Auto-generate Package Docs](#4.-Auto-generate-Package-Docs)
-- [Parse Python Modules](#5.-Parse-Python-Modules)
-- [Easy Merge Conda Environmetns](#6.-Easy-Merge-Conda-Environmetns)
-- [Checkout any Github Repo](#7.-Get-Github-Repository-and-Check-it-in-a-New-Conda-Environment)
-- [Automate Downloading from Dropbox, Google Drive, and Github](#8.-Automate-Downloading-from-Dropbox,-Google-Drive,-and-Github)
+- [Convert Notebook](#1-convert-notebook)
+- [Search Github](#2-search-github)
+- [Auto Create Conda Environment](#3-auto-create-conda-environment)
+- [Auto-generate Package Docs](#4-auto-generate-package-docs)
+- [Parse Python Modules](#5-parse-python-modules)
+- [Easy Merge Conda Environmetns](#6-easy-merge-conda-environmetns)
+- [Checkout any Github Repo](#7-get-github-repository-and-check-it-in-a-new-conda-environment)
+- [Automate Downloading from Dropbox, Google Drive, and Github](#8-automate-downloading-from-dropbox-google-drive-and-github)
 
 ---
 
@@ -50,6 +50,7 @@ Automatically create conda virtual environment for a specified repository. It al
 Usage:
 
 `cli_env_autoinstall test -n notebook_cvt`
+
 `cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
 [More Documentation](cli_code/cli_env_autoinstall.py)
