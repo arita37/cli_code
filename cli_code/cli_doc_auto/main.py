@@ -19,7 +19,7 @@ import argparse
 import sys
 
 
-from pyreg import home
+from ..cli_doc_auto.pyreg import home
 
 
 def get_arguments():

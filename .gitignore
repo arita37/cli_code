@@ -3,3 +3,12 @@ __pycache__/
 cli_code/cli_doc_auto/pyreg/__pycache__/
 cli_code/__pycache__/
 cli_code/cli_doc_auto/__pycache__/
+
+# ignoring pip builds
+*.egg-info/
+
+# ignore vscode settings
+.vscode
+
+# ignore python venv
+*_venv/

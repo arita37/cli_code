@@ -4,9 +4,9 @@ import os
 import logging
 
 
-from pyreg.manager import fs
-from pyreg.manager import regex
-from pyreg.context import config
+from ..pyreg.manager import fs
+from ..pyreg.manager import regex
+from ..pyreg.context import config
 
 
 LOGGER = logging.getLogger(__name__)
