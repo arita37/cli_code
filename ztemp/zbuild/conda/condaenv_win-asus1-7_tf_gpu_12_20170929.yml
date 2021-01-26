@@ -1,0 +1,152 @@
+name: tf_gpu_12
+channels:
+- conda-forge
+- anaconda
+- r
+- defaults
+dependencies:
+- boto=2.48.0=py35_0
+- future=0.16.0=py35_1
+- alabaster=0.7.10=py35_1
+- args=0.1.0=py35_0
+- asn1crypto=0.22.0=py35_0
+- attrdict=2.0.0=py35_0
+- backports.weakref=1.0rc1=py35_0
+- beautifulsoup4=4.6.0=py35_0
+- bkcharts=0.2=py35_0
+- bleach=1.5.0=py35_0
+- bokeh=0.12.6=py35_0
+- ca-certificates=2017.7.27.1=0
+- certifi=2017.7.27.1=py35_0
+- cffi=1.10.0=py35_0
+- chardet=3.0.4=py35_0
+- click=6.7=py35_0
+- clint=0.5.1=py35_0
+- cloudpickle=0.4.0=py35_0
+- colorama=0.3.9=py35_0
+- cryptography=1.9=py35_0
+- cycler=0.10.0=py35_0
+- dask=0.15.1=py35_0
+- decorator=4.1.2=py35_0
+- distributed=1.18.0=py35_0
+- et_xmlfile=1.0.1=py35_0
+- freetype=2.7=vc14_1
+- github3.py=1.0.0a4=py35_0
+- hdbscan=0.8.10=py35_0
+- heapdict=1.0.0=py35_0
+- html5lib=0.9999999=py35_0
+- icu=58.1=vc14_1
+- idna=2.5=py35_0
+- imageio=2.2.0=py35_0
+- ipython=6.1.0=py35_0
+- ipython_genutils=0.2.0=py35_0
+- jdcal=1.3=py35_0
+- jedi=0.10.2=py35_0
+- jpeg=9b=vc14_0
+- libpng=1.6.28=vc14_0
+- libtiff=4.0.6=vc14_7
+- locket=0.2.0=py35_1
+- markupsafe=1.0=py35_0
+- matplotlib=2.0.2=py35_2
+- mock=2.0.0=py35_0
+- msgpack-python=0.4.8=py35_0
+- networkx=1.11=py35_0
+- numexpr=2.6.2=np113py35_0
+- olefile=0.44=py35_0
+- openpyxl=2.5.0a3=py35_0
+- openssl=1.0.2l=vc14_0
+- partd=0.3.8=py35_0
+- patsy=0.4.1=py35_0
+- pbr=3.1.1=py35_0
+- pefile=2016.3.28=py35_0
+- pickleshare=0.7.4=py35_0
+- pillow=4.2.1=py35_0
+- pkginfo=1.4.1=py35_0
+- prompt_toolkit=1.0.15=py35_0
+- protobuf=3.3.2=py35_vc14_0
+- pycparser=2.18=py35_0
+- pycrypto=2.6.1=py35_1
+- pygments=2.2.0=py35_0
+- pyinstaller=3.2.1=py35_vc14_0
+- pyopenssl=17.2.0=py35_0
+- pyparsing=2.2.0=py35_0
+- pyqt=5.6.0=py35_4
+- pysocks=1.6.7=py35_0
+- pywavelets=0.5.2=np113py35_0
+- pywin32=220=py35_1
+- pyyaml=3.12=py35_1
+- qt=5.6.2=vc14_1
+- requests=2.18.4=py35_1
+- requests-toolbelt=0.8.0=py35_0
+- scikit-image=0.13.0=py35_1
+- simplegeneric=0.8.1=py35_0
+- sip=4.18=py35_1
+- six=1.10.0=py35_1
+- sortedcontainers=1.5.7=py35_0
+- sphinx_rtd_theme=0.2.4=py35_0
+- statsmodels=0.8.0=np113py35_0
+- tblib=1.3.2=py35_0
+- tensorflow=1.2.1=py35_0
+- toolz=0.8.2=py35_0
+- tornado=4.5.1=py35_0
+- traitlets=4.3.2=py35_0
+- twine=1.8.1=py35_1
+- uritemplate.py=3.0.2=py35_0
+- urllib3=1.22=py35_0
+- vc=14=0
+- wcwidth=0.1.7=py35_0
+- webencodings=0.5=py35_0
+- werkzeug=0.12.2=py35_0
+- win_inet_pton=1.0.1=py35_1
+- win_unicode_console=0.5=py35_0
+- yaml=0.1.6=vc14_0
+- zict=0.1.2=py35_0
+- zlib=1.2.11=vc14_0
+- dill=0.2.6=py35_0
+- jinja2=2.8.1=py35_0
+- llvmlite=0.19.0=py35_0
+- lxml=3.8.0=py35_0
+- markdown=2.6.8=py35_0
+- mkl=2017.0.3=0
+- numba=0.34.0=np113py35_0
+- numpy=1.13.1=py35_0
+- pandas=0.20.3=py35_0
+- paramiko=2.1.2=py35_0
+- pip=9.0.1=py35_1
+- psutil=5.2.2=py35_0
+- pyasn1=0.2.3=py35_0
+- pyreadline=2.1=py35_0
+- python=3.5.4=0
+- python-dateutil=2.6.1=py35_0
+- pytz=2017.2=py35_0
+- pywget=2.2=py35_0
+- regex=2017.4.5=py35_0
+- scikit-learn=0.19.0=np113py35_0
+- scipy=0.19.1=np113py35_0
+- setuptools=27.2.0=py35_1
+- sqlalchemy=1.1.13=py35_0
+- tabulate=0.7.5=py35_0
+- vs2015_runtime=14.0.25420=0
+- wheel=0.29.0=py35_0
+- pip:
+  - arrow==0.10.0
+  - catboost==0.1.1.9
+  - config==0.3.9
+  - configmy==0.14.23
+  - edward==1.3.3
+  - et-xmlfile==1.0.1
+  - guidata==1.7.6
+  - ipython-genutils==0.2.0
+  - kmodes==0.7
+  - prompt-toolkit==1.0.15
+  - selenium==2.53.5
+  - sklearn-deap==0.2.0
+  - sphinx==1.3.1
+  - sphinx-rtd-theme==0.2.4
+  - tensorlayer==1.6.1
+  - tpot==0.8.3
+  - uritemplate==2.0.0
+  - wget==2.2
+  - win-inet-pton==1.0.1
+  - win-unicode-console==0.5
+prefix: D:\_devs\Python01\Anaconda27\envs\tf_gpu_12

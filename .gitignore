@@ -1,5 +1,3 @@
-ztemp/
-
 # ignore any __pycache__ file
 __pycache__/
 cli_code/cli_doc_auto/pyreg/__pycache__/

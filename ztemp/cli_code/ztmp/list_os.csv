@@ -1,0 +1,343 @@
+module_name,module_version,full_name,prefix,obj_name,obj_doc,object_type,arg_full,0,1,2,3,4,5,6,7,8,9,10,11
+os,0,os.path._get_bothseps,path,_get_bothseps,"Python Library Documentation: function _get_bothseps in module ntpath
+
+_get_bothseps(path)
+",function,"('(path)',)",os,0,os.path._get_bothseps,path,_get_bothseps,"Python Library Documentation: function _get_bothseps in module ntpath
+
+_get_bothseps(path)
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.abspath,path,abspath,"Python Library Documentation: function abspath in module ntpath
+
+abspath(path)
+    Return the absolute version of a path.
+",function,"('(path)',)",os,0,os.path.abspath,path,abspath,"Python Library Documentation: function abspath in module ntpath
+
+abspath(path)
+    Return the absolute version of a path.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.basename,path,basename,"Python Library Documentation: function basename in module ntpath
+
+basename(p)
+    Returns the final component of a pathname
+",function,"('(p)',)",os,0,os.path.basename,path,basename,"Python Library Documentation: function basename in module ntpath
+
+basename(p)
+    Returns the final component of a pathname
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"
+os,0,os.path.commonpath,path,commonpath,"Python Library Documentation: function commonpath in module ntpath
+
+commonpath(paths)
+    Given a sequence of path names, returns the longest common sub-path.
+",function,"('(paths)',)",os,0,os.path.commonpath,path,commonpath,"Python Library Documentation: function commonpath in module ntpath
+
+commonpath(paths)
+    Given a sequence of path names, returns the longest common sub-path.
+",function,"('paths',)","(nan,)","(nan,)","('arg_info',)","('(paths)',)"
+os,0,os.path.commonprefix,path,commonprefix,"Python Library Documentation: function commonprefix in module genericpath
+
+commonprefix(m)
+    Given a list of pathnames, returns the longest common leading component
+",function,"('(m)',)",os,0,os.path.commonprefix,path,commonprefix,"Python Library Documentation: function commonprefix in module genericpath
+
+commonprefix(m)
+    Given a list of pathnames, returns the longest common leading component
+",function,"('m',)","(nan,)","(nan,)","('arg_info',)","('(m)',)"
+os,0,os.path.dirname,path,dirname,"Python Library Documentation: function dirname in module ntpath
+
+dirname(p)
+    Returns the directory component of a pathname
+",function,"('(p)',)",os,0,os.path.dirname,path,dirname,"Python Library Documentation: function dirname in module ntpath
+
+dirname(p)
+    Returns the directory component of a pathname
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"
+os,0,os.path.exists,path,exists,"Python Library Documentation: function exists in module genericpath
+
+exists(path)
+    Test whether a path exists.  Returns False for broken symbolic links
+",function,"('(path)',)",os,0,os.path.exists,path,exists,"Python Library Documentation: function exists in module genericpath
+
+exists(path)
+    Test whether a path exists.  Returns False for broken symbolic links
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.expanduser,path,expanduser,"Python Library Documentation: function expanduser in module ntpath
+
+expanduser(path)
+    Expand ~ and ~user constructs.
+    
+    If user or $HOME is unknown, do nothing.
+",function,"('(path)',)",os,0,os.path.expanduser,path,expanduser,"Python Library Documentation: function expanduser in module ntpath
+
+expanduser(path)
+    Expand ~ and ~user constructs.
+    
+    If user or $HOME is unknown, do nothing.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.expandvars,path,expandvars,"Python Library Documentation: function expandvars in module ntpath
+
+expandvars(path)
+    Expand shell variables of the forms $var, ${var} and %var%.
+    
+    Unknown variables are left unchanged.
+",function,"('(path)',)",os,0,os.path.expandvars,path,expandvars,"Python Library Documentation: function expandvars in module ntpath
+
+expandvars(path)
+    Expand shell variables of the forms $var, ${var} and %var%.
+    
+    Unknown variables are left unchanged.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.getatime,path,getatime,"Python Library Documentation: function getatime in module genericpath
+
+getatime(filename)
+    Return the last access time of a file, reported by os.stat().
+",function,"('(filename)',)",os,0,os.path.getatime,path,getatime,"Python Library Documentation: function getatime in module genericpath
+
+getatime(filename)
+    Return the last access time of a file, reported by os.stat().
+",function,"('filename',)","(nan,)","(nan,)","('arg_info',)","('(filename)',)"
+os,0,os.path.getctime,path,getctime,"Python Library Documentation: function getctime in module genericpath
+
+getctime(filename)
+    Return the metadata change time of a file, reported by os.stat().
+",function,"('(filename)',)",os,0,os.path.getctime,path,getctime,"Python Library Documentation: function getctime in module genericpath
+
+getctime(filename)
+    Return the metadata change time of a file, reported by os.stat().
+",function,"('filename',)","(nan,)","(nan,)","('arg_info',)","('(filename)',)"
+os,0,os.path.getmtime,path,getmtime,"Python Library Documentation: function getmtime in module genericpath
+
+getmtime(filename)
+    Return the last modification time of a file, reported by os.stat().
+",function,"('(filename)',)",os,0,os.path.getmtime,path,getmtime,"Python Library Documentation: function getmtime in module genericpath
+
+getmtime(filename)
+    Return the last modification time of a file, reported by os.stat().
+",function,"('filename',)","(nan,)","(nan,)","('arg_info',)","('(filename)',)"
+os,0,os.path.getsize,path,getsize,"Python Library Documentation: function getsize in module genericpath
+
+getsize(filename)
+    Return the size of a file, reported by os.stat().
+",function,"('(filename)',)",os,0,os.path.getsize,path,getsize,"Python Library Documentation: function getsize in module genericpath
+
+getsize(filename)
+    Return the size of a file, reported by os.stat().
+",function,"('filename',)","(nan,)","(nan,)","('arg_info',)","('(filename)',)"
+os,0,os.path.isabs,path,isabs,"Python Library Documentation: function isabs in module ntpath
+
+isabs(s)
+    Test whether a path is absolute
+",function,"('(s)',)",os,0,os.path.isabs,path,isabs,"Python Library Documentation: function isabs in module ntpath
+
+isabs(s)
+    Test whether a path is absolute
+",function,"('s',)","(nan,)","(nan,)","('arg_info',)","('(s)',)"
+os,0,os.path.isfile,path,isfile,"Python Library Documentation: function isfile in module genericpath
+
+isfile(path)
+    Test whether a path is a regular file
+",function,"('(path)',)",os,0,os.path.isfile,path,isfile,"Python Library Documentation: function isfile in module genericpath
+
+isfile(path)
+    Test whether a path is a regular file
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.islink,path,islink,"Python Library Documentation: function islink in module ntpath
+
+islink(path)
+    Test whether a path is a symbolic link.
+    This will always return false for Windows prior to 6.0.
+",function,"('(path)',)",os,0,os.path.islink,path,islink,"Python Library Documentation: function islink in module ntpath
+
+islink(path)
+    Test whether a path is a symbolic link.
+    This will always return false for Windows prior to 6.0.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.ismount,path,ismount,"Python Library Documentation: function ismount in module ntpath
+
+ismount(path)
+    Test whether a path is a mount point (a drive root, the root of a
+    share, or a mounted volume)
+",function,"('(path)',)",os,0,os.path.ismount,path,ismount,"Python Library Documentation: function ismount in module ntpath
+
+ismount(path)
+    Test whether a path is a mount point (a drive root, the root of a
+    share, or a mounted volume)
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.join,path,join,"Python Library Documentation: function join in module ntpath
+
+join(path, *paths)
+    # Join two (or more) paths.
+",function,"('(path, *paths)',)",os,0,os.path.join,path,join,"Python Library Documentation: function join in module ntpath
+
+join(path, *paths)
+    # Join two (or more) paths.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path, *paths)',)"
+os,0,os.path.lexists,path,lexists,"Python Library Documentation: function lexists in module ntpath
+
+lexists(path)
+    Test whether a path exists.  Returns True for broken symbolic links
+",function,"('(path)',)",os,0,os.path.lexists,path,lexists,"Python Library Documentation: function lexists in module ntpath
+
+lexists(path)
+    Test whether a path exists.  Returns True for broken symbolic links
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.normcase,path,normcase,"Python Library Documentation: function normcase in module ntpath
+
+normcase(s)
+    Normalize case of pathname.
+    
+    Makes all characters lowercase and all slashes into backslashes.
+",function,"('(s)',)",os,0,os.path.normcase,path,normcase,"Python Library Documentation: function normcase in module ntpath
+
+normcase(s)
+    Normalize case of pathname.
+    
+    Makes all characters lowercase and all slashes into backslashes.
+",function,"('s',)","(nan,)","(nan,)","('arg_info',)","('(s)',)"
+os,0,os.path.normpath,path,normpath,"Python Library Documentation: function normpath in module ntpath
+
+normpath(path)
+    Normalize path, eliminating double slashes, etc.
+",function,"('(path)',)",os,0,os.path.normpath,path,normpath,"Python Library Documentation: function normpath in module ntpath
+
+normpath(path)
+    Normalize path, eliminating double slashes, etc.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.realpath,path,abspath,"Python Library Documentation: function abspath in module ntpath
+
+abspath(path)
+    Return the absolute version of a path.
+",function,"('(path)',)",os,0,os.path.realpath,path,abspath,"Python Library Documentation: function abspath in module ntpath
+
+abspath(path)
+    Return the absolute version of a path.
+",function,"('path',)","(nan,)","(nan,)","('arg_info',)","('(path)',)"
+os,0,os.path.relpath,path,relpath,"Python Library Documentation: function relpath in module ntpath
+
+relpath(path, start=None)
+    Return a relative version of a path
+",function,"('(path, start=None)',)",os,0,os.path.relpath,path,relpath,"Python Library Documentation: function relpath in module ntpath
+
+relpath(path, start=None)
+    Return a relative version of a path
+",function,"('path', 'start')","(nan, None)","(nan, 'NoneType')","('arg_info', 'arg_info')","('(path, start=None)',)"
+os,0,os.path.samefile,path,samefile,"Python Library Documentation: function samefile in module genericpath
+
+samefile(f1, f2)
+    Test whether two pathnames reference the same actual file
+",function,"('(f1, f2)',)",os,0,os.path.samefile,path,samefile,"Python Library Documentation: function samefile in module genericpath
+
+samefile(f1, f2)
+    Test whether two pathnames reference the same actual file
+",function,"('f1', 'f2')","(nan, nan)","(nan, nan)","('arg_info', 'arg_info')","('(f1, f2)',)"
+os,0,os.path.sameopenfile,path,sameopenfile,"Python Library Documentation: function sameopenfile in module genericpath
+
+sameopenfile(fp1, fp2)
+    Test whether two open file objects reference the same file
+",function,"('(fp1, fp2)',)",os,0,os.path.sameopenfile,path,sameopenfile,"Python Library Documentation: function sameopenfile in module genericpath
+
+sameopenfile(fp1, fp2)
+    Test whether two open file objects reference the same file
+",function,"('fp1', 'fp2')","(nan, nan)","(nan, nan)","('arg_info', 'arg_info')","('(fp1, fp2)',)"
+os,0,os.path.samestat,path,samestat,"Python Library Documentation: function samestat in module genericpath
+
+samestat(s1, s2)
+    Test whether two stat buffers reference the same file
+",function,"('(s1, s2)',)",os,0,os.path.samestat,path,samestat,"Python Library Documentation: function samestat in module genericpath
+
+samestat(s1, s2)
+    Test whether two stat buffers reference the same file
+",function,"('s1', 's2')","(nan, nan)","(nan, nan)","('arg_info', 'arg_info')","('(s1, s2)',)"
+os,0,os.path.split,path,split,"Python Library Documentation: function split in module ntpath
+
+split(p)
+    Split a pathname.
+    
+    Return tuple (head, tail) where tail is everything after the final slash.
+    Either part may be empty.
+",function,"('(p)',)",os,0,os.path.split,path,split,"Python Library Documentation: function split in module ntpath
+
+split(p)
+    Split a pathname.
+    
+    Return tuple (head, tail) where tail is everything after the final slash.
+    Either part may be empty.
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"
+os,0,os.path.splitdrive,path,splitdrive,"Python Library Documentation: function splitdrive in module ntpath
+
+splitdrive(p)
+    Split a pathname into drive/UNC sharepoint and relative path specifiers.
+    Returns a 2-tuple (drive_or_unc, path); either part may be empty.
+    
+    If you assign
+        result = splitdrive(p)
+    It is always true that:
+        result[0] + result[1] == p
+    
+    If the path contained a drive letter, drive_or_unc will contain everything
+    up to and including the colon.  e.g. splitdrive(""c:/dir"") returns (""c:"", ""/dir"")
+    
+    If the path contained a UNC path, the drive_or_unc will contain the host name
+    and share up to but not including the fourth directory separator character.
+    e.g. splitdrive(""//host/computer/dir"") returns (""//host/computer"", ""/dir"")
+    
+    Paths cannot contain both a drive letter and a UNC path.
+",function,"('(p)',)",os,0,os.path.splitdrive,path,splitdrive,"Python Library Documentation: function splitdrive in module ntpath
+
+splitdrive(p)
+    Split a pathname into drive/UNC sharepoint and relative path specifiers.
+    Returns a 2-tuple (drive_or_unc, path); either part may be empty.
+    
+    If you assign
+        result = splitdrive(p)
+    It is always true that:
+        result[0] + result[1] == p
+    
+    If the path contained a drive letter, drive_or_unc will contain everything
+    up to and including the colon.  e.g. splitdrive(""c:/dir"") returns (""c:"", ""/dir"")
+    
+    If the path contained a UNC path, the drive_or_unc will contain the host name
+    and share up to but not including the fourth directory separator character.
+    e.g. splitdrive(""//host/computer/dir"") returns (""//host/computer"", ""/dir"")
+    
+    Paths cannot contain both a drive letter and a UNC path.
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"
+os,0,os.path.splitext,path,splitext,"Python Library Documentation: function splitext in module ntpath
+
+splitext(p)
+    Split the extension from a pathname.
+    
+    Extension is everything from the last dot to the end, ignoring
+    leading dots.  Returns ""(root, ext)""; ext may be empty.
+",function,"('(p)',)",os,0,os.path.splitext,path,splitext,"Python Library Documentation: function splitext in module ntpath
+
+splitext(p)
+    Split the extension from a pathname.
+    
+    Extension is everything from the last dot to the end, ignoring
+    leading dots.  Returns ""(root, ext)""; ext may be empty.
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"
+os,0,os.path.splitunc,path,splitunc,"Python Library Documentation: function splitunc in module ntpath
+
+splitunc(p)
+    Deprecated since Python 3.1.  Please use splitdrive() instead;
+    it now handles UNC paths.
+    
+    Split a pathname into UNC mount point and relative path specifiers.
+    
+    Return a 2-tuple (unc, rest); either part may be empty.
+    If unc is not empty, it has the form '//host/mount' (or similar
+    using backslashes).  unc+rest is always the input path.
+    Paths containing drive letters never have a UNC part.
+",function,"('(p)',)",os,0,os.path.splitunc,path,splitunc,"Python Library Documentation: function splitunc in module ntpath
+
+splitunc(p)
+    Deprecated since Python 3.1.  Please use splitdrive() instead;
+    it now handles UNC paths.
+    
+    Split a pathname into UNC mount point and relative path specifiers.
+    
+    Return a 2-tuple (unc, rest); either part may be empty.
+    If unc is not empty, it has the form '//host/mount' (or similar
+    using backslashes).  unc+rest is always the input path.
+    Paths containing drive letters never have a UNC part.
+",function,"('p',)","(nan,)","(nan,)","('arg_info',)","('(p)',)"

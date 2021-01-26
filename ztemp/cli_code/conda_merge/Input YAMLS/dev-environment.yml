@@ -1,0 +1,7 @@
+channels:
+  - conda
+dependencies:
+  - fabric
+  - pip:
+    - genty
+    - h5py

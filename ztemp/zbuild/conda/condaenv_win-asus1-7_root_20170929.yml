@@ -1,0 +1,362 @@
+name: root
+channels:
+- omnia
+- ccordoba12
+- ioos
+- rasbt
+- blaze
+- clinicalgraphics
+- conda-forge
+- anaconda
+- r
+- defaults
+dependencies:
+- bcolz=1.0.0=py27_0
+- javabridge=1.0.14=py27_0
+- mysql-connector-python=2.0.4=py27_0
+- orange=2.7.8=py27_4
+- pandasql=0.7.3=py27_0
+- pivottablejs=2.1.0=py27_0
+- pymysql=0.7.9=py27_0
+- qgrid=0.3.2=py27_0
+- scipy=0.18.0=np111py27_0
+- seaborn=0.7.1=py27_0
+- blaze=0.11.2=py27_0
+- datashape=0.5.3=py27_0
+- boost=1.57.0=2
+- pygmo=1.1.5=py27_2
+- selenium=2.53.5=py27_0
+- amqp=1.4.9=py27_0
+- anyjson=0.3.3=py27_0
+- arrow=0.10.0=py27_0
+- billiard=3.3.0.23=py27_3
+- botocore=1.4.49=py27_0
+- bqplot=0.8.4=py27_0
+- category_encoders=1.2.2=py27_0
+- celery=3.1.23=py27_1
+- cloudpickle=0.2.2=py27_2
+- conda=4.3.22=py27_0
+- convertdate=2.1.0=py27_0
+- cytoolz=0.8.2=py27_0
+- dask=0.13.0=py27_0
+- dateparser=0.5.1=py27_0
+- deap=1.0.2.post2=py27_0
+- distributed=1.15.0=py27_0
+- ephem=3.7.6.0=py27_1
+- expat=2.1.0=vc9_2
+- freexl=1.0.2=vc9_1
+- gdal=2.2.0=np111py27_vc9_0
+- google-api-python-client=1.6.2=py27_0
+- h5py=2.7.0=np111py27_0
+- hdbscan=0.8.3=py27_0
+- hdf4=4.2.12=vc9_0
+- hdf5=1.8.17=vc9_10
+- httplib2=0.10.3=py27_0
+- ipyleaflet=0.2.1=py27_1
+- ipywidgets=5.2.2=py27_2
+- jdatetime=1.8.1=py27_0
+- jmespath=0.9.0=py27_0
+- joblib=0.10.2=py27_0
+- jpeg=9b=vc9_0
+- jupyter_dashboards=0.6.1=py27_0
+- kealib=1.4.7=vc9_0
+- kombu=3.0.35=py27_0
+- libiconv=1.14=vc9_4
+- libnetcdf=4.4.1.1=vc9_4
+- libpng=1.6.28=vc9_0
+- libpq=9.5.4=vc9_3
+- libspatialite=4.3.0a=vc9_14
+- libtiff=4.0.6=vc9_7
+- libxml2=2.9.3=vc9_9
+- mpld3=0.3=py27_0
+- mplleaflet=0.0.5=py27_1
+- notebook=4.2.3=py27_0
+- oauth2client=4.0.0=py27_0
+- openjpeg=2.1.2=vc9_2
+- pandas-gbq=0.1.6=py27_0
+- pillow=3.2.0=py27_1
+- plotly=1.12.12=py27_0
+- proj4=4.9.3=vc9_3
+- psycopg2=2.6.2=py27_1
+- pyasn1-modules=0.0.8=py27_0
+- pystan=2.14.0.0=py27_vc9_0
+- pytables=3.4.2=np111py27_0
+- qt=4.8.7=vc9_6
+- regex=2017.06.23=py27_0
+- rsa=3.4.2=py27_0
+- ruamel.ordereddict=0.4.6=py27_0
+- ruamel.yaml=0.15.18=py27_0
+- s3fs=0.0.8=py27_0
+- s3transfer=0.1.7=py27_0
+- sortedcontainers=1.5.3=py27_0
+- sqlite=3.13.0=vc9_1
+- tpot=0.6.4=py27_0
+- tqdm=4.8.4=py27_0
+- traitlets=4.3.1=py27_0
+- traittypes=0.0.6=py27_0
+- twine=1.8.1=py27_1
+- typing=3.6.1=py27_0
+- tzlocal=1.4=py27_0
+- umalqurra=0.2=py27_0
+- update_checker=0.12=py27_0
+- uritemplate=3.0.0=py27_0
+- vc=9=0
+- widgetsnbextension=1.2.6=py27_3
+- zict=0.1.1=py27_0
+- _nb_ext_conf=0.2.0=py27_0
+- alabaster=0.7.8=py27_0
+- anaconda-client=1.4.0=py27_0
+- anaconda-navigator=1.2.1=py27_0
+- argcomplete=1.0.0=py27_1
+- asn1crypto=0.22.0=py27_0
+- babel=2.3.3=py27_0
+- backports=1.0=py27_0
+- backports_abc=0.4=py27_0
+- beautifulsoup4=4.4.1=py27_0
+- bitarray=0.8.1=py27_1
+- bokeh=0.12.3=py27_1
+- boto=2.48.0=py27_0
+- boto3=1.4.0=py27_0
+- bottleneck=1.1.0=np111py27_0
+- bzip2=1.0.6=vc9_3
+- cdecimal=2.3=py27_2
+- cffi=1.10.0=py27_0
+- cffi=1.6.0=py27_0
+- chest=0.2.3=py27_0
+- click=6.6=py27_0
+- clyent=1.2.2=py27_0
+- colorama=0.3.7=py27_0
+- comtypes=1.1.2=py27_0
+- conda=4.3.21=py27_0
+- conda-build=1.21.14=py27_0
+- conda-env=2.6.0=0
+- configobj=5.0.6=py27_0
+- configparser=3.5.0b2=py27_1
+- console_shortcut=0.1.1=py27_1
+- contextlib2=0.5.3=py27_0
+- cryptography=1.4=py27_0
+- cryptography=1.8.1=py27_0
+- curl=7.49.0=vc9_0
+- cycler=0.10.0=py27_0
+- cython=0.24=py27_0
+- decorator=4.0.10=py27_0
+- dill=0.2.5=py27_0
+- django=1.10.5=py27_0
+- docutils=0.12=py27_2
+- entrypoints=0.2.2=py27_0
+- enum34=1.1.6=py27_0
+- et_xmlfile=1.0.1=py27_0
+- fastcache=1.0.2=py27_1
+- flask=0.11.1=py27_0
+- flask-cors=2.1.2=py27_0
+- freetype=2.5.5=vc9_1
+- funcsigs=1.0.2=py27_0
+- functools32=3.2.3.2=py27_0
+- futures=3.0.5=py27_0
+- geos=3.5.0=vc9_0
+- get_terminal_size=1.0.0=py27_0
+- gevent=1.1.1=py27_0
+- greenlet=0.4.10=py27_0
+- grin=1.2.1=py27_3
+- heapdict=1.0.0=py27_1
+- idna=2.1=py27_0
+- idna=2.5=py27_0
+- imagesize=0.7.1=py27_0
+- ipaddress=1.0.16=py27_0
+- ipaddress=1.0.18=py27_0
+- ipykernel=4.3.1=py27_0
+- ipython=4.2.0=py27_0
+- ipython_genutils=0.1.0=py27_0
+- itsdangerous=0.24=py27_0
+- jdcal=1.2=py27_1
+- jedi=0.9.0=py27_1
+- jinja2=2.8=py27_1
+- jsonschema=2.5.1=py27_0
+- jupyter=1.0.0=py27_3
+- jupyter_client=4.3.0=py27_0
+- jupyter_console=4.1.1=py27_0
+- jupyter_core=4.1.0=py27_0
+- libgdal=2.0.0=vc9_1
+- llvmlite=0.11.0=py27_0
+- locket=0.2.0=py27_1
+- lxml=3.6.0=py27_0
+- markupsafe=0.23=py27_2
+- matplotlib=1.5.1=np111py27_0
+- menuinst=1.4.1=py27_0
+- menuinst=1.4.7=py27_0
+- mistune=0.7.2=py27_0
+- mkl=11.3.3=1
+- mkl-service=1.1.2=py27_2
+- mpmath=0.19=py27_1
+- msgpack-python=0.4.7=py27_0
+- multipledispatch=0.4.8=py27_0
+- nb_anacondacloud=1.1.0=py27_0
+- nb_conda=1.1.0=py27_0
+- nb_conda_kernels=1.0.3=py27_0
+- nbconvert=4.2.0=py27_0
+- nbformat=4.0.1=py27_0
+- nbpresent=3.0.2=py27_0
+- networkx=1.11=py27_0
+- nltk=3.2.1=py27_0
+- nose=1.3.7=py27_1
+- numba=0.26.0=np111py27_0
+- numexpr=2.6.0=np111py27_0
+- numpy=1.11.1=py27_0
+- odo=0.5.0=py27_1
+- openpyxl=2.3.2=py27_0
+- openssl=1.0.2h=vc9_0
+- openssl=1.0.2l=vc9_0
+- packaging=16.8=py27_0
+- pandas=0.19.2=np111py27_1
+- partd=0.3.7=py27_0
+- patch=2.5.9=1
+- path.py=8.2.1=py27_0
+- pathlib2=2.1.0=py27_0
+- patsy=0.4.1=py27_0
+- pep8=1.7.0=py27_0
+- pickleshare=0.7.2=py27_0
+- pip=8.1.2=py27_0
+- pip=9.0.1=py27_1
+- ply=3.8=py27_0
+- psutil=4.0.0=py27_0
+- py=1.4.31=py27_0
+- pyasn1=0.1.9=py27_0
+- pycosat=0.6.1=py27_1
+- pycosat=0.6.2=py27_0
+- pycparser=2.14=py27_1
+- pycparser=2.17=py27_0
+- pycrypto=2.6.1=py27_4
+- pycurl=7.43.0=py27_0
+- pyflakes=1.2.3=py27_0
+- pygments=2.1.3=py27_0
+- pyopenssl=16.2.0=py27_0
+- pyopenssl=17.0.0=py27_0
+- pyparsing=2.1.4=py27_0
+- pyqt=4.11.4=py27_6
+- pyreadline=2.1=py27_0
+- pytest=2.9.2=py27_0
+- python=2.7.13=1
+- python-dateutil=2.5.3=py27_0
+- pytz=2016.4=py27_0
+- pywget=2.2=py27_0
+- pywin32=220=py27_1
+- pyyaml=3.11=py27_4
+- pyzmq=15.2.0=py27_0
+- qtconsole=4.2.1=py27_0
+- qtpy=1.0.2=py27_0
+- quandl=2.8.9=py27_0
+- requests=2.12.4=py27_0
+- requests=2.14.2=py27_0
+- rope=0.9.4=py27_1
+- ruamel_yaml=0.11.14=py27_0
+- ruamel_yaml=0.11.14=py27_1
+- scikit-image=0.12.3=np111py27_1
+- scikit-learn=0.18.1=np111py27_0
+- setuptools=23.0.0=py27_0
+- setuptools=27.2.0=py27_1
+- simplegeneric=0.8.1=py27_1
+- simplejson=3.10.0=py27_0
+- singledispatch=3.4.0.3=py27_0
+- sip=4.16.9=py27_2
+- six=1.10.0=py27_0
+- snowballstemmer=1.2.1=py27_0
+- sockjs-tornado=1.0.3=py27_0
+- sphinx=1.4.1=py27_0
+- sphinx_rtd_theme=0.1.9=py27_0
+- spyder=2.3.9=py27_1
+- sqlalchemy=1.0.13=py27_0
+- ssl_match_hostname=3.4.0.2=py27_1
+- statsmodels=0.6.1=np111py27_1
+- statsmodels=0.8.0=np111py27_0
+- tblib=1.3.0=py27_0
+- tk=8.5.18=vc9_0
+- toolz=0.8.0=py27_0
+- tornado=4.3=py27_1
+- unicodecsv=0.14.1=py27_0
+- vs2008_runtime=9.00.30729.1=2
+- vs2008_runtime=9.00.30729.5054=0
+- werkzeug=0.11.10=py27_0
+- wheel=0.29.0=py27_0
+- xerces-c=3.1.4=vc9_0
+- xlrd=1.0.0=py27_0
+- xlsxwriter=0.9.2=py27_0
+- xlwings=0.7.2=py27_0
+- xlwt=1.1.2=py27_0
+- zlib=1.2.8=vc9_3
+- folium=0.2.1=py27_0
+- fastcluster=1.1.20=np111py27_0
+- mlxtend=0.4.2=py27_0
+- pip:
+  - args==0.1.0
+  - attrdict==2.0.0
+  - backports-abc==0.4
+  - backports.functools-lru-cache==1.4
+  - backports.shutil-get-terminal-size==1.0.0
+  - backports.ssl-match-hostname==3.4.0.2
+  - brewer2mpl==1.4.1
+  - caniusepython3==5.0.0
+  - category-encoders==1.2.2
+  - certifi==2017.4.17
+  - chardet==3.0.4
+  - clint==0.5.1
+  - config==0.3.9
+  - configmy==0.14.27
+  - datacleaner==0.1.4
+  - diskcache==2.4.1
+  - distlib==0.2.5
+  - django-ipware==1.1.6
+  - django-registration-redux==1.4
+  - et-xmlfile==1.0.1
+  - fastcsv==0.1.2
+  - fastnumbers==1.0.0
+  - filterpy==0.1.4
+  - future==0.15.2
+  - geopy==1.11.0
+  - ggplot==0.11.5
+  - gplearn==0.1.0
+  - gspread==0.4.1
+  - guidata==1.7.6
+  - h2o==3.10.0.8
+  - iptools==0.6.1
+  - ipyparallel==5.2.0
+  - ipython-genutils==0.1.0
+  - iso8601==0.1.11
+  - jupyter-client==4.3.0
+  - jupyter-console==4.1.1
+  - jupyter-core==4.1.0
+  - jupyter-dashboards==0.6.1
+  - kmodes==0.6
+  - logilab-astng==0.24.3
+  - logilab-common==1.2.2
+  - marshmallow==2.13.5
+  - mystic==0.2a2.dev0
+  - nb-anacondacloud==1.1.0
+  - nb-conda==1.1.0
+  - nb-conda-kernels==1.0.3
+  - optcomplete-1.2==devel
+  - paramiko==2.0.2
+  - pattern==2.6
+  - pydrive==1.2.1
+  - pylint==0.25.0
+  - pyminifier==2.1
+  - pysftp==0.2.9
+  - python-google-places==1.4.0
+  - python-weka-wrapper==0.3.9
+  - requests-toolbelt==0.8.0
+  - ruamel-yaml-==VERSION
+  - scp==0.10.2
+  - shortuuid==0.5.0
+  - sklearn-deap==0.1.7
+  - sphinx-rtd-theme==0.1.9
+  - starcluster==0.95.6
+  - tables==3.4.2
+  - tablib==0.11.2
+  - tabulate==0.7.7
+  - update-checker==0.12
+  - urllib3==1.21.1
+  - weka==1.0.0
+  - wget==2.2
+  - whitenoise==3.3.0
+  - workerpool==0.9.4
+  - yahoo-ticker-downloader==0.8.1
+prefix: D:\_devs\Python01\Anaconda27

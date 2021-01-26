@@ -1,0 +1,67 @@
+﻿# a_aapackage
+
+################################################################################
+git clone https://github.com/arita37/a_aapackage.git
+cd a_aapackage
+git checkout dev
+
+pip install -e  .
+(install as editable mode)
+
+
+
+
+
+
+
+
+
+################################################################################
+ENV install
+    conda create -n testenv --yes $TO_INSTALL --file zbuild/py36.txt
+    source activate testenv
+    pip install arrow==0.10.0 attrdict==2.0.0 backports.shutil-get-terminal-size==1.0.0 configmy==0.14.87 github3.py==1.2.0 jwcrypto==0.6.0 kmodes==0.9 rope-py3k==0.9.4.post1 tables==3.3.0 tabulate==0.8.2 uritemplate==3.0.0
+    pip install dcgpy
+    conda install -c conda-forge  pygmo  pagmo
+
+
+
+
+################################################################################
+Usage :
+from aapackage import util
+
+util.a_python()
+
+
+
+
+
+
+
+
+
+
+
+##### Tar gzip conda pack
+https://conda.github.io/conda-pack/cli.html
+
+
+
+################################################################################
+################################################################################
+Anaconda 5.2.0 (May 30, 2018)
+python 3.6.4 -> 3.6.5
+
+
+https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+
+
+
+
+
+
+
+
+
+
