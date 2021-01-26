@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 """
-Takes a source dir as a positional argument.
-
-Produces 3 files:
+Takes a source dir as a positional argument, parses all python modules matching the given filter
+and produces 3 files:
 
     1. documentation
     2. classes.json
@@ -11,15 +10,13 @@ Produces 3 files:
 
 usage:
 
-python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt
-python main.py client/yakinoe/pyreg/dataset/requests/ -vvv --tab 4 --out docs.txt --filter ".*?api.py"
+cli_doc_auto test -vvv --tab 4 --out docs.txt
+cli_doc_auto test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"
 """
 
 import logging
 import argparse
 import sys
-#from cli_code.cli_doc_auto.lib.common.argparse import cli
-#from cli_code.cli_doc_auto.pyreg import home
 
 
 from pyreg import home
@@ -37,32 +34,6 @@ def get_arguments():
 
     args = p.parse_args()
     return args
-
-
-def get_logger(verbosity=0):
-    logfile = "logs.txt"
-    log_format = (
-        '[%(asctime)s] %(levelname)-6s %(name)-12s %(message)s'
-    )
-    VERBOSITY = [
-        None,
-        logging.CRITICAL,
-        logging.ERROR,
-        logging.WARN,
-        logging.INFO,
-        logging.DEBUG,
-    ]
-    logging.basicConfig(
-        level=VERBOSITY[verbosity],
-        format=log_format,
-        handlers=[
-            logging.FileHandler(logfile),
-            logging.StreamHandler(sys.stdout),
-        ]
-    )
-    # get a logger
-    logger = logging.getLogger(__name__)
-    return logger
 
 
 def main():
@@ -95,6 +66,7 @@ def main():
             ]
         )
 
+    # eveything is handled at the backend
     home.execute(args)
 
 

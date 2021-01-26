@@ -1,34 +1,20 @@
 """
-Create python script to do this :
-For a given github repo :
-   1)   git clone
-   2)  Build conda env with packages
-   3)  check if python code is running
-            main.py
-   4) Generate signature docs of python source code
+Goal is to automate code check using a python script. This scripts do the following
+For a given github repo url:
 
-Goal is to automate code check using a python script
+- Clone the repo with `git clone` and assign either a user specified name or repo's default name
+- Build a conda env with packages required to use the repo
+- Check if python code is running i.e., run main.py
+- Generate signature docs of python source code
 
-Example
-https://github.com/zhangqianhui/vae-gan-tensorflow
+Usage:
 
+`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
 
-#  1)   git clone repoURL
-#  2)  Build conda env from source code parsing
-   # cd repo
-# https://github.com/arita37/cli_code/blob/master/cli_code/cli_module_autoinstall.py
-   
-   
-# 3) Launch all files in root (main.py) with subprocess to check if running
-    # Log error messages on disk
- 
-# 4) Parse source code with  import inspect and generate signature for each functiom
-  #  Write on disk
-   # https://github.com/arita37/cli_code/blob/master/cli_code/cli_module_analysis.py
-
-File: cll_build_check_repo.py
-Function: automate code check in repository
-
+`-o` or `--output` specify the name of target directory to clone the repo (default is {reponame})
+`-n` or `--conda_env` specify name of our conda environment (if not specified, `{reponame}_env` will be used)
+`-py` or `--python_version` specify the python version of the target environment (default is 3.6)
+`-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
 
 """
 
@@ -47,6 +33,9 @@ import logging
 
 
 def get_logger():
+    """
+    Instantiate a logger for this module
+    """
     logfile = "repo_check_logs.txt"
     log_format = (
         '[%(asctime)s] %(levelname)-6s %(name)-12s %(message)s'
@@ -66,6 +55,9 @@ logger = get_logger()
 
 
 def get_os():
+    """
+    Get the operating system information for the machine running this script.
+    """
     curr_os = "linux" if "Linux" in platform.platform() else "win"
     return curr_os
 
@@ -205,6 +197,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-

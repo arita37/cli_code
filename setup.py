@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 setup(
     name='cli_code',
-    version='0.0.2',
+    version='0.0.3',
     packages=find_packages(),
     entry_points={
         'console_scripts':
@@ -12,7 +12,8 @@ setup(
                 'cli_env_module_parser = cli_code.cli_module_parser:main',
                 'cli_download=cli_code.cli_download:main',
                 'cli_repo_check = cli_code.cli_repo_check:main',
-                'cli_env_conda_merge = cli_code.cli_conda_merge:main',
+                'cli_conda_merge = cli_code.cli_conda_merge:main',
+                'cli_doc_auto = cli_code.cli_doc_auto.main:main',
             ],
     },
     license='MIT',
