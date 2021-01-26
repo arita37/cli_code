@@ -1,10 +1,28 @@
 """
-To be written
+This script automates downloading of bulk files from github, google drive and dr0pbox. 
+You can either provide a single url or a file containg multiple urls,
+ one per line and an optional directory to store download results.
+
+Usage:
+
+`cli_download -u a_valid_url`
+
+`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
+
+`-u` or `--url` specify a valid url for the file to download
+`-f` or `--file` specify path to a file containing a list of valid urls, one per line
+`-o` or `--output` specify the output directory (default is `downloaded`)
+
+What is a valid url?
+
+- Github - Url of a _file_ in a github repo e.g., `https://github.com/Chhekur/amazon-scraper/blob/master/README.md`
+- Google Drive -    Share link of a file on google drive (share setting must be set 
+                    to `anyone with the link`) e.g., `https://drive.google.com/file/d/1FPn4Q4PClobHgEU4DglyF2Xbs5Boe1r_/view?usp=sharing`
+- Dropbox - TO BE TESTED, DON't OWN A DROPBOX ACCOUNT
 """
 import cgi
 import os
 import re
-import sys
 import uuid
 import argparse
 
@@ -79,7 +97,7 @@ class Downloader:
         else:
             try:
                 filename = self.parsed.path.split('/')[-1]
-            except:
+            except IndexError:
                 filename = None
 
         return filename if filename is not None else self.DEFAULT_FILENAME

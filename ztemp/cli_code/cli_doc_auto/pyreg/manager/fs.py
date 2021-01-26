@@ -5,7 +5,7 @@ import os
 import logging
 
 
-from ..context import config
+from pyreg.context import config
 
 
 LOGGER = logging.getLogger()
@@ -14,7 +14,7 @@ LOGGER = logging.getLogger()
 def list_source_files(srcdir):
     srcs = []
 
-    for dirpath, _, files in os.walk(srcdir):
+    for dirpath, dirs, files in os.walk(srcdir):
         for fname in files:
             path = os.path.join(dirpath, fname)
             if any(map(lambda ext: fname.endswith(ext), config.EXT)):

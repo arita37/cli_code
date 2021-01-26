@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-
-### 3) Auto Create Conda Environment
-
-Automatically create conda virtual environment for a specified repository. It also autodetects all required packages and install them into the newly created environment.
+Automatically create conda virtual environment for a specified repository. 
+It also autodetects all required packages and install them into the newly created environment.
 
 Usage:
 
@@ -34,59 +32,10 @@ python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/a
 import os
 import subprocess
 import glob
-# from IPython.nbformat import current as nbformat
-# from IPython.nbconvert import PythonExporter
-# import nbformat
-# from nbconvert import PythonExporter
-# from tqdm import tqdm
 from time import sleep
 import re
 
 import platform
-
-
-# NOTE: not used in the main
-# def setup_env(folder, url):
-#     reponame = url.split("/")[-1]
-#     os.system(" cd '{folder}'  &&  git clone {url} ")
-#     foldert = folder + "/" + reponame
-#     ll = []
-#     for x in ["requirements.txt", "
-# requirement.txt"]:
-#         try:
-#             with open(foldert + "/" + x, mode="r") as f:
-#                 ll = f.readlines()
-#         except:
-#             pass
-#     pkgs = " ".join(ll) if ll is not None else " pandas "
-#     arg = {"folder_input": foldert, "conda_env": "ztest", "python_version":  "3.6.7", "packages": pkgs
-#            }
-#     os.system(" conda remove -n ztest")
-#     run(arg)
-#     os.system(" conda export -n ztest")
-#     os.system(" conda export -n ztest")
-
-
-##################################################################################
-
-
-# def os_system(cmds, stdout_only=True):
-#     """
-#     Executes system command and
-#     Get print output from command line
-#     :param cmds a list containing command and its arguments
-#     """
-#     import subprocess
-
-#     p = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#     try:
-#         out, err = p.communicate(timeout=3)
-#         errcode = p.returncode
-#     except
-
-#     if stdout_only:
-#         return out, errcode
-#     return out, err, errcode
 
 
 def get_os():
@@ -236,32 +185,6 @@ def get_required_packages(source_files, conda_env="test"):
     return package_list
 
 
-def load_arguments():
-    """
-    Parse the arguments for the cli_env_autoinstall.py module.
-    """
-    import argparse
-
-    # cur_path = os.path.dirname(os.path.realpath(__file__))
-    # config_file = os.path.join(cur_path, "config.toml")
-
-    p = argparse.ArgumentParser(
-        description="Create a new conda environment for a repo and installs its dependencies.")
-    p.add_argument(
-        "folder_input", default="", help="Folder containing the source files")
-    p.add_argument("--conda_env", "-n", default="test",
-                   help="Name of conda environment to create")
-    p.add_argument("--python_version", "-py", default="3.6.7",
-                   help="Python version to use in the conda environment")
-    p.add_argument("--packages", "-p", default="numpy",
-                   help="Custom/extra packages to install in conda env, e.g., \"numpy tensorflow\"")
-
-    p.add_argument("--mode", default="test",
-                   help="conda environment mode which can be test/ prod /uat")
-    arg = p.parse_args()
-    return arg
-
-
 def conda_env_exits(conda_env):
     cmds = ['conda.bat', 'env', 'list']
     p = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -271,6 +194,11 @@ def conda_env_exits(conda_env):
 
 
 def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
+    """
+    Function that creates the conda environment.
+    :param: folder_input folder containg the repo.
+    :param: conda_env 
+    """
 
     # get conda activate handle, depending on os
     conda_activate = f"activate {conda_env} &&" if get_os(
@@ -321,6 +249,32 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
     #     fp.write("\n".join(miss_packages))
 
 
+def load_arguments():
+    """
+    Parse the arguments for the cli_env_autoinstall.py module.
+    """
+    import argparse
+
+    # cur_path = os.path.dirname(os.path.realpath(__file__))
+    # config_file = os.path.join(cur_path, "config.toml")
+
+    p = argparse.ArgumentParser(
+        description="Create a new conda environment for a repo and installs its dependencies.")
+    p.add_argument(
+        "folder_input", default="", help="Folder containing the source files")
+    p.add_argument("--conda_env", "-n", default="test",
+                   help="Name of conda environment to create")
+    p.add_argument("--python_version", "-py", default="3.6.7",
+                   help="Python version to use in the conda environment")
+    p.add_argument("--packages", "-p", default="numpy",
+                   help="Custom/extra packages to install in conda env, e.g., \"numpy tensorflow\"")
+
+    p.add_argument("--mode", default="test",
+                   help="conda environment mode which can be test/ prod /uat")
+    arg = p.parse_args()
+    return arg
+
+
 def main():
     args = load_arguments()
     create_env(
@@ -329,5 +283,15 @@ def main():
     )
 
 
+# def main(folder_input, conda_env, python_version, packages):
+#     create_env(folder_input, conda_env, python_version, packages
+#                )
+
+
 if __name__ == "__main__":
     main()
+
+    # TODO: handle default values for some parameters
+    # d = {'main': main}
+    # import fire
+    # fire.Fire(d)

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-### 1) Convert Notebook
-
-convert all IPython notebooks inside a directory to python scripts and save them to another directory. This also tests python scripts for potential syntax errors.
+convert all IPython notebooks inside a directory to python scripts and save them to another directory. 
+This also tests python scripts for potential syntax errors.
 
 Usage:
 
@@ -10,10 +9,7 @@ Usage:
 
 `-i` or `--in_folder`  argument is requiredand and specify the folder containing IPython notebooks
 `-o` or `--out_folder` optional argument for output directory (default results will be saved in `py-scripts` directory)
-
-
 """
-import json
 import ast
 import glob
 import os
@@ -23,7 +19,7 @@ import sys
 import nbformat
 from nbconvert import PythonExporter
 from tqdm import tqdm
-import pypandoc as pdoc
+#import pypandoc as pdoc
 
 
 def scan(data_file):
@@ -132,10 +128,6 @@ def load_arguments():
 
 
 def main():
-    # if len(sys.argv) != 3:
-    #    print('Syntax: %s src_ipny_fold dst_py_fold' % sys.argv[0])
-    #    sys.exit(0)
-    # (data_file, out_dir) = sys.argv[1:]
     args = load_arguments()
     data_file, out_dir = args.in_folder, args.out_folder
 
@@ -150,7 +142,7 @@ def main():
             shutil.rmtree(out_dir)
         else:
             sys.exit(0)
-
+    # TODO: this is copying whole source dir to target, fix this
     shutil.copytree(data_file, out_dir)
     dst_files_to_delete = scan(out_dir)
     for s in dst_files_to_delete:
