@@ -23,21 +23,30 @@ def execute(cliargs):
 
     regex.analyze(sources)
 
+    try :
+       to_text_format()
+    except :
+        pass
+
+
+def to_text_format():
+    prefix_path = "D:\\_devs\\Python01\\gitdev\\mlmodels\\"
     # Clean formatting
-    # with open(config.OUT, mode='r') as f:
-    #     ll = f.readlines()
+    with open(config.OUT, mode='r') as f:
+         ll = f.readlines()
 
-    # ll2 = []
-    # for line in ll:
-    #     line = line.replace("D:\\_devs\\Python01\\gitdev\\mlmodels\\", "")
-    #     ll2.append(line)
+    ll2 = []
+    for line in ll:
+         line = line.replace(prefix_path, "")
+         ll2.append(line)
 
-    # with open(config.OUT + ".txt", 'w') as f:
-    #     f.write(''.join(ll2))
+    with open(config.OUT + ".py", 'w') as f:
+         f.write(''.join(ll2))
 
-    # with open(config.OUT + ".py", 'w') as f:
-    #     f.write(''.join(ll2))
 
+
+def to_html_format():
+    pass
     # ###### HTML tag  ####################################################
     # head = """
     # <html>
