@@ -9,7 +9,7 @@ rule 4 - align assignment operators
 
 Usage:
 
-cli_format --in_dir=/path/to/file or /path/to/dir --out_dir=/path/to/output
+cli_format -n /path/to/file or /path/to/dir --out_dir /path/to/output
 
 """
 import re
@@ -17,22 +17,26 @@ import glob
 import fire
 import os
 import tqdm
+import datetime
 ##############################################################################################
+
 
 def format_comments(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 1 (see docs).
     """
     # rules to detect fancy comments, if not text
-    regex1 = r"^#{3,}$"
+    regex1 = r"^ *?####*$"
     # rules to detect fancy comments, if text
-    regex2 = r"^#+ (\w+) .+#$"
+    regex2 = r"^ *?####*([^#\n\r]+)#*"
     # if detected pattern 1, replace with this
     subst1 = "#"*line_size
 
     # if detected pattern 2, replace with this
     def subst2(match_obj):
-        return r'#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1)))
+        fix_pad = 4 + 2  # 4 hashes on left plus two spaces
+        cap_group = match_obj.group(1).strip()
+        return '#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group))
 
     text = re.sub(regex1, subst1, text, 0, re.MULTILINE)
     text = re.sub(regex2, subst2, text, 0, re.MULTILINE)
@@ -45,11 +49,13 @@ def format_logs(text="default", line_size=90):
     Takes a string of text and formats it based on rule 2 (see docs).
     """
     # rule to find log statemets
-    regex3 = r"log\(\"#+ (.*) #+\"\)"
+    regex3 = r"log\(\"#+(.*?)#*(\".*)"
 
     # substitution to replace the found log statements
     def subst3(match_obj):
-        return r'log("#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1))) + '")'
+        fix_pad = 4 + 2  # 4 hashes on left plus two spaces
+        cap_group = match_obj.group(1).strip()
+        return r'log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
 
     text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
     # return formatted text
@@ -86,12 +92,12 @@ def format_assignments(text):
     a_block_right = []
 
     # these statements may contain = too are not assignment
-    skip_tokens = ['if', 'for', 'while', '(', ')' , 'else']
+    skip_tokens = ['if', 'for', 'while', '(', ')', 'else']
 
     def format_assignment_block():
         """
-        Process an assignment block, returns formatted list of 
-        assignment lines in that block.   
+        Process an assignment block, returns formatted list of
+        assignment lines in that block.
         """
         max_left = max([len(left) for left in a_block_left])
         f_assignments = []
@@ -105,8 +111,8 @@ def format_assignments(text):
         # empty list is considered false
         if "=" in line and not ["bad" for t in skip_tokens if t in line.split("=")[0]]:
             left = line.split("=")[0]
-            right = line.split("=")[-1]
-
+            right = line.split("=")[1:]
+            right = '='.join(right)     # from list to a string
             # need to preserve spaces on left
             a_block_left.append(left.rstrip())
             a_block_right.append(right.strip())
@@ -129,7 +135,6 @@ def format_assignments(text):
 
     # join individual lines in list and returns as text string
     return '\n'.join(formated_text)
-
 
 
 ######################################################################################
@@ -171,74 +176,22 @@ def format_dir(in_dir, out_dir):
     src_files = os_glob(in_dir)
 
     for f in tqdm.tqdm(src_files):
-        format_file(f, out_dir)
-
-
-def load_arguments():
-    """
-    Parse the arguments
-    """
-    import argparse
-
-    p = argparse.ArgumentParser(description="")
-    p.add_argument("--dir_in", "-n", default="test/run_train.py",  help="output")
-    p.add_argument("--dir_out", default="test", help="Folder containing the source files")
-
-    arg = p.parse_args()
-    return arg
-
-
-def main():
-    args = load_arguments()
-
-    in_dir  = args.dir_in
-    out_dir = args.dir_out
-
-    if in_dir != None:
-        if ".py" in in_dir:
-            format_file(in_dir, out_dir)
+        if mod_period(f):
+            format_file(f, out_dir)
         else:
-            format_dir(in_dir, out_dir)
+            print(f"{f} is not modified within one week")
+
+
+def mod_period(in_file):
+    file_stats = os.stat(in_file)
+    mod_date = datetime.datetime.fromtimestamp(file_stats.st_mtime)
+    now = datetime.datetime.now()
+    week_delta = datetime.timedelta(weeks=1)
+
+    if now - mod_date < week_delta:
+        return True     # file can be formatted
     else:
-        print("No input specified")
-
-
-###############################################################################################
-def test():
-    """
-    Test a file in test folder. 
-    (although we can also do this)
-    python cli_code/cli_format2.py --in_dir=test\run_tain.py
-    and remove this function
-    """
-    test_file = os.path.join("test", "run_train.py")
-    main(in_dir=test_file)
-
-
-
-
-if __name__ == "__main__":
-    main()
-    # test_rules(4)
-    # test()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return False
 
 
 def test_rules(rules2test=1):
@@ -259,7 +212,7 @@ def test_rules(rules2test=1):
 
     if rules2test == 2:
         # a test string for rule 2 case
-        test_str3 = 'log("#### Data preparation #########################################################")'
+        test_str3 = 'log("###### Model Params Dynamic loading ########")'
         print("formatting log statements")
         print(test_str3)
         print(format_logs(test_str3))
@@ -286,7 +239,7 @@ def test_rules(rules2test=1):
 
     if rules2test == 4:
         # a test string for rule 4
-        test_str5 = """    
+        test_str5 = """
         keywords = args.keyword
         created = args.created
         pushed = args.pushed
@@ -306,3 +259,38 @@ def test_rules(rules2test=1):
         print("alignment of assignment lines")
         print(test_str5)
         print(format_assignments(test_str5))
+
+
+def load_arguments():
+    """
+    Parse the arguments
+    """
+    import argparse
+
+    p = argparse.ArgumentParser(description="")
+    p.add_argument("--input", "-n",
+                   default="test/run_train.py",  help="Source file path or path to a directory")
+    p.add_argument("--dir_out", default="formatted",
+                   help="Name of output directory to store results")
+
+    arg = p.parse_args()
+    return arg
+
+
+def main():
+    args = load_arguments()
+
+    _input = args.input
+    out_dir = args.dir_out
+
+    if ".py" in _input:
+        if mod_period(_input):
+            format_file(_input, out_dir)
+        else:
+            print(f"{_input} is not modified within one week")
+    else:
+        format_dir(_input, out_dir)
+
+
+if __name__ == "__main__":
+    main()
