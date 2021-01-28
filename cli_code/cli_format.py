@@ -1,330 +1,308 @@
-# -*- coding: utf-8 -*-
 """
+A simple python module to parse the code and format it based on some rules.
+Some rules are:
+rule 1 - change a line starting with 3 #'s into x #'s where x is 90 by default
+         if no text was found else preserve text and fill the rest with #'s
+rule 2 - normalize log statements in the file
+rule 3 - put all consecutive imports on one line
+rule 4 - align assignment operators
 
-Format the code source based on rules
+Usage:
 
+cli_format --in_dir=/path/to/file or /path/to/dir --out_dir=/path/to/output
 
 """
-
-
-import time
-import gc
-from collections import defaultdict
-from attrdict import AttrDict as dict2
-import copy
-import util
 import re
-import numpy as np
-import _pickle as cPickle
+import glob
+import fire
 import os
-import sys
-import platform
-import arrow
-import pandas as pd
+import tqdm
+##############################################################################################
+
+def format_comments(text="default", line_size=90):
+    """
+    Takes a string of text and formats it based on rule 1 (see docs).
+    """
+    # rules to detect fancy comments, if not text
+    regex1 = r"^#{3,}$"
+    # rules to detect fancy comments, if text
+    regex2 = r"^#+ (\w+) .+#$"
+    # if detected pattern 1, replace with this
+    subst1 = "#"*line_size
+
+    # if detected pattern 2, replace with this
+    def subst2(match_obj):
+        return r'#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1)))
+
+    text = re.sub(regex1, subst1, text, 0, re.MULTILINE)
+    text = re.sub(regex2, subst2, text, 0, re.MULTILINE)
+    # formatted text to return
+    return text
+
+
+def format_logs(text="default", line_size=90):
+    """
+    Takes a string of text and formats it based on rule 2 (see docs).
+    """
+    # rule to find log statemets
+    regex3 = r"log\(\"#+ (.*) #+\"\)"
+
+    # substitution to replace the found log statements
+    def subst3(match_obj):
+        return r'log("#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1))) + '")'
+
+    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
+    # return formatted text
+    return text
+
+
+def format_imports(text):
+    """
+    Takes a string of text and formats it based on rule 3 (see docs).
+    """
+    # rule to find consective imports
+    regex4 = r"^import[\s\w]+?(?=from|^\s*$)"
+
+    # this subsitution will happen with a function
+    def subst4(match_obj):
+        pattern = r"import (\w+)"
+        ind_imports = re.findall(pattern, match_obj.group(0))
+        return r"import " + ", ".join(ind_imports) + "\n"
+
+    text = re.sub(regex4, subst4, text, 0, re.MULTILINE)
+    # return formatted text
+    return text
+
+
+def format_assignments(text):
+    """
+    Aligns assignment statements in the source file and return a text.
+    """
+    lines = text.split("\n")
+
+    # process text line by and store each line at its starting index
+    formated_text = []
+    a_block_left = []
+    a_block_right = []
+
+    # these statements may contain = too are not assignment
+    skip_tokens = ['if', 'for', 'while', '(', ')' , 'else']
+
+    def format_assignment_block():
+        """
+        Process an assignment block, returns formatted list of 
+        assignment lines in that block.   
+        """
+        max_left = max([len(left) for left in a_block_left])
+        f_assignments = []
+        for left, right in zip(a_block_left, a_block_right):
+            new_line = left + ' '*(max_left-len(left)) + ' = ' + right
+            f_assignments.append(new_line)
+        return f_assignments
+
+    for line in lines:
+        # assignment should contain = and shouldn't contain anything from skip_tokens
+        # empty list is considered false
+        if "=" in line and not ["bad" for t in skip_tokens if t in line.split("=")[0]]:
+            left = line.split("=")[0]
+            right = line.split("=")[-1]
+
+            # need to preserve spaces on left
+            a_block_left.append(left.rstrip())
+            a_block_right.append(right.strip())
+
+        else:
+            # if not assingment, process the block if not empty
+            if len(a_block_left) != 0:
+                f_assignments = format_assignment_block()
+                formated_text.extend(f_assignments)
+                a_block_left = []
+                a_block_right = []
+            # if not assingment, preserve the line
+            formated_text.append(line)
 
-
-DIRCWD = r'C:/aacredit/'
-os.chdir(DIRCWD)
-sys.path.append(DIRCWD + '/aapackage')  # print(DIRCWD, CFG)
-# print(os.environ)
+    # check if the block is non empty at the end
+    # because the else will not trigger if assignment lines are at the last
+    if len(a_block_left) != 0:
+        f_assignments = format_assignment_block()
+        formated_text.extend(f_assignments)
 
-####  tab character :     '	'   #####################################################
-#####################################################################################
-dir_training = r'C:data/'
+    # join individual lines in list and returns as text string
+    return '\n'.join(formated_text)
 
 
-#####################################################################################
-path1 = r'gitcode/scores/'
-win = 'deepctr'
-wout = 'scores'
 
-oklist = ['py', 'txt', 'ini', 'yaml', 'sql', 'sh']
-
-
-regex = re.compile(re.escape(win), re.IGNORECASE)
-
-
-# All Files
-aa = util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-
-# Folder recursive
-aa = util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-aa = util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-aa = util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-
-def os_file_rename(some_dir, pattern="*.*", pattern2="", dirlevel=1):
-    import fnmatch
-    import os
-    import numpy as np
-    import re
-
-    matches = []
-    some_dir = some_dir.rstrip(os.path.sep)
-    assert os.path.exists(some_dir)
-    num_sep = some_dir.count(os.path.sep)
-    for root, dirs, files in os.walk(some_dir):
-        num_sep_this = root.count(os.path.sep)
-        if num_sep + dirlevel <= num_sep_this:
-            del dirs[:]
-        matches.append([])
-        matches.append([])
-        matches.append([])
-        # Filename, DirName
-        for inner_files in fnmatch.filter(files, pattern):
-            # replace pattern by pattern2
-            nfile = re.sub(pattern, pattern2, inner_files)
-            os.path.abspath(root)
-            os.rename(inner_files, nfile)
-
-            matches[0].append(os.path.splitext(nfile)[0])
-            matches[1].append(os.path.splitext(nfile)[1])
-            matches[2].append(os.path.join(root, nfile))
-    return np.array(matches).T
-
-
-#####################################################################################
-### In file replacement  ############################################################
-aa = util.os_file_listall(path1, pattern='*', dirlevel=100, onlyfolder=0)
-for x in aa[2]:
-    if x[x.rfind('.')+1:] in oklist:
-        with open(x, 'r') as file:
-            filedata = file.read()
-
-        filedata = regex.sub(wout, filedata)
-
-        # Write the file out again
-        with open(x, 'w') as file:
-            file.write(filedata)
-
-#####################################################################################
-#####################################################################################
-
-
-def _os_file_search_fast(fname, texts=None, mode="regex/str"):
-    if texts is None:
-        texts = ["myword"]
-
-    res = []  # url:   line_id, match start, line
-    enc = "utf-8"
-    fname = os.path.abspath(fname)
-    try:
-        if mode == "regex":
-            texts = [(text, re.compile(text.encode(enc))) for text in texts]
-            for lineno, line in enumerate(open(fname, "rb")):
-                for text, textc in texts:
-                    found = re.search(textc, line)
-                    if found is not None:
-                        try:
-                            line_enc = line.decode(enc)
-                        except UnicodeError:
-                            line_enc = line
-                        res.append((text, fname, lineno + 1,
-                                    found.start(), line_enc))
-
-        elif mode == "str":
-            texts = [(text, text.encode(enc)) for text in texts]
-            for lineno, line in enumerate(open(fname, "rb")):
-                for text, textc in texts:
-                    found = line.find(textc)
-                    if found > -1:
-                        try:
-                            line_enc = line.decode(enc)
-                        except UnicodeError:
-                            line_enc = line
-                        res.append((text, fname, lineno + 1, found, line_enc))
-
-    except IOError as xxx_todo_changeme:
-        (_errno, _strerror) = xxx_todo_changeme.args
-        print("permission denied errors were encountered")
-
-    except re.error:
-        print("invalid regular expression")
-
-    return res
-
-
-def os_file_replace(source_file_path, pattern, substring):
-    from tempfile import mkstemp
-    from shutil import move
-    from os import remove
-
-    fh, target_file_path = mkstemp()
-    with open(target_file_path, "w") as target_file:
-        with open(source_file_path, "r") as source_file:
-            for line in source_file:
-                target_file.write(line.replace(pattern, substring))
-    remove(source_file_path)
-    move(target_file_path, source_file_path)
-
-
-def os_file_replacestring1(find_str, rep_str, file_path):
-    """replaces all find_str by rep_str in file file_path"""
-    import fileinput
-
-    file1 = fileinput.FileInput(file_path, inplace=True, backup=".bak")
-    for line in file1:
-        line = line.replace(find_str, rep_str)
-        sys.stdout.write(line)
-    file1.close()
-    print(("OK: " + format(file_path)))
-
-
-def os_file_replacestring2(findstr, replacestr, some_dir, pattern="*.*", dirlevel=1):
-    """ #fil_replacestring_files("logo.png", "logonew.png", r"D:/__Alpaca__details/aiportfolio",
-    pattern="*.html", dirlevel=5  )
-  """
-    list_file = os_file_listall(some_dir, pattern=pattern, dirlevel=dirlevel)
-    list_file = list_file[2]
-    for file1 in list_file:
-        os_file_replacestring1(findstr, replacestr, file1)
-
-
-def os_file_getname(path):
-    import ntpath
-
-    head, tail = ntpath.split(path)
-    return tail or ntpath.basename(head)
-
-
-def os_file_getpath(path):
-    import ntpath
-
-    head, tail = ntpath.split(path)
-    return head
-
-
-def os_file_gettext(file1):
-    with open(file1, "r", encoding="UTF-8") as f:
-        return f.read()
-    # def os_file_listall(some_dir, pattern="*.*", dirlevel=1):
-    #  return listallfile(some_dir, pattern=pattern, dirlevel=dirlevel)
-
-
-def os_file_listall(dir1, pattern="*.*", dirlevel=1, onlyfolder=0):
-    r"""
-   # DIRCWD=r"D:\_devs\Python01\project"
-   # aa= listallfile(DIRCWD, "*.*", 2)
-   # aa[0][30];   aa[2][30]
-  """
-    import fnmatch
-    import os
-    import numpy as np
-
-    matches = []
-    dir1 = dir1.rstrip(os.path.sep)
-    num_sep = dir1.count(os.path.sep)
-
-    if onlyfolder:
-        for root, dirs, files in os.walk(dir1):
-            num_sep_this = root.count(os.path.sep)
-            if num_sep + dirlevel <= num_sep_this:
-                del dirs[:]
-            matches.append([])
-            matches.append([])
-            matches.append([])
-            # Filename, DirName
-            for inner_dirs in fnmatch.filter(dirs, pattern):
-                matches[0].append(os.path.splitext(inner_dirs)[0])
-                matches[1].append(os.path.splitext(root)[0])
-                matches[2].append(os.path.join(root, inner_dirs))
-        return np.array(matches)
-
-    for root, dirs, files in os.walk(dir1):
-        num_sep_this = root.count(os.path.sep)
-        if num_sep + dirlevel <= num_sep_this:
-            del dirs[:]
-        matches.append([])
-        matches.append([])
-        matches.append([])
-        # Filename, DirName
-        for inner_files in fnmatch.filter(files, pattern):
-            matches[0].append(os.path.splitext(inner_files)[0])
-            matches[1].append(os.path.splitext(inner_files)[1])
-            matches[2].append(os.path.join(root, inner_files))
-    return np.array(matches)
-
-
-#####################################################################################
-path1 = r'C:git_test/tfquantize_/'
-win = 'fm_'
-wout = 'qt_'
-
-regex = re.compile(re.escape(win), re.IGNORECASE)
-
-
-### All Files  ######################################################################
-aa = util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-
-#### Folder recursive    ############################################################
-aa = util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-aa = util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-aa = util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
-for x in aa[2]:
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2)
-
-
-### In file replacement     #########################################################
-aa = util.os_file_listall(path1, pattern='*', dirlevel=100, onlyfolder=0)
-for x in aa[2]:
-    if x[x.rfind('.')+1:] in ['py', 'txt', 'ini', 'yaml']:
-        with open(x, 'r') as file:
-            filedata = file.read()
-
-        filedata = regex.sub(wout, filedata)
-
-        # Write the file out again
-        with open(x, 'w') as file:
-            file.write(filedata)
+######################################################################################
+def os_glob(in_dir):
+    """
+    os_glob a given directory for all .py files and returns a list of source files.
+    """
+    files = glob.glob(in_dir + "/**/*.py", recursive=True)
+    # remove .ipynb_checkpoints
+    files = [s for s in files if ".ipynb_checkpoints" not in s]
+    # print("os_glob files done ... ")
+    return files
+
+
+def format_file(in_file, out_dir):
+    # if input is a file and make sure it exits
+    if os.path.isfile(in_file):
+        with open(in_file) as f:
+            text = f.read()
+
+        text_f = format_comments(text)
+        text_f = format_logs(text_f)
+        text_f = format_imports(text_f)
+        text_f = format_assignments(text_f)
+
+        # get the base directory of source file for makedirs function
+        file_path, file_name = os.path.split(in_file)
+        if not os.path.exists(os.path.join(out_dir, file_path)):
+            os.makedirs(os.path.join(out_dir, file_path))
+
+        with open(os.path.join(out_dir, file_path, file_name), "w") as f:
+            f.write(text_f)
+
+    else:
+        print(f"No such file exists {in_file}, make sure your path is correct")
+
+
+def format_dir(in_dir, out_dir):
+    src_files = os_glob(in_dir)
+
+    for f in tqdm.tqdm(src_files):
+        format_file(f, out_dir)
+
+
+def load_arguments():
+    """
+    Parse the arguments
+    """
+    import argparse
+
+    p = argparse.ArgumentParser(description="")
+    p.add_argument("--dir_in", "-n", default="test/run_train.py",  help="output")
+    p.add_argument("--dir_out", default="test", help="Folder containing the source files")
+
+    arg = p.parse_args()
+    return arg
+
+
+def main():
+    args = load_arguments()
+
+    in_dir  = args.dir_in
+    out_dir = args.dir_out
+
+    if in_dir != None:
+        if ".py" in in_dir:
+            format_file(in_dir, out_dir)
+        else:
+            format_dir(in_dir, out_dir)
+    else:
+        print("No input specified")
+
+
+###############################################################################################
+def test():
+    """
+    Test a file in test folder. 
+    (although we can also do this)
+    python cli_code/cli_format2.py --in_dir=test\run_tain.py
+    and remove this function
+    """
+    test_file = os.path.join("test", "run_train.py")
+    main(in_dir=test_file)
+
+
+
+
+if __name__ == "__main__":
+    main()
+    # test_rules(4)
+    # test()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def test_rules(rules2test=1):
+    """
+    Test all rules based on some test strings
+    """
+
+    if rules2test == 1:
+        # some test strings for rul1 case
+        test_str1 = "#########"
+        test_str2 = "########## TEST ################"
+        print("comment which start with 3 or more # and have no text")
+        print(test_str1)
+        print(format_comments(test_str2))
+        print("comment which start with 3 or more # and have text in it")
+        print(test_str2)
+        print(format_comments(test_str2))
+
+    if rules2test == 2:
+        # a test string for rule 2 case
+        test_str3 = 'log("#### Data preparation #########################################################")'
+        print("formatting log statements")
+        print(test_str3)
+        print(format_logs(test_str3))
+
+    if rules2test == 3:
+        # a test string for rule 3 case
+        test_str4 = '''
+        import importlib
+        import json
+        import os
+        import sys
+
+        import argparse
+        import pandas
+        from run_preprocess import preprocess, preprocess_load
+        from util_feature import load, save_list, load_function_uri, save
+        import warnings
+        import numpy
+        from PIL import Image
+        '''
+        print("all consecitive imports are strung together")
+        print(test_str4)
+        print(format_imports(test_str4))
+
+    if rules2test == 4:
+        # a test string for rule 4
+        test_str5 = """    
+        keywords = args.keyword
+        created = args.created
+        pushed = args.pushed
+        folder_name = args.output
+        # print('Keyword to search GitHub: ' + keyword)
+        # print('Created: ' + created)
+        # print('Pushed: ' + pushed)
+
+        df = pd.DataFrame()
+        type = 'Repositories'
+        if evl_cond(var="has_value", var2="no_value"):
+            if response.status_code == 200:
+                username = []
+                repo_name, repo_url = [], []
+                description = []
+                update_info = []"""
+        print("alignment of assignment lines")
+        print(test_str5)
+        print(format_assignments(test_str5))

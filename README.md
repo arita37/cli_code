@@ -53,11 +53,11 @@ Automatically create conda virtual environment for a specified repository. It al
 
 Usage:
 
-`cli_env_autoinstall test -n notebook_cvt`
+`cli_repo_install test -n notebook_cvt`
 
-`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+`cli_repo_install test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
-[More Documentation](cli_code/cli_env_autoinstall.py)
+[More Documentation](cli_code/cli_repo_install.py)
 
 ---
 
@@ -67,9 +67,9 @@ This script parses the python files matching the given pattern inside a director
 
 usage:
 
-`cli_doc_auto test -vvv --tab 4 --out docs.txt`
+`cli_doc test -vvv --tab 4 --out docs.txt`
 
-`cli_doc_auto test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
+`cli_doc test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
 
 [More Documentation](cli_code/cli_doc_auto/main.py)
 
