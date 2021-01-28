@@ -21,6 +21,7 @@
 - [Checkout any Github Repo](#7-get-github-repository-and-check-it-in-a-new-conda-environment)
 - [Automate Downloading from Dropbox, Google Drive, and Github](#8-automate-downloading-from-dropbox-google-drive-and-github)
 - [JSON and Code Parsing Utilities](#9-json-and-code-parsing-utilities)
+- [Python Code Formatter](#10-python-code-formatter)
 
 ---
 
