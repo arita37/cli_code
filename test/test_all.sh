@@ -29,3 +29,6 @@ python   cli_code/cli_github_search.py amazon scraper -o test_out/
 
 # check cli_doc_auto by parsing .py files in test dir
 python cli_code/cli_doc_auto/main.py test/ -o test_out/docs.txt
+
+# check cli_format2.py by parsing test/run_train.py file
+python cli_code/cli_format2 --in_file=test/run_train.py --out_dir=test_out
