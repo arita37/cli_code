@@ -134,10 +134,10 @@ def format_assignments(text):
 
 def test_rules(rules2test=1):
     """
-    Test all rules based on these strings
+    Test all rules based on some test strings
     """
-    rules2test = str(rules2test)
-    if '1' in rules2test:
+
+    if rules2test == 1:
         # some test strings for rul1 case
         test_str1 = "#########"
         test_str2 = "########## TEST ################"
@@ -148,14 +148,14 @@ def test_rules(rules2test=1):
         print(test_str2)
         print(normalize_comments(test_str2))
 
-    if '2' in rules2test:
+    if rules2test == 2:
         # a test string for rule 2 case
         test_str3 = 'log("#### Data preparation #########################################################")'
         print("formatting log statements")
         print(test_str3)
         print(normalize_logs(test_str3))
 
-    if '3' in rules2test:
+    if rules2test == 3:
         # a test string for rule 3 case
         test_str4 = '''
         import importlib
@@ -175,7 +175,7 @@ def test_rules(rules2test=1):
         print(test_str4)
         print(normalize_imports(test_str4))
 
-    if '4' in rules2test:
+    if rules2test == 4:
         # a test string for rule 4
         test_str5 = """    
         keywords = args.keyword
