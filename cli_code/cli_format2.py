@@ -1,29 +1,26 @@
+"""
+Please copy paste put doc here
+
+
+
+
+"""
 import re
 import glob
 import fire
 import os
 import tqdm
+##############################################################################################
 
-
-def rule1(text="default"):
+def rule1(text="default", line_size= 90):
     # rules to detect fancy comments
     regex1 = r"^#{3,}$"
     regex2 = r"^#+ (\w+) .+#$"
     # if detected, replace with this
-    subst1 = "#"*100
+    subst1 = "#"*line_size
 
     def subst2(match_obj):
-        return r'#### ' + match_obj.group(1) + ' ' + '#'*(100-6-len(match_obj.group(1)))
-
-    # # some test strings
-    # test_str1 = "#########"
-    # test_str2 = "########## TEST ################"
-    # print("comment which start with 3 or more # and have no text")
-    # print(test_str1)
-    # print(re.sub(regex1, subst1, test_str1, 0, re.MULTILINE))
-    # print("comment which start with 3 or more # and have text in it")
-    # print(test_str2)
-    # print(re.sub(regex2, subst2, test_str2, 0, re.MULTILINE))
+        return r'#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1)))
 
     text = re.sub(regex1, subst1, text, 0, re.MULTILINE)
     text = re.sub(regex2, subst2, text, 0, re.MULTILINE)
@@ -38,12 +35,6 @@ def rule2(text="default"):
 
     def subst3(match_obj):
         return r'log("#### ' + match_obj.group(1) + ' ' + '#'*(100-6-len(match_obj.group(1))) + '")'
-
-    # # a test string for this case
-    # test_str3 = 'log("#### Data preparation #########################################################")'
-    # print("formatting log statements")
-    # print(test_str3)
-    # print(re.sub(regex3, subst3, test_str3, 0, re.MULTILINE))
 
     text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
     # return formatted text
@@ -60,6 +51,31 @@ def rule3(text):
         ind_imports = re.findall(pattern, match_obj.group(0))
         return r"import " + ", ".join(ind_imports) + "\n"
 
+
+    text = re.sub(regex4, subst4, text, 0, re.MULTILINE)
+    # return formatted text
+    return text
+
+
+
+def test_rule():
+    # # some test strings
+    # test_str1 = "#########"
+    # test_str2 = "########## TEST ################"
+    # print("comment which start with 3 or more # and have no text")
+    # print(test_str1)
+    # print(re.sub(regex1, subst1, test_str1, 0, re.MULTILINE))
+    # print("comment which start with 3 or more # and have text in it")
+    # print(test_str2)
+    # print(re.sub(regex2, subst2, test_str2, 0, re.MULTILINE))
+    
+    # # a test string for this case
+    # test_str3 = 'log("#### Data preparation #########################################################")'
+    # print("formatting log statements")
+    # print(test_str3)
+    # print(re.sub(regex3, subst3, test_str3, 0, re.MULTILINE))
+    
+    
     # # a test string for this case
     # test_str4 = '''
     # import importlib
@@ -79,11 +95,11 @@ def rule3(text):
     # print(test_str4)
     # print(re.sub(regex4, subst4, test_str4, 0, re.MULTILINE))
 
-    text = re.sub(regex4, subst4, text, 0, re.MULTILINE)
-    # return formatted text
-    return text
+    
+    
 
 
+######################################################################################
 def scan(in_dir):
     files = glob.glob(in_dir + "/**/*.py", recursive=True)
     # remove .ipynb_checkpoints
@@ -120,14 +136,35 @@ def format_dir(in_dir, out_dir):
         format_file(f, out_dir)
 
 
-def main(in_file=None, in_dir=None, out_dir="formatted"):
+def main(in_dir=None, out_dir="formatted"):
 
-    if in_file != None:
-        format_file(in_file, out_dir)
+    if ".py" in in_dir :
+        format_file(in_dir, out_dir)
 
     if in_dir != None:
         format_dir(in_dir, out_dir)
 
+        
 
+###############################################################################################                        
+###############################################################################################                
+def test():
+    """
+        write some test on some dummy file
+    
+    """
+    test_file = ""
+    pass
+    
+    
+    
+    
+    
+        
 if __name__ == "__main__":
     fire.Fire(main)
+
+    
+    
+    
+    
