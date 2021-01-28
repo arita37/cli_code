@@ -7,16 +7,17 @@ setup(
         'console_scripts':
             [
                 'cli_convert_jupyter   = cli_code.cli_convert_ipynb:main',
-                'cli_env_autoinstall   = cli_code.cli_env_autoinstall:main',
+                'cli_repo_install      = cli_code.cli_env_autoinstall:main',
                 'cli_github_search     = cli_code.cli_github_search:main',
                 'cli_env_module_parser = cli_code.cli_module_parser:main',
                 'cli_download          = cli_code.cli_download:main',
                 'cli_repo_check        = cli_code.cli_repo_check:main',
                 'cli_conda_merge       = cli_code.cli_conda_merge:main',
-                'cli_doc_auto          = cli_code.cli_doc_auto.main:main',
+                'cli_doc               = cli_code.cli_doc_auto.main:main',
 
                 'cli_json          = cli_code.cli_json:main',
 
+                'cli_format        = cli_code.cli_format:main',
 
             ],
     },
