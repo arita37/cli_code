@@ -10,7 +10,6 @@
 
     Or git clone, pip install -e .
 
-
 ## Utilities available
 
 - [Convert Notebook](#1-convert-notebook)
@@ -21,9 +20,7 @@
 - [Easy Merge Conda Environmetns](#6-easy-merge-conda-environmetns)
 - [Checkout any Github Repo](#7-get-github-repository-and-check-it-in-a-new-conda-environment)
 - [Automate Downloading from Dropbox, Google Drive, and Github](#8-automate-downloading-from-dropbox-google-drive-and-github)
-
-- [JSON parsing and code parsing utilities](# JSON and Code parsing utilities)
-
+- [JSON and Code Parsing Utilities](#9-json-and-code-parsing-utilities)
 
 ---
 
@@ -119,17 +116,22 @@ Usage:
 
 [More Documentation](cli_code/cli_download.py)
 
+### 9. JSON and Code Parsing Utilities
 
-### JSON and Code parsing utilities
+Parse python source code and put into json format.
 
-    Parse python source code and put into json format.
+Usage:
 
-
-         cli_json  --path  
-
+`cli_json --path `
 
 [More Documentation](cli_code/cli_json.py)
 
+### 10. Python Code Formatter
 
+Foramt a python module or a package based on some rules to make everyting pretty and more maintainable.
 
+Usage:
 
+`cli_format --in_file=/path/to/py_module --out_dir=/path/to/output dir`
+
+[More Documentation](cli_code/cli_format2.py)
