@@ -7,72 +7,77 @@ Format the code source based on rules
 """
 
 
-import os, sys, platform, arrow, pandas as pd
+import time
+import gc
+from collections import defaultdict
+from attrdict import AttrDict as dict2
+import copy
+import util
+import re
+import numpy as np
+import _pickle as cPickle
+import os
+import sys
+import platform
+import arrow
+import pandas as pd
 
 
 DIRCWD = r'C:/aacredit/'
-os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage'); # print(DIRCWD, CFG)
+os.chdir(DIRCWD)
+sys.path.append(DIRCWD + '/aapackage')  # print(DIRCWD, CFG)
 # print(os.environ)
-import numpy as np, copy, gc,  time
-from attrdict import AttrDict as dict2 ; from collections import defaultdict ; 
-import _pickle as cPickle
-import re, util
 
 ####  tab character :     '	'   #####################################################
 #####################################################################################
 dir_training = r'C:data/'
 
 
-
 #####################################################################################
-path1   =   r'gitcode/scores/'
-win     =   'deepctr'
-wout    =   'scores'
+path1 = r'gitcode/scores/'
+win = 'deepctr'
+wout = 'scores'
 
-oklist = [ 'py', 'txt' , 'ini' ,'yaml' , 'sql', 'sh' ] 
-
-
-regex   =  re.compile(re.escape(win), re.IGNORECASE)
+oklist = ['py', 'txt', 'ini', 'yaml', 'sql', 'sh']
 
 
-### All Files
-aa= util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
-for x in aa[2] :
-    p = x[:x.rfind('\\')+1]
-    f = x[x.rfind('\\')+1:]
-
-    f2 = regex.sub(wout , f)
-    os.rename(p + f, p + f2 )
+regex = re.compile(re.escape(win), re.IGNORECASE)
 
 
-
-
-#### Folder recursive
-aa= util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
-for x in aa[2] :    
+# All Files
+aa = util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 )
+    os.rename(p + f, p + f2)
 
-aa= util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
-for x in aa[2] :    
+
+# Folder recursive
+aa = util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 ) 
+    os.rename(p + f, p + f2)
 
-aa= util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
-for x in aa[2] :    
+aa = util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 ) 
-     
+    os.rename(p + f, p + f2)
 
+aa = util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
+for x in aa[2]:
+    p = x[:x.rfind('\\')+1]
+    f = x[x.rfind('\\')+1:]
+
+    f2 = regex.sub(wout, f)
+    os.rename(p + f, p + f2)
 
 
 def os_file_rename(some_dir, pattern="*.*", pattern2="", dirlevel=1):
@@ -105,25 +110,23 @@ def os_file_rename(some_dir, pattern="*.*", pattern2="", dirlevel=1):
     return np.array(matches).T
 
 
-
 #####################################################################################
 ### In file replacement  ############################################################
 aa = util.os_file_listall(path1, pattern='*', dirlevel=100, onlyfolder=0)
-for x in aa[2] :  
-  if  x[x.rfind('.')+1:] in oklist :  
-    with open(x, 'r') as file :
-        filedata = file.read()
+for x in aa[2]:
+    if x[x.rfind('.')+1:] in oklist:
+        with open(x, 'r') as file:
+            filedata = file.read()
 
-    filedata = regex.sub(wout, filedata)
+        filedata = regex.sub(wout, filedata)
 
-    # Write the file out again
-    with open(x, 'w') as file:
-       file.write(filedata)
+        # Write the file out again
+        with open(x, 'w') as file:
+            file.write(filedata)
 
 #####################################################################################
 #####################################################################################
-       
-       
+
 
 def _os_file_search_fast(fname, texts=None, mode="regex/str"):
     if texts is None:
@@ -143,7 +146,8 @@ def _os_file_search_fast(fname, texts=None, mode="regex/str"):
                             line_enc = line.decode(enc)
                         except UnicodeError:
                             line_enc = line
-                        res.append((text, fname, lineno + 1, found.start(), line_enc))
+                        res.append((text, fname, lineno + 1,
+                                    found.start(), line_enc))
 
         elif mode == "str":
             texts = [(text, text.encode(enc)) for text in texts]
@@ -165,13 +169,6 @@ def _os_file_search_fast(fname, texts=None, mode="regex/str"):
         print("invalid regular expression")
 
     return res
-
-
-
-
-
-
-
 
 
 def os_file_replace(source_file_path, pattern, substring):
@@ -275,95 +272,59 @@ def os_file_listall(dir1, pattern="*.*", dirlevel=1, onlyfolder=0):
     return np.array(matches)
 
 
-
-
-
-
-
-
-       
-       
-       
-       
-
-
-
-
-
-
 #####################################################################################
-path1  =   r'C:git_test/tfquantize_/'
-win    =   'fm_'
-wout   =   'qt_'
+path1 = r'C:git_test/tfquantize_/'
+win = 'fm_'
+wout = 'qt_'
 
 regex = re.compile(re.escape(win), re.IGNORECASE)
 
 
-
 ### All Files  ######################################################################
-aa= util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
-for x in aa[2] :
+aa = util.os_file_listall(path1, pattern='*', dirlevel=10, onlyfolder=0)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
-    f2 = regex.sub(wout , f)
-    os.rename(p + f, p + f2 )
+    f2 = regex.sub(wout, f)
+    os.rename(p + f, p + f2)
 
 
 #### Folder recursive    ############################################################
-aa= util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
-for x in aa[2] :    
+aa = util.os_file_listall(path1, pattern='*', dirlevel=1, onlyfolder=1)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 )
+    os.rename(p + f, p + f2)
 
-aa= util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
-for x in aa[2] :    
+aa = util.os_file_listall(path1, pattern='*', dirlevel=2, onlyfolder=1)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 ) 
+    os.rename(p + f, p + f2)
 
-aa= util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
-for x in aa[2] :    
+aa = util.os_file_listall(path1, pattern='*', dirlevel=3, onlyfolder=1)
+for x in aa[2]:
     p = x[:x.rfind('\\')+1]
     f = x[x.rfind('\\')+1:]
 
     f2 = regex.sub(wout, f)
-    os.rename(p + f, p + f2 ) 
-     
-    
+    os.rename(p + f, p + f2)
+
+
 ### In file replacement     #########################################################
 aa = util.os_file_listall(path1, pattern='*', dirlevel=100, onlyfolder=0)
-for x in aa[2] :  
-  if  x[x.rfind('.')+1:] in [ 'py', 'txt' , 'ini' ,'yaml'  ] :  
-    with open(x, 'r') as file :
-      filedata = file.read()
+for x in aa[2]:
+    if x[x.rfind('.')+1:] in ['py', 'txt', 'ini', 'yaml']:
+        with open(x, 'r') as file:
+            filedata = file.read()
 
-    filedata = regex.sub(wout, filedata)
+        filedata = regex.sub(wout, filedata)
 
-    # Write the file out again
-    with open(x, 'w') as file:
-       file.write(filedata)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # Write the file out again
+        with open(x, 'w') as file:
+            file.write(filedata)
