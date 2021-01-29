@@ -21,95 +21,74 @@ import datetime
 ##############################################################################################
 
 
-def format_comments(text="default", line_size=90):
+def format_comments(text=["default"], line_size=90):
     """
-    Takes a string of text and formats it based on rule 1 (see docs).
+    Takes a line or list of lines and formats it based on rule 1 (see docs).
     """
-    lines = text.split("\n")
+    # potentially error prone, what if '\n' is present in text
+    lines = text.splitlines()
+    formated_text = []
+    h_left = 4
 
-
-
-    # these statements may contain = too are not assignment
-    skip_tokens = ['if', 'for', 'while', '(', ')', 'else']
     for line in lines:
+        # if a comment begins and ends with 4 or more #'s format it
+        if line.startswith("####") and line.endswith("#"):
+            cap_text = [s for s in line.split('#') if s != '']
 
-        if line.startswith("#####") :
-            ### format
- 
-        if line.startswith("    #####") :  ## 4 spaces
-             ## do nothig
+            # case 1 #### MyCommments1 #### ---> #### My comments ################## (90 )
+            if len(cap_text) != 0:
+                # TODO: pretify cap_text
+                cap_text = cap_text[0].strip()
+                pad_size = line_size-h_left-2-len(cap_text)
+                f_line = '#'*h_left+' ' + cap_text + ' ' + '#'*(pad_size)
+                formated_text.append(f_line)
 
-        if line.startswith("         #####") :  ## 8 spaces
-             ## do nothig
-        else :
-             ### Do nothing
+            # case 2 #### ---> ##### (90)
+            else:
+                f_line = '#'*line_size
+                formated_text.append(f_line)
 
-             
+        # case 3 ####### MyCommments1 ---> #### My comments
+        elif line.startswith("####"):
+            cap_text = [s for s in line.split('#') if s != '']
+            cap_text = cap_text[0].strip()
+            f_line = '#'*h_left+' ' + cap_text
+            formated_text.append(f_line)
 
+        else:
+            # else keep the original line as is
+            formated_text.append(line)
 
-
-    # rules to detect fancy comments, if not text
-    regex1 = r"^ *?####*$"
-    # rules to detect fancy comments, if text
-    regex2 = r"^ *?####*([^#\n\r]+)#*"
-    # if detected pattern 1, replace with this
-    subst1 = "#"*line_size
-
-    # if detected pattern 2, replace with this
-    def subst2(match_obj):
-        fix_pad = 4 + 2  # 4 hashes on left plus two spaces
-        cap_group = match_obj.group(1).strip()
-        return '#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group))
-
-    text = re.sub(regex1, subst1, text, 0, re.MULTILINE)
-    text = re.sub(regex2, subst2, text, 0, re.MULTILINE)
-    # formatted text to return
-    return text
+    return '\n'.join(formated_text)
 
 
 def format_logs(text="default", line_size=90):
     """
-    Takes a string of text and formats it based on rule 2 (see docs).
+    Takes in text and formats it based on rule 2 (see docs).
     """
+    # potentially error prone, what if '\n' is present in text
+    lines = text.splitlines()
+    formated_text = []
+    h_left = 4
 
+    for line in lines:
+        # only when log is called is hashes
+        if "log(" in line and "#"*h_left in line:
+            # get rid of all #'s
+            keep_tokens = [s for s in line.split('#') if s != '']
+            # 2nd element is text to keep
+            cap_text = keep_tokens[1].strip()
+            pad_size = line_size-h_left-2-len(cap_text)
+            f_line = '#'*h_left + ' ' + cap_text + ' ' + '#'*(pad_size)
+            f_line = keep_tokens[0] + f_line + ''.join(keep_tokens[2:])
+            # use this new log line
+            formated_text.append(f_line)
 
+        else:
+            # else keep things as is
+            formated_text.append(line)
 
-    # rule 3 to find log statemets ####################################
-    regex3 = r"log\(\"#+(.*?)#*(\".*)"
-
-    def subst3(match_obj):
-        fix_pad = 4 + 2  # 4 hashes on left plus two spaces
-        cap_group = match_obj.group(1).strip()
-        return r'log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
-
-
-    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
-
-
-    # rule 2 to find log statemets ####################################
-    regex3 = r"^ {4}log\(\"#+(.*?)#*(\".*)"
-
-    def subst3(match_obj):
-        fix_pad = 4 + 2  + 4  # 4 hashes on left plus two spaces
-        cap_group = match_obj.group(1).strip()
-        return r'    log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
-
-    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
-    # return formatted text
-
-
-    # rule 1 to find log statemets ####################################
-    regex3 = r"^ {8}log\(\"#+(.*?)#*(\".*)"
-
-    def subst3(match_obj):
-        fix_pad = 4 + 2  + 8  # 4 hashes on left plus two spaces
-        cap_group = match_obj.group(1).strip()
-        return r'log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
-
-    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
-
-    # return formatted text
-    return text
+    return '\n'.join(formated_text)
 
 
 def format_imports(text):
@@ -161,8 +140,8 @@ def format_assignments(text):
         # empty list is considered false
         if "=" in line and not ["bad" for t in skip_tokens if t in line.split("=")[0]]:
             left = line.split("=")[0]
-            right = "= ".join(line.split("=")[1:] )
-
+            right = line.split("=")[1:]
+            right = '='.join(right)     # from list to a string
             # need to preserve spaces on left
             a_block_left.append(left.rstrip())
             a_block_right.append(right.strip())
@@ -253,7 +232,7 @@ def load_arguments():
     p = argparse.ArgumentParser(description="")
     p.add_argument("--dir_in", "-i", required='True',
                    default="test/run_train.py",  help="Source file path or path to a directory")
-    p.add_argument("--dir_out", default="test/",
+    p.add_argument("--dir_out", default="formatted",
                    help="Name of output directory to store results")
 
     arg = p.parse_args()
