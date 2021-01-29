@@ -21,9 +21,9 @@ import datetime
 ##############################################################################################
 
 
-def format_comments(text=["default"], line_size=90):
+def format_comments(text="default", line_size=90):
     """
-    Takes a line or list of lines and formats it based on rule 1 (see docs).
+    Takes a string of text and formats it based on rule 1 (see docs).
     """
     # potentially error prone, what if '\n' is present in text
     lines = text.splitlines()
