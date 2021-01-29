@@ -25,6 +25,29 @@ def format_comments(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 1 (see docs).
     """
+    lines = text.split("\n")
+
+
+
+    # these statements may contain = too are not assignment
+    skip_tokens = ['if', 'for', 'while', '(', ')', 'else']
+    for line in lines:
+
+        if line.startswith("#####") :
+            ### format
+ 
+        if line.startswith("    #####") :  ## 4 spaces
+             ## do nothig
+
+        if line.startswith("         #####") :  ## 8 spaces
+             ## do nothig
+        else :
+             ### Do nothing
+
+             
+
+
+
     # rules to detect fancy comments, if not text
     regex1 = r"^ *?####*$"
     # rules to detect fancy comments, if text
@@ -48,16 +71,43 @@ def format_logs(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 2 (see docs).
     """
-    # rule to find log statemets
+
+
+
+    # rule 3 to find log statemets ####################################
     regex3 = r"log\(\"#+(.*?)#*(\".*)"
 
-    # substitution to replace the found log statements
     def subst3(match_obj):
         fix_pad = 4 + 2  # 4 hashes on left plus two spaces
         cap_group = match_obj.group(1).strip()
         return r'log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
 
+
     text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
+
+
+    # rule 2 to find log statemets ####################################
+    regex3 = r"^ {4}log\(\"#+(.*?)#*(\".*)"
+
+    def subst3(match_obj):
+        fix_pad = 4 + 2  + 4  # 4 hashes on left plus two spaces
+        cap_group = match_obj.group(1).strip()
+        return r'    log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
+
+    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
+    # return formatted text
+
+
+    # rule 1 to find log statemets ####################################
+    regex3 = r"^ {8}log\(\"#+(.*?)#*(\".*)"
+
+    def subst3(match_obj):
+        fix_pad = 4 + 2  + 8  # 4 hashes on left plus two spaces
+        cap_group = match_obj.group(1).strip()
+        return r'log("#### ' + cap_group + ' ' + '#'*(line_size-fix_pad-len(cap_group)) + match_obj.group(2)
+
+    text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
+
     # return formatted text
     return text
 
@@ -111,8 +161,8 @@ def format_assignments(text):
         # empty list is considered false
         if "=" in line and not ["bad" for t in skip_tokens if t in line.split("=")[0]]:
             left = line.split("=")[0]
-            right = line.split("=")[1:]
-            right = '='.join(right)     # from list to a string
+            right = "= ".join(line.split("=")[1:] )
+
             # need to preserve spaces on left
             a_block_left.append(left.rstrip())
             a_block_right.append(right.strip())
@@ -203,7 +253,7 @@ def load_arguments():
     p = argparse.ArgumentParser(description="")
     p.add_argument("--dir_in", "-i", required='True',
                    default="test/run_train.py",  help="Source file path or path to a directory")
-    p.add_argument("--dir_out", default="formatted",
+    p.add_argument("--dir_out", default="test/",
                    help="Name of output directory to store results")
 
     arg = p.parse_args()
