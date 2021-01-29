@@ -10,8 +10,8 @@ and produces 3 files:
 
 usage:
 
-cli_doc_auto test -vvv --tab 4 --out docs.txt
-cli_doc_auto test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"
+cli_doc_auto -i test -vvv --tab 4 --out docs.txt
+cli_doc_auto -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"
 """
 
 import logging
@@ -23,12 +23,18 @@ from ..cli_doc_auto.pyreg import home
 
 
 def get_arguments():
-    p = argparse.ArgumentParser(description="Produces documentation of python modules given a directory")
-    p.add_argument('srcdir',   help='Relative or absolute directory path that contains .py files')
-    p.add_argument('--out', '-o',  default='docs.txt', help='Relative or absolute output file location')
-    p.add_argument('--ext', nargs='+', default=['py'], help='Extensions of python source files to be analyzed by regex')
-    p.add_argument('--filter', help='regex patterns to MATCH from srcdir. ie: ".*?api.py"', nargs='*', default=[], )
-    p.add_argument('--tab', '-t', default=None, type=int, help='tabs with spaces')
+    p = argparse.ArgumentParser(
+        description="Produces documentation of python modules given a directory")
+    p.add_argument('--dir_in', '-i', required=True,
+                   help='Relative or absolute directory path that contains .py files')
+    p.add_argument('--dir_out', '-o',  default='docs.txt',
+                   help='Relative or absolute output file location')
+    p.add_argument('--ext', nargs='+', default=[
+                   'py'], help='Extensions of python source files to be analyzed by regex')
+    p.add_argument(
+        '--filter', help='regex patterns to MATCH from srcdir. ie: ".*?api.py"', nargs='*', default=[], )
+    p.add_argument('--tab', '-t', default=None,
+                   type=int, help='tabs with spaces')
     p.add_argument('--verbosity', '-v', action='count', default=None, dest='verbosity',
                    help='Verbosity level. dense: -vvvvv, sparse: -v')
 

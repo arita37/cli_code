@@ -7,8 +7,8 @@ Usage:
 
 `cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
 
-`-i` or `--in_folder`  argument is requiredand and specify the folder containing IPython notebooks
-`-o` or `--out_folder` optional argument for output directory (default results will be saved in `py-scripts` directory)
+`-i` or `--dir_in`  argument is requiredand and specify the folder containing IPython notebooks
+`-o` or `--dir_out` optional argument for output directory (default results will be saved in `py-scripts` directory)
 """
 import ast
 import glob
@@ -119,9 +119,9 @@ def load_arguments():
 
     parser = argparse.ArgumentParser(
         description='Converts an IPython notebook to python script.')
-    parser.add_argument("-i", "--in_folder", required=True, default="",
-                        help="Directory containing IPython notebook.")
-    parser.add_argument("-o", "--out_folder", default="py-scripts",
+    parser.add_argument("-i", "--dir_in", required=True, default="",
+                        help="Directory containing IPython notebook(s).")
+    parser.add_argument("-o", "--dir_out", default="py-scripts",
                         help="Directory to put converted python scripts.")
     options = parser.parse_args()
     return options
@@ -129,7 +129,7 @@ def load_arguments():
 
 def main():
     args = load_arguments()
-    data_file, out_dir = args.in_folder, args.out_folder
+    data_file, out_dir = args.dir_in, args.dir_out
 
     # scan file recursively
     source_files = scan(data_file)

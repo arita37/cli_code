@@ -68,6 +68,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+*_venv/
 
 # Spyder project settings
 .spyderproject
@@ -94,6 +95,3 @@ venv.bak/
 /dist
 /cli_code/.idea/inspectionProfiles
 /cli_code/.idea
-
-#python env
-cli_code_venv/
