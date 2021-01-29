@@ -48,8 +48,8 @@ def model_dict_load(model_dict, config_path, config_name, verbose=True):
     :return:
     """
     if model_dict is None :
-       log("#### Model Params Dynamic loading  #######################################################")
-       model_dict_fun = config_path + "::" + config_name)
+       log("#### Model Params Dynamic loading  ###################################################")
+       model_dict_fun = load_function_uri(uri_name= config_path + "::" + config_name)
        model_dict     = model_dict_fun()   ### params
     if verbose : log( model_dict )
     return model_dict
@@ -106,9 +106,9 @@ def train(model_dict, dfX, cols_family, post_process_fun):
     model_name, model_path   = model_pars['model_class'], model_dict['global_pars']['path_train_model']
     metric_list              = compute_pars['metric_list']
 
-    log("#### Data preparation ####################################################################")
+    log("#### Data preparation ################################################################")
     log(dfX.shape)
-    dfX    = 1.0)
+    dfX    = dfX.sample(frac= 1.0)
     itrain = int(0.6 * len(dfX))
     ival   = int(0.8 * len(dfX))
     colsX  = data_pars['cols_model']
@@ -126,7 +126,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
                           'yval'   : dfX[coly].iloc[ival:],
                           }
 
-    log("#### Init, Train #########################################################################")
+    log("#### Init, Train #####################################################################")
     # from config_model import map_model    
     modelx = map_model(model_name)
     log(modelx)
@@ -141,10 +141,10 @@ def train(model_dict, dfX, cols_family, post_process_fun):
         modelx.fit(data_pars, compute_pars)
 
 
-    log("#### Predict #############################################################################")
-    ypred, ypred_proba = compute_pars)
+    log("#### Predict #########################################################################")
+    ypred, ypred_proba = modelx.predict(dfX[colsX], compute_pars= compute_pars)
 
-    dfX[coly + '_pred'] = True)
+    dfX[coly + '_pred'] = ypred  # y_norm(ypred, inverse= True)
 
     dfX[coly]           = dfX[coly].apply(lambda  x : post_process_fun(x) )
     dfX[coly + '_pred'] = dfX[coly + '_pred'].apply(lambda  x : post_process_fun(x) )
@@ -165,7 +165,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
     log("Actual    : ",  dfX[coly ])
     log("Prediction: ",  dfX[coly + '_pred'])
 
-    log("#### Metrics #############################################################################")
+    log("#### Metrics #########################################################################")
     from util_feature import  metrics_eval
     metrics_test                            = metrics_eval(metric_list,
                                 ytrue       = dfX[coly].iloc[ival:],
@@ -175,7 +175,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
     log(stats)
 
 
-    log("#### Saving model, dfX, columns ##########################################################")
+    log("#### Saving model, dfX, columns ######################################################")
     log(model_path + "/model.pkl")
     os.makedirs(model_path, exist_ok=True)
     save(colsX, model_path + "/colsX.pkl")
@@ -183,7 +183,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
     modelx.save(model_path, stats)
 
 
-    log("#### Reload model,            ############################################################")
+    log("#### Reload model,            ########################################################")
     log(modelx.model.model_pars, modelx.model.compute_pars)
     a = load(model_path + "/model.pkl")
     log("Reload model pars", a.model_pars)
@@ -194,7 +194,7 @@ def train(model_dict, dfX, cols_family, post_process_fun):
 ##########################################################################################
 ############CLI Command ###########################################################
 def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
-              mode = 'file'):
+              mode = "run_preprocess", model_dict= None, return_mode= 'file'):
     """
       Configuration of the model is in config_model.py file
     :param config_name:
@@ -202,7 +202,7 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
     :param n_sample:
     :return:
     """
-    model_dict = True)
+    model_dict = model_dict_load(model_dict, config_path, config_name, verbose= True)
 
     m               = model_dict['global_pars']
     path_data_train = m['path_data_train']
@@ -217,15 +217,15 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
     log(path_output)
 
 
-    log("#### load input column family  ###########################################################")
+    log("#### load input column family  #######################################################")
     try :
         cols_group = model_dict['data_pars']['cols_input_type']  ### the model config file
     except :
-        cols_group = 'r'))
+        cols_group = json.load(open(path_data_train + "/cols_group.json", mode= 'r'))
     log(cols_group)
 
 
-    log("#### Preprocess  #########################################################################")
+    log("#### Preprocess  #####################################################################")
     
         
     preprocess_pars = model_dict['model_pars']['pre_process_pars']
@@ -249,7 +249,7 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
     model_dict['data_pars']['cols_model'] = sum([  cols[colgroup] for colgroup in model_dict['data_pars']['cols_model_group'] ]   , [])
 
    
-    log("#### Train model: ########################################################################")
+    log("#### Train model: ####################################################################")
     log(str(model_dict)[:1000])
     post_process_fun     = model_dict['model_pars']['post_process_fun']
     dfXy, dfXytest,stats = train(model_dict, dfXy, cols, post_process_fun)
@@ -259,7 +259,7 @@ def run_train(config_name, config_path="source/config_model.py", n_sample=5000,
         return { 'dfXy' : dfXy, 'dfXytest': dfXytest, 'stats' : stats   }
 
     else :
-        log("#### Export ##############################################################################")
+        log("#### Export ##########################################################################")
         os.makedirs(path_check_out, exist_ok=True)
         colexport = [cols['colid'], cols['coly'], cols['coly'] + "_pred"]
         dfXy[colexport].reset_index().to_csv(path_check_out + "/pred_check.csv")  # Only results

@@ -49,7 +49,7 @@ def format_logs(text="default", line_size=90):
 
     # substitution to replace the found log statements
     def subst3(match_obj):
-        return r'log("#### ' + match_obj.group(1) + ' ' + '#'*(line_size-6-len(match_obj.group(1))) + '")'
+        return r'log("#### ' + match_obj.group(1) + ' ' + '#'*(line_size-10-len(match_obj.group(1))) + '")'
 
     text = re.sub(regex3, subst3, text, 0, re.MULTILINE)
     # return formatted text
@@ -86,7 +86,7 @@ def format_assignments(text):
     a_block_right = []
 
     # these statements may contain = too are not assignment
-    skip_tokens = ['if', 'for', 'while', '(', ')' , 'else']
+    skip_tokens = ['if', 'for', 'while', '(', ')' , 'else' ]
 
     def format_assignment_block():
         """
@@ -105,7 +105,7 @@ def format_assignments(text):
         # empty list is considered false
         if "=" in line and not ["bad" for t in skip_tokens if t in line.split("=")[0]]:
             left = line.split("=")[0]
-            right = line.split("=")[-1]
+            right = "= ".join(line.split("=")[1:] )
 
             # need to preserve spaces on left
             a_block_left.append(left.rstrip())
