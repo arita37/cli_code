@@ -11,7 +11,7 @@ Usage:
 
 `cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
 
-`-o` or `--output` specify the name of target directory to clone the repo (default is {reponame})
+`-o` or `--dir_out` specify the name of target directory to clone the repo (default is {reponame})
 `-n` or `--conda_env` specify name of our conda environment (if not specified, `{reponame}_env` will be used)
 `-py` or `--python_version` specify the python version of the target environment (default is 3.6)
 `-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
@@ -162,13 +162,13 @@ def load_arguments():
     # cur_path = os.path.dirname(os.path.realpath(__file__))
     p = argparse.ArgumentParser()
     p.add_argument("repo_url", help="Url of a git repository to clone")
-    p.add_argument("--conda_env", "-n",
+    p.add_argument("--conda_env", "-n", default=None,
                    help="Name of conda environment to build for the repo, if not specified repo name will be used")
     p.add_argument("--python_version", "-py", default="3.6.7",
                    help="Python version to use in the conda environment")
     p.add_argument("--packages", "-p", nargs='?', default="numpy",
                    help="Custom/extra packages to install in new conda env")
-    p.add_argument("--output", "-o", default=None,
+    p.add_argument("--dir_out", "-o", default=None,
                    help="Name of the output directory to clone the repo, if not specified repo name will be used")
     args = p.parse_args()
 
@@ -181,13 +181,23 @@ def main():
     reponame = args.repo_url.split("/")[-1].split(".")[0]
 
     # make sure cloning was done successfully
-    if git_clone(args.repo_url, args.output):
+    if git_clone(args.repo_url, args.dir_out):
 
-        if args.output != None:
-            repo_build_conda(args.output, args.conda_env)
-            repo_check_root_files(args.output, args.conda_env)
-            repo_generate_signature(args.output)
+        if args.dir_out != None and args.conda_env != None:
+            # if out dir and conda env name are specified
+            repo_build_conda(args.dir_out, args.conda_env)
+            repo_check_root_files(args.dir_out, args.conda_env)
+            repo_generate_signature(args.dir_out)
+        elif args.dir_out != None:
+            # if only dir_out is specified
+            print(
+                f"No conda environment specified, creating {args.dir_out}_env")
+            repo_build_conda(args.dir_out, args.dir_out + "_env")
+            repo_check_root_files(args.dir_out, args.dir_out + "_env")
+            repo_generate_signature(args.dir_out)
+
         else:
+            print(f"No conda environment specified, creating {reponame}_env")
             repo_build_conda(reponame, reponame+"_env")
             repo_check_root_files(reponame, reponame+"_env")
             repo_generate_signature(reponame)

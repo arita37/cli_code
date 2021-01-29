@@ -9,7 +9,7 @@ rule 4 - align assignment operators
 
 Usage:
 
-cli_format -n /path/to/file or /path/to/dir --out_dir /path/to/output
+cli_format -i /path/to/file or /path/to/dir --out_dir /path/to/output
 
 """
 import re
@@ -201,7 +201,7 @@ def load_arguments():
     import argparse
 
     p = argparse.ArgumentParser(description="")
-    p.add_argument("--input", "-n",
+    p.add_argument("--dir_in", "-i", required='True',
                    default="test/run_train.py",  help="Source file path or path to a directory")
     p.add_argument("--dir_out", default="formatted",
                    help="Name of output directory to store results")
@@ -209,11 +209,13 @@ def load_arguments():
     arg = p.parse_args()
     return arg
 
+# TODO: Add functions for formating functions and dictionaries
+
 
 def main():
     args = load_arguments()
 
-    _input = args.input
+    _input = args.dir_in
     out_dir = args.dir_out
 
     if ".py" in _input:

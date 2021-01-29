@@ -5,28 +5,14 @@ It also autodetects all required packages and install them into the newly create
 
 Usage:
 
-`cli_env_autoinstall test -n notebook_cvt`
-`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+`cli_env_autoinstall -i test -n notebook_cvt`
 
+`cli_env_autoinstall -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
-   [Doc](cli_code/cli_env_autoinstall.py)
-
-or
-
-`cli_env_autoinstall test -n notebook_cvt -py 3.6 -p tensorflow pandas`
-
+`-i` or `--dir_in` specify the path to repository (required argument)
 `-n` or `--conda_env` specify name of our conda environment (if not specified, all required packages are installed in a default `test` environment)
 `-py` or `--python_version` specify the python version of the target environment (default is 3.6)
 `-p` or `--packages` specify any extra packages in addition to required ones to install (default is numpy)
-
-
-
-Auto install missing package by scanning error message
-
-conda create -y -n ztest  python=3.6.5
-source activate ztest
-python cli_module_autoinstall.py  --folder_input  /home/ubuntu/aagit/aapackage/aapackage/batch  --packages "tensorflow=1.14 scikit-learn numpy pandas scipy matplotlib"
-
 """
 
 import os
@@ -232,21 +218,7 @@ def create_env(folder_input, conda_env, python_version='3.6', packages='numpy'):
     else:
         print(f"{conda_env} conda virtual environment already exists.")
 
-    # Auto install conda individually (NOTE: no need for now)
-    # miss_packages = get_missing(package_list)
-    # for package in miss_packages:
-    #     print(
-    #         f"{conda_activate}  {conda_install}  -y {package}   --no-update-deps")
-
-    # # Auto install pip (NOTE: no need for now)
-    # miss_packages = get_missing(package_list)
-    # for package in miss_packages:
-    #     print(f"{conda_activate}  pip install {package} --no-deps")
-
-    # check again (NOTE: __this will not work as it checks in the current env__ fixed)
-    # miss_packages = get_missing(package_list)
-    # with open("./require_after.txt", "w") as fp:
-    #     fp.write("\n".join(miss_packages))
+    # TODO: add support for normal python environments
 
 
 def load_arguments():
@@ -261,7 +233,7 @@ def load_arguments():
     p = argparse.ArgumentParser(
         description="Create a new conda environment for a repo and installs its dependencies.")
     p.add_argument(
-        "folder_input", default="", help="Folder containing the source files")
+        "dir_in", "-i", required=True, help="Folder containing the source files")
     p.add_argument("--conda_env", "-n", default="test",
                    help="Name of conda environment to create")
     p.add_argument("--python_version", "-py", default="3.6.7",
@@ -278,20 +250,10 @@ def load_arguments():
 def main():
     args = load_arguments()
     create_env(
-        args.folder_input, args.conda_env,
+        args.dir_in, args.conda_env,
         args.python_version, args.packages
     )
 
 
-# def main(folder_input, conda_env, python_version, packages):
-#     create_env(folder_input, conda_env, python_version, packages
-#                )
-
-
 if __name__ == "__main__":
     main()
-
-    # TODO: handle default values for some parameters
-    # d = {'main': main}
-    # import fire
-    # fire.Fire(d)

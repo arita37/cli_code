@@ -53,9 +53,9 @@ Automatically create conda virtual environment for a specified repository. It al
 
 Usage:
 
-`cli_repo_install test -n notebook_cvt`
+`cli_repo_install -i test -n notebook_cvt`
 
-`cli_repo_install test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
 
 [More Documentation](cli_code/cli_repo_install.py)
 
@@ -67,9 +67,9 @@ This script parses the python files matching the given pattern inside a director
 
 usage:
 
-`cli_doc test -vvv --tab 4 --out docs.txt`
+`cli_doc -i test -vvv --tab 4 --out docs.txt`
 
-`cli_doc test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
+`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
 
 [More Documentation](cli_code/cli_doc_auto/main.py)
 
@@ -81,7 +81,7 @@ This scripts parses the source and generates its signature, source may be given 
 
 Usage:
 
-`cli_env_module_parser /path/to/module(s) or package(s) -o module_parsed.csv`
+`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
 
 [More Documentation](cli_code/cli_module_parser.py)
 
@@ -133,6 +133,6 @@ Foramt a python module or a package based on some rules to make everyting pretty
 
 Usage:
 
-`cli_format --in_file=/path/to/py_module --out_dir=/path/to/output dir`
+`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
 
 [More Documentation](cli_code/cli_format2.py)
