@@ -11,7 +11,7 @@ Usage:
 
 `-u` or `--url` specify a valid url for the file to download
 `-f` or `--file` specify path to a file containing a list of valid urls, one per line
-`-o` or `--output` specify the output directory (default is `downloaded`)
+`-o` or `--dir_out` specify the output directory (default is `downloaded`)
 
 What is a valid url?
 
@@ -129,7 +129,7 @@ def get_arguments():
                      help="Url of the file to download, it must start with http(s)://'")
     a_p.add_argument("--file", "-f", default="",
                      help="File containing valid urls of objects to download.")
-    a_p.add_argument("--output", "-o", default="downloaded",
+    a_p.add_argument("--dir_out", "-o", default="downloaded",
                      help="Directory to save downloaded files.")
     args = a_p.parse_args()
 
@@ -141,7 +141,7 @@ def main():
 
     if args.url != "":
         downloader = Downloader(args.url)
-        downloader.download(args.output)
+        downloader.download(args.dir_out)
 
     if args.file != "":
         urls = []
@@ -154,7 +154,7 @@ def main():
 
         for url in urls:
             downloader = Downloader(url)
-            downloader.download(args.output)
+            downloader.download(args.dir_out)
 
 
 if __name__ == "__main__":

@@ -13,9 +13,10 @@ function nor class
 
 Usage:
 
-`cli_env_module_parser /path/to/module(s) or package(s) -o module_parsed.csv`
+`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
 
-`-o` or `--output` option is optional and if not specified, results will be shown on stdout.
+`-i` or `--dir_in` specify the path to source file(s) to parse
+`-o` or `--dir_out` option is optional and if not specified, results will be shown on stdout.
 """
 
 import ast
@@ -255,9 +256,9 @@ def get_arguments():
     p = argparse.ArgumentParser(
         description='This Python code parser fetches variable information from the given source files.')
     p.add_argument(
-        'path', help="path to a module or directory containing multiple modules")
+        '--dir_in', '-i', required=True, help="path to a module or directory containing multiple modules")
     p.add_argument(
-        '--output', '-o', default=None, help="File name to save the output, if not specified, results will be shown on stdout.")
+        '--dir_out', '-o', default=None, help="File name to save the output, if not specified, results will be shown on stdout.")
     args = p.parse_args()
 
     return args
@@ -266,18 +267,14 @@ def get_arguments():
 def main():
     args = get_arguments()
 
-    # try:
-    path = args.path
-    # except IndexError:
-    #     usage("Either a filepath or a directory path must be provided")
-    #     return
+    path = args.dir_in
 
     if os.path.isdir(path):
         variables = findVariablesInDir(path)
-        writeCSV(variables, args.output)
+        writeCSV(variables, args.dir_out)
     elif os.path.isfile(path):
         variables = findVariablesInFile(path)
-        writeCSV(variables, args.output)
+        writeCSV(variables, args.dir_out)
     else:
         usage(f"The given path is neither a file nor a directory: {path}")
         return

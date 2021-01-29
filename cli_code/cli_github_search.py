@@ -14,7 +14,7 @@ These are optional arguments:
 
 `-c` or `--created` specify the period of repository creation
 `-p` or `--pushed` specify the period of pushing to repo
-`-o` or `--output` specify the output folder for storing results (default value is `results`)
+`-o` or `--dir_out` specify the output folder for storing results (default value is `results`)
 """
 
 import os
@@ -32,7 +32,7 @@ def search_github(args, start_time):
     keywords = args.keyword
     created = args.created
     pushed = args.pushed
-    folder_name = args.output
+    folder_name = args.dir_out
     # print('Keyword to search GitHub: ' + keyword)
     # print('Created: ' + created)
     # print('Pushed: ' + pushed)
@@ -156,7 +156,7 @@ def get_arguments():
         '--created', '-c', default='>2018-11-01', help="Created date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
     p.add_argument(
         '--pushed', '-p', default='2018-11-01..2020-11-10', help="Pushed date in format: '<=YYYY-MM-DD' or '>=YYYY-MM-DD' or 'YYYY-MM-DD..YYYY-MM-DD'")
-    p.add_argument('--output', '-o', default='results',
+    p.add_argument('--dir_out', '-o', default='results',
                    help="Folder to store the results of your search")
     args = p.parse_args()
 
