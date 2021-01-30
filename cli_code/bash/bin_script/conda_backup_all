@@ -1,0 +1,26 @@
+#!/bin/bash
+echo "start conda backup"
+
+
+source /home/ubuntu/.bashrc
+export PATH="/home/ubuntu/anaconda3/bin:$PATH"
+
+
+echo "start Loop"
+
+  NOW=$(date "+%Y%m%d")
+
+  echo $NOW
+  mkdir /home/ubuntu/zconda/conda/env-$NOW
+  ENVS=$(conda env list | grep '^\w' | cut -d' ' -f1)
+  for env in $ENVS; do
+     #source activate $env
+     # conda env export > $HOME/tmp/envs-$NOW/$env.yml
+     echo "Exporting $env"
+     conda env export -n $env  > /home/ubuntu/zconda/conda/env-$NOW/$env-$NOW-env.yml         # | grep -v "^prefix: "
+     conda list --explicit -n $env  > /home/ubuntu/zconda/conda/env-$NOW/$env-$NOW-link.txt
+  done
+
+
+echo "Conda Finish"
+

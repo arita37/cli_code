@@ -1,0 +1,14 @@
+#!/bin/bash
+echo "python import test"
+
+
+
+# bash
+which python
+
+
+
+python /home/ubuntu/ztest_conda.py
+
+
+

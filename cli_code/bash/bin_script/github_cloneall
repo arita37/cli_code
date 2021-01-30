@@ -1,0 +1,78 @@
+
+#!/usr/bin/perl
+#
+# Script to download/clone all of your Github repos
+#
+# Copyright Nicholas Humfrey, 22nd August 2017
+#
+# License: http://unlicense.org
+#
+
+use JSON;
+use strict;
+
+my $username = 'arita37';   # Your GitHub username
+my $git_dir = './;
+
+unless (-d $git_dir) {
+    die "Git directory does not exist: $git_dir";
+}
+
+
+for(my $page=1; $page < 50; $page++) {
+    print "Fetching respository list page $page\n";
+    my $json = `curl --fail -s https://api.github.com/users/$username/repos?page=$page`;
+    if ($json eq '') {
+        die "Failed to get list of repos";
+    }
+
+    my $repos = decode_json($json);
+    if (scalar(@$repos) == 0) {
+        print "Done!\n";
+        exit;
+    }
+
+    foreach my $repo (@$repos) {
+        my $name = $repo->{'name'};
+        
+        if ($repo->{'fork'}) {
+          print "Ignoring Fork: $name\n";
+        } else {
+          print "\nFetching: $name\n";
+          my $git_url = $repo->{'git_url'};
+          my $backup_path = $git_dir.'/'.$repo->{'name'}.'.git';
+          print "$git_url => $backup_path\n";
+  
+          if (-e $backup_path) {
+              chdir($backup_path) or die "Failed to change to $backup_path: $!";
+              if (system('git', 'fetch', '-q', '--all') != 0) {
+                  die "Failed to fetch repository: $backup_path";
+              }
+          } else {
+              if (system('git', 'clone', '--mirror',  $git_url, $backup_path) != 0) {
+                  die "Failed to clone repository: $git_url";
+              }
+          }
+
+          open(DESC, ">$backup_path/description") or
+              die "Failed to open description file: $!";
+          print DESC $repo->{'description'};
+          close(DESC);
+
+          open(CLONEURL, ">$backup_path/cloneurl") or
+              die "Failed to open cloneurl file: $!";
+          print CLONEURL $git_url;
+          close(CLONEURL);
+
+          open(GITHUBJSON, ">$backup_path/github.json") or
+              die "Failed to open cloneurl file: $!";
+          print GITHUBJSON to_json($repo, {pretty => 1});
+          close(GITHUBJSON);
+  
+          print "\n";
+        }
+    }
+
+    # Avoid hitting the GitHub API rate limiter
+    sleep(1);
+}

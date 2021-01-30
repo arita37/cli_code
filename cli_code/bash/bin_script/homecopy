@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# chmod +x /home/ubuntu/zscript
+
+
+a="/tmp/home_ubuntu/"
+b=/home/ubuntu/zscript/homelist.txt
+c=/home/ubuntu/
+
+echo "COPying $c  INTO $a"
+#We need to supply three arguments
+# if [ $# -ne 3 ] ;then
+#        echo "Need three arguments 1) target_folder 2) file_list 3) preffix"
+#   exit 1
+# fi
+
+
+
+#Create Destination Direcotry
+[ -d $a ] || mkdir -p $a
+
+#Main Loop For all files in file_list
+for PATH in `cat "$b"`
+do
+       # echo $PATH
+       directoryname=`/usr/bin/dirname $a/$PATH`
+       #echo $directoryname
+       #echo "$c/$PATH"
+       [[ -d "$c/$PATH" ]] && /bin/mkdir -p "$directoryname" && /bin/cp -R $c/$PATH $a/$PATH  && echo "$a/$PATH" 
+       [[ -f "$c/$PATH" ]] && /bin/mkdir -p "$directoryname" && /bin/cp $c/$PATH $a/$PATH   && echo "$a/$PATH" 
+done
+
+
+echo "Target folder $a"
+/bin/ls $a
+
+

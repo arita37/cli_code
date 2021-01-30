@@ -1,0 +1,34 @@
+#!/bin/bash
+me=`basename "$0"`
+echo "######### ${me} #############################"
+NOW=$(date "+%Y%m%d")
+echo $NOW  
+# set -x  # Output commands being run.
+set -e  # Exit on error.
+
+
+# https://whatbox.ca/wiki/Dropbox
+
+
+if [ "$1" == "add" ]; then
+    echo "Add Dropbox"
+    dbxfs /home/ubuntu/zdropbox
+   exit 0
+fi
+   
+
+
+
+
+if [ "$1" == "remove" ]; then
+   echo "Remove Dropbox"
+   fusermount -uz /home/ubuntu/zdropbox
+   exit 0
+fi
+   
+
+
+
+
+
+

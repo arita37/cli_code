@@ -12,16 +12,30 @@
 
 ## Utilities available
 
-- [Convert Notebook](#1-convert-notebook)
-- [Search Github](#2-search-github)
-- [Auto Create Conda Environment](#3-auto-create-conda-environment)
-- [Auto-generate Package Docs](#4-auto-generate-package-docs)
-- [Parse Python Modules](#5-parse-python-modules)
-- [Easy Merge Conda Environmetns](#6-easy-merge-conda-environmetns)
-- [Checkout any Github Repo](#7-get-github-repository-and-check-it-in-a-new-conda-environment)
-- [Automate Downloading from Dropbox, Google Drive, and Github](#8-automate-downloading-from-dropbox-google-drive-and-github)
-- [JSON and Code Parsing Utilities](#9-json-and-code-parsing-utilities)
-- [Python Code Formatter](#10-python-code-formatter)
+
+`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
+
+`cli_doc -i test -vvv --tab 4 --out docs.txt`
+`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
+
+
+`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
+
+`cli_github_search amazon scraper`
+
+`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
+
+`cli_repo_install -i test -n notebook_cvt`
+`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+
+`cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
+
+`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
+
+
+`cli_download -u a_valid_url`
+`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
+
 
 ---
 
