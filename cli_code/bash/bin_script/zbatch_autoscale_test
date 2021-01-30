@@ -1,0 +1,45 @@
+#!/bin/bash
+# set -x
+
+## /home/ubuntu/zbatch.sh
+### nohup  /home/ubuntu/zbatch.sh  2>&1 | tee -a /home/ubuntu/zlog/zbatch_log.log
+
+####################################################################################################
+### Need to source when using SSH   !!!!!!!!!!!!!
+echo "-Start Batch Daemon shell script-"
+source /home/ubuntu/.bashrc
+
+
+
+source activate py36
+export PATH="$PATH:/home/ubuntu/anaconda3/bin"
+cd /home/ubuntu/
+whoami
+pwd
+which python
+which conda
+
+
+####################################################################################################
+###### Task Launcher  ##############################################################################
+which batch_daemon_autoscale_cli.py
+
+batch_daemon_autoscale_cli.py  --mode nodaemon --reset_global_task_file 1  --param_mode test  --param_file $HOME/zs3drive/ztest/config_batch.toml  --log_file $HOME/zlog/batchautoscale_test.log
+# Removed daemon mode as it is launched from cron job.
+# batch_daemon_autoscale_cli.py  --mode daemon  --reset_global_task_file 1  --param_mode test  --param_file zs3drive/ztest/config_batch.toml  
+
+
+
+# batch_daemon_launch_cli.py  --task_folder  zs3drive/tasks/  --log_file   zlog/batchdaemon.log  --mode daemon  --waitsec 60  &
+
+
+# batch_daemon_launch_cli.py --param_file zs3drive/config_batch.toml --param_mode launch_prod
+
+
+# batch_daemon_autoscale_cli.py --mode daemon --task_folder  zs3drive/tasks/  --log_file zlog/batchautoscale.log   --reset_global_task_file 0
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# set -x  # Output commands being run.
+set -e  # Exit on error.
+
+me=`basename "$0"`
+echo "######### ${me} #############################"
+NOW=$(date '+%Y%m%d')
+echo "$NOW"
+
+
+
+if [ "$2" ]; then
+    port="$2"
+else
+    port=1234
+fi
+
+
+
+
+if [[ "$1" = notebook ]]; then
+   logfile="/home/ubuntu/zlog/jupyter_server2.log"
+   echo "port $port"
+   nohup  /home/ubuntu/anaconda3/bin/jupyter notebook --ip=0.0.0.0 --port=$2 --no-browser  &>> "$logfile"
+   exit 0
+   
+elif [[ "$1" = where ]]; then
+   sudo lsof -i -P -n | grep LISTEN
+      
+   exit 0
+
+else
+   1>&2 echo "Invalid arguments. Usage:
+
+./${me} size | topfile | rename from to"
+fi

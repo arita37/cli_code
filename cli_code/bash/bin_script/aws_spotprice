@@ -1,0 +1,3 @@
+curl -s 'http://spot-price.s3.amazonaws.com/spot.js' | sed 's/callback(//g;s/)\;//g' | jq -r '[.config.regions[] | {region:.region, size:(.instanceTypes[].sizes[])}] | map("Price: \(.size.valueColumns[0].prices.USD). Size: \(.size.size). Region: \(.region).")|.[]' | grep -v 'N/A*' | sort -nrk2   2>&1 | tee spotprice.txt
+
+

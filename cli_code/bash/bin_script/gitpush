@@ -1,0 +1,132 @@
+#!/bin/bash
+# $1 : number 
+# add on prefiex
+
+number=500
+
+if [ $2 ]; then
+    number="$2"
+fi
+
+
+git add --all &&  echo "git add --all done" && 
+
+
+#########################################################################
+git status
+var=`git -c color.status=false status \
+| sed -n -r -e '1,/Changes to be committed:/ d' \
+            -e '1,1 d' \
+            -e '/^Changes not staged for commit:/,$ d' \
+            -e '/^Untracked files:/,$ d' \
+            -e 's/^\s*//' \
+            -e '/./p'`
+
+SAVEIFS=$IFS
+IFS=$'\n'
+array=($var)
+IFS=$SAVEIFS
+
+add_stat=""
+modify_stat=""
+del_stat=""
+
+for (( i=0; i<${#array[@]}; i++ ))
+do
+    case "${array[$i]}" in
+    new*)
+        string="${array[$i]}"
+        string="${string:12}"
+        IFS='/'
+        read -ra file_path_arr <<< "$string"
+        IFS=$SAVEIFS
+        file_name=${file_path_arr[-1]}
+        add_stat="$add_stat${file_name}"
+        add_len=`echo -n $add_stat | wc -c`
+        add_stat="$add_stat, "
+        if [ $add_len -gt $number ]; then
+            cut_len=`echo -n $file_name | wc -c`
+            add_stat="${add_stat:0:((add_len-cut_len))}"
+        fi
+        ;;
+    modified*)
+        string="${array[$i]}"
+        string="${string:12}"
+        IFS='/'
+        read -ra file_path_arr <<< "$string"
+        file_name=${file_path_arr[-1]}
+        IFS=$SAVEIFS
+        modify_stat="$modify_stat${file_name}"
+        mod_len=`echo -n $modify_stat | wc -c`
+        modify_stat="$modify_stat, "
+        if [ $mod_len -gt $number ]; then
+            cut_len=`echo -n $file_name | wc -c`
+            modify_stat="${modify_stat:0:((mod_len-cut_len))}"
+        fi
+        ;;
+    deleted*)
+        string="${array[$i]}"
+        string="${string:12}"
+        IFS='/'
+        read -ra file_path_arr <<< "$string"
+        file_name=${file_path_arr[-1]}
+        IFS=$SAVEIFS
+        del_stat="$del_stat${file_name}"
+        del_len=`echo -n $del_stat | wc -c`
+        del_stat="$del_stat, "
+        if [ $del_len -gt $number ]; then
+            cut_len=`echo -n $file_name | wc -c`
+            del_stat="${modify_stat:0:((del_len-cut_len))}"
+        fi
+        ;;
+    esac
+done
+
+add_len=`echo -n $add_stat | wc -c`
+modify_len=`echo -n $modify_stat | wc -c`
+del_len=`echo -n $del_stat | wc -c`
+
+result=""
+
+if [ $add_len != 0 ]; then
+    result=",Add: $add_stat"
+fi
+
+if [ $modify_len != 0 ]; then
+    if [ `echo -n $result | wc -c` != 0 ]; then
+        result_len=`echo -n $result | wc -c`
+        message="${result:0:((result_len-1))}"
+        result="$message\nModified $modify_stat"
+    else
+        result=",Upd: $modify_stat"
+    fi
+fi
+
+if [ $del_len != 0 ]; then
+    if [ `echo -n $result | wc -c` != 0 ]; then
+        result_len=`echo -n $result | wc -c`
+        message="${result:0:((result_len-1))}"
+        result="$message\nDeleted $del_stat"
+    else
+        result=",Del: $del_stat"
+    fi
+fi
+
+result_len=`echo -n $result | wc -c`
+#if [ "$result_len" -eq 0 ]; then
+#    echo "Please, increase the maximum length of the commit string - it is impossible to form the commit message"
+#    exit 1
+#fi
+
+message="$1 ${result:0:((result_len-1))}"
+
+
+
+# git add --all &&  echo "ok" && git commit -m "$(echo -e $message)"  && git push --all
+
+git commit -m "$message"  && echo "committed"    && git push --all
+
+
+
+
+ 

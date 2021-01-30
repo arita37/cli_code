@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+rm -rf /tmp/home_ubuntu
+git clone https://github.com/arita37/home_ubuntu.git  /tmp/home_ubuntu/
+# git pull --all
+homecopy
+
+cd /tmp/home_ubuntu/
+git add --all && git commit -m "ok" && git push --all
+
+

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# https://bencane.com/2011/11/02/did-my-cronjob-run/
+
+
+echo "WHERE CRON IS LOCATED"
+/bin/grep -ic cron /var/log/* | grep -v :0
+
+
+
+echo "CRON LOG"
+/bin/grep -i cron /var/log/syslog*   2>&1 | tee /home/ubuntu/zlog/cronjob.log
+
+
+echo "/home/ubuntu/zlog/cronjob.log"
+
+echo
+echo "CRON JOBS LOGFILES TIMESTAMPS"
+/bin/ls -l \
+        /home/ubuntu/zlog/cron.log \
+        /home/ubuntu/zlog/jupyter_server.log \
+        /home/ubuntu/zlog/cron_gitpull.log \
+        /home/ubuntu/zlog/cron_homepush.log
+
+echo
+echo "LAST homepush RUNS"
+/bin/cat /var/log/cron.log | /bin/grep '/home/ubuntu/zscript/homepush'
+
+echo
+echo "LAST test_git.sh RUNS"
+/bin/cat /var/log/cron.log | /bin/grep '/home/ubuntu/test/test_git.sh'

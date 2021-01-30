@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Copy and delete old folder
+   cp  $1   $2  --recursive  && rm $1     --recursive 
+

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# set -x  # Output commands being run.
+set -e  # Exit on error.
+
+me=`basename "$0"`
+echo "######### ${me} #############################"
+NOW=$(date '+%Y%m%d')
+echo "$NOW"
+
+if [[ "$1" = size ]]; then
+   sudo /bin/df -h
+   echo  # Newline
+   sudo /usr/bin/du -h --max-depth=5 / |\
+      /bin/grep '[0-9]G\>' |\
+      /usr/bin/sort -hr 
+      
+   exit 0
+elif [[ "$1" = topfile ]]; then
+   /bin/df -H
+   echo  # Newline
+   /usr/bin/du -a . --exclude='/home/ubuntu/zdropbox' |\
+      sort -n -r |\
+      head -n 20  
+      
+   exit 0
+elif [[ "$1" = rename ]] &&\
+   [[ -e "$2" ]] &&\
+   [[ ! -e "$3" ]]; then
+   # If the first argument is 'rename',
+   # the second argument is a file or directory
+   # and the third argument does not exist as a file or directory:
+   # Copy and delete old folder.
+   echo "Rename ${2} to ${3}"
+   /bin/mv "$2" "$3"
+   
+   exit 0
+else
+   1>&2 echo "Invalid arguments. Usage:
+
+./${me} size | topfile | rename from to"
+fi

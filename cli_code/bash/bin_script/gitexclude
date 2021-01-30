@@ -1,0 +1,31 @@
+#!/bin/bash
+#  Need to run into the git repo folder
+echo "Starting auto-add large files to GIT LFS "
+
+if [ "$1" ]; then
+    maxsize="$1"
+else
+maxsize=12485760
+fi
+
+content=`find . ! -path './.*'`
+
+SAVEIFS=$IFS
+IFS=$'\n'
+paths=($content)
+IFS=$SAVEIFS
+
+for path in "${paths[@]}"; do
+    if [ -f "$path" ]; then
+        file_size=`du -b "$path" | cut -f1`
+        # echo "$path"
+        if [ "$file_size" -gt "$maxsize" ]; then
+            #git lfs track "$path"
+            echo  "Exclude: $path"
+        else
+        
+           git add $path
+        
+        fi
+    fi
+done
