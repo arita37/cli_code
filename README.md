@@ -12,30 +12,30 @@
 
 ## Utilities available
 
+```
+cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir
 
-`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
+cli_doc -i test -vvv --tab 4 --out docs.txt
+cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"
 
-`cli_doc -i test -vvv --tab 4 --out docs.txt`
-`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
+cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts
 
+cli_github_search amazon scraper
 
-`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
+cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv
 
-`cli_github_search amazon scraper`
+cli_repo_install -i test -n notebook_cvt
+cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas
 
-`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
+cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml
 
-`cli_repo_install -i test -n notebook_cvt`
-`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env
 
-`cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
+cli_download -u a_valid_url
+cli_download -f /path/to/a_valid_urls_file -o my_download_dir
 
-`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
-
-
-`cli_download -u a_valid_url`
-`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
-
+cli_format --dir_in /path/to/py_module --dir_out /path/to/output_diir
+```
 
 ---
 
@@ -43,7 +43,9 @@
 
 convert all IPython notebooks inside a directory to python scripts and save them to another directory. This also tests python scripts for potential syntax errors.
 
-`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
+```
+$ cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts
+```
 
 [More Documentation](cli_code/cli_convert_ipynb.py)
 
@@ -55,7 +57,9 @@ Search on github for keyword(s) with optional parameters to refine your search a
 
 Usage:
 
-`cli_github_search amazon scraper`
+```
+$ cli_github_search amazon scraper
+```
 
 [More Documentation](cli_code/cli_github_search.py)
 
@@ -67,9 +71,11 @@ Automatically create conda virtual environment for a specified repository. It al
 
 Usage:
 
-`cli_repo_install -i test -n notebook_cvt`
+```
+$ cli_repo_install -i test -n notebook_cvt
 
-`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+$ cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas
+```
 
 [More Documentation](cli_code/cli_repo_install.py)
 
@@ -81,9 +87,11 @@ This script parses the python files matching the given pattern inside a director
 
 usage:
 
-`cli_doc -i test -vvv --tab 4 --out docs.txt`
+```
+$ cli_doc -i test -vvv --tab 4 --out docs.txt
 
-`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
+$ cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"
+```
 
 [More Documentation](cli_code/cli_doc_auto/main.py)
 
@@ -95,7 +103,9 @@ This scripts parses the source and generates its signature, source may be given 
 
 Usage:
 
-`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
+```
+$ cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv
+```
 
 [More Documentation](cli_code/cli_module_parser.py)
 
@@ -105,7 +115,9 @@ This is a very simple piece of script that allows user to merge multiple YAML fi
 
 Usage:
 
-`cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
+```
+$ cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml
+```
 
 [More Documentation](cli_code/cli_conda_merge.py)
 
@@ -115,7 +127,9 @@ This script automates code checking using a python and also checks files and pro
 
 Usage:
 
-`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
+```
+$ cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env
+```
 
 [More Documentation](cli_code/cli_repo_check.py)
 
@@ -125,9 +139,11 @@ This script automates downloading of bulk files from github, google drive and dr
 
 Usage:
 
-`cli_download -u a_valid_url`
+```
+$ cli_download -u a_valid_url
 
-`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
+$ cli_download -f /path/to/a_valid_urls_file -o my_download_dir
+```
 
 [More Documentation](cli_code/cli_download.py)
 
@@ -137,7 +153,9 @@ Parse python source code and put into json format.
 
 Usage:
 
-`cli_json --path `
+```
+$ cli_json --path
+```
 
 [More Documentation](cli_code/cli_json.py)
 
@@ -147,6 +165,22 @@ Foramt a python module or a package based on some rules to make everyting pretty
 
 Usage:
 
-`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
+```
+$ cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir
+```
 
 [More Documentation](cli_code/cli_format2.py)
+
+### 11. Web-scraping Utilities
+
+#### 11.1 Proxies Scraper
+
+A simple commandline script to gather a list of fresh proxies across multiple sources on the web. A list of all available sources can be checked in the help menue of the utility. You can choose one, many and all sources to gather proxies.
+
+Usage:
+
+```
+$
+```
+
+**Note:** Standarise how to list new utilities, ordered vs unordered list? Should we link each utility heading with its descriptin or current format is good.
