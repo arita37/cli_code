@@ -175,12 +175,14 @@ $ cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir
 
 #### 11.1 Proxies Scraper
 
-A simple commandline script to gather a list of fresh proxies across multiple sources on the web. A list of all available sources can be checked in the help menue of the utility. You can choose one, many and all sources to gather proxies.
+A simple commandline script to gather a list of fresh proxies across multiple sources on the web. A list of all available sources can be checked using `-l` flag. You can choose one, many and all sources to gather proxies.
 
 Usage:
 
 ```
-$
+$ cli_proxies_scrapper -l
+
+$ cli_proxies_scrapper -s ssl us -o p_list.txt
 ```
 
 **Note:** Standarise how to list new utilities, ordered vs unordered list? Should we link each utility heading with its descriptin or current format is good.
