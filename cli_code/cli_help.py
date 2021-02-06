@@ -1,11 +1,7 @@
 """
-A simple python module to parse the code and format it based on some rules.
-Some rules are:
-rule 1 - change a line starting with 3 #'s into x #'s where x is 90 by default
-         if no text was found else preserve text and fill the rest with #'s
-rule 2 - normalize log statements in the file
-rule 3 - put all consecutive imports on one line
-rule 4 - align assignment operators
+
+
+Display Helpher matching command
 
 Usage:
 
@@ -25,7 +21,7 @@ ddict = {
   'docker' : "help/bash.txt",
 
   'conda' :'help/conda.txt'
-  
+
 }
 
 
