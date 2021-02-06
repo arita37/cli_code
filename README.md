@@ -13,28 +13,28 @@
 ## Utilities available
 
 
-`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
+	`cli_format --dir_in /path/to/py_module --dir_out /path/to/output_dir`
 
-`cli_doc -i test -vvv --tab 4 --out docs.txt`
-`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
-
-
-`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
-
-`cli_github_search amazon scraper`
-
-`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
-
-`cli_repo_install -i test -n notebook_cvt`
-`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
-
-`cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
-
-`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
+	`cli_doc -i test -vvv --tab 4 --out docs.txt`
+	`cli_doc -i test -vvv --tab 4 --out test_out/docs.txt --filter ".*?api.py"`
 
 
-`cli_download -u a_valid_url`
-`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
+	`cli_convert_jupyter -i /path/to/notebooks -o path/to/python-scripts`
+
+	`cli_github_search amazon scraper`
+
+	`cli_env_module_parser -i /path/to/module(s) or package(s) -o module_parsed.csv`
+
+	`cli_repo_install -i test -n notebook_cvt`
+	`cli_repo_install -i test -n notebook_cvt -py 3.6 -p tensorflow pandas`
+
+	`cli_conda_merge /path/to/env1.yaml /path/to/env2.yaml`
+
+	`cli_repo_check https://www.github.com/{username}/{reponame}.git -n testing_env`
+
+
+	`cli_download -u a_valid_url`
+	`cli_download -f /path/to/a_valid_urls_file -o my_download_dir`
 
 
 ---
