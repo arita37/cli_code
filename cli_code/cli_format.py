@@ -25,7 +25,7 @@ def format_comments(text="default", line_size=90):
     """
     Takes a string of text and formats it based on rule 1 (see docs).
     """
-    # potentially error prone, what if '\n' is present in text
+    # potentially error prone, what if '\n' is present in texT
     lines = text.splitlines()
     formated_text = []
     h_left = 4
@@ -37,7 +37,7 @@ def format_comments(text="default", line_size=90):
 
             # case 1 #### MyCommments1 #### ---> #### My comments ################## (90 )
             if len(cap_text) != 0:
-                # TODO: pretify cap_text
+                # TODO: pretify cap_text, look above
                 cap_text = cap_text[0].strip()
                 pad_size = line_size-h_left-2-len(cap_text)
                 f_line = '#'*h_left+' ' + cap_text + ' ' + '#'*(pad_size)
