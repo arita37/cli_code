@@ -22,7 +22,10 @@ import datetime
 
 ddict = {
   'bash': "help/bash.txt",
-  'docker' : "help/bash.txt"
+  'docker' : "help/bash.txt",
+
+  'conda' :'help/conda.txt'
+  
 }
 
 
