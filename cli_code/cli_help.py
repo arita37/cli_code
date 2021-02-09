@@ -13,14 +13,16 @@ cli_help docker -l
 import sys
 import os
 import datetime
+from pprint import pprint
 
-import tqdm
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 ##############################################################################################
 
 help_files = {
-    'bash': "help/bash.txt",
-    'docker': "help/bash.txt",
-    'conda': 'help/conda.txt'
+    'bash': "cli_code\\help\\bash.txt",
+    'docker': "cli_code\\help\\docker.txt",
+    'conda': 'cli_code\\help\\conda.txt'
 }
 
 
@@ -31,21 +33,33 @@ def get_docs(tool):
     """
     help_file = help_files[tool]
 
+    # help_file = os.path.join("help", tool,
     try:
-        with open(help_file) as hf:
+        with open(help_file, encoding="utf-8") as hf:
             return hf.read()
     except OSError as err:
         print(err)
         sys.exit(1)
 
 
-def get_cmd_help(tool_docs):
+def get_cmd_help(tool_docs, commands):
     """
     Searches for commands in documentaion and returns help text.
     """
     # TODO: Put start and stop markers in help files, so that
     # TODO: we can easily returen a section coressponding to cmd
-    return "A very helpful comment"
+
+    # rst contains tuple, first element is line match and second is match ratio
+    cmd_help = {}
+    for cmd in commands:
+        cmd_help[cmd] = []
+        rst = process.extract(cmd, tool_docs.splitlines(), limit=100)
+
+        for line in rst:
+            if "-" in line[0] and len(line[0]) < 60:
+                cmd_help[cmd].append(line[0])
+
+    return cmd_help
 
 
 def load_arguments():
@@ -71,16 +85,14 @@ def main():
     # tool is any piece of software for which we want to lookup help
     tools_available = ['bash', 'docker', 'conda']
     tool_name = args.tool
+    cmd2check = args.cmd
 
     # before goining forward, let's check we have the docs
     assert tool_name in tools_available, f"Docs not available for {tool_name}"
 
     docs = get_docs(tool_name)
-    cmd_help = get_cmd_help(docs)
-    # from prettyprint import print as print2
-
-    # txt = get_doc(cmd)
-    # pritn2(txt)
+    cmd_help = get_cmd_help(docs, cmd2check)
+    pprint(cmd_help)
 
 
 if __name__ == "__main__":
