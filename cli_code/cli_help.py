@@ -42,7 +42,7 @@ def get_docs(tool):
         sys.exit(1)
 
 
-def get_cmd_help(tool_docs, commands):
+def get_cmd_help(tool_docs, command):
     """
     Searches for commands in documentaion and returns help text.
     """
@@ -50,16 +50,24 @@ def get_cmd_help(tool_docs, commands):
     # TODO: we can easily returen a section coressponding to cmd
 
     # rst contains tuple, first element is line match and second is match ratio
-    cmd_help = {}
-    for cmd in commands:
-        cmd_help[cmd] = []
-        rst = process.extract(cmd, tool_docs.splitlines(), limit=100)
+    # cmd_help = {}
+    # for cmd in commands:
+    #     cmd_help[cmd] = []
+    #     rst = process.extract(cmd, tool_docs.splitlines(), limit=100)
 
-        for line in rst:
-            if "-" in line[0] and len(line[0]) < 60:
-                cmd_help[cmd].append(line[0])
+    #     for line in rst:
+    #         if "-" in line[0] and len(line[0]) < 60:
+    #             cmd_help[cmd].append(line[0])
+    poss_match = []
+    for line in tool_docs.splitlines():
+        if command in line:
+            temp = line.split(command)
+            # removing everything on the left of a command
+            temp = line.replace(temp[0], '')
+            if len(temp) > 5 and len(temp) < 50:
+                poss_match.append(temp) 
 
-    return cmd_help
+    return poss_match
 
 
 def load_arguments():
