@@ -3,6 +3,7 @@ setup(
     name='cli_code',
     version='0.0.3',
     packages=find_packages(),
+    scripts=['cli_code/pycallgraph2/scripts/pycallgraph'],
     entry_points={
         'console_scripts':
             [
