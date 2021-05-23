@@ -1,46 +1,73 @@
 """
-
-
-Display Helpher matching command
+Display help about different commands for many commonly used cli tools like bash, docker, conda etc.
+Easily lookup help for a given command or get a brief overview of commands available 
 
 Usage:
 
-cli_format -i /path/to/file or /path/to/dir --out_dir /path/to/output
+cli_help bash -c ls cut
+
+# display a long list of commands available in docker
+cli_help docker -l
 
 """
-import re
-import glob
-import fire
+import sys
 import os
-import tqdm
 import datetime
+from pprint import pprint
+
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 ##############################################################################################
 
-ddict = {
-  'bash': "help/bash.txt",
-  'docker' : "help/bash.txt",
-
-  'conda' :'help/conda.txt'
-
+help_files = {
+    'bash': "cli_code\\help\\bash.txt",
+    'docker': "cli_code\\help\\docker.txt",
+    'conda': 'cli_code\\help\\conda.txt'
 }
 
 
+def get_docs(tool):
+    """
+    Retrieve the help file for the specified tool and 
+    return as a text file.
+    """
+    help_file = help_files[tool]
 
-def get_doc(cmd):
-   """
-    bash copy
+    # help_file = os.path.join("help", tool,
+    try:
+        with open(help_file, encoding="utf-8") as hf:
+            return hf.read()
+    except OSError as err:
+        print(err)
+        sys.exit(1)
 
-   """
-    cmds = cmd.split(" ")
 
-    if 'bash' in cmds[0] :
-        open(file)
+def get_cmd_help(tool_docs, command):
+    """
+    Searches for commands in documentaion and returns help text.
+    """
+    # TODO: Put start and stop markers in help files, so that
+    # TODO: we can easily returen a section coressponding to cmd
 
-        extract lines with  cmds[1]  keywords
-        display on screen
+    # rst contains tuple, first element is line match and second is match ratio
+    # cmd_help = {}
+    # for cmd in commands:
+    #     cmd_help[cmd] = []
+    #     rst = process.extract(cmd, tool_docs.splitlines(), limit=100)
 
-    if 'docker' in cmds[0] :
+    #     for line in rst:
+    #         if "-" in line[0] and len(line[0]) < 60:
+    #             cmd_help[cmd].append(line[0])
+    poss_match = []
+    for line in tool_docs.splitlines():
+        if command in line:
+            temp = line.split(command)
+            # removing everything on the left of a command
+            temp = line.replace(temp[0], '')
+            if len(temp) > 5 and len(temp) < 50:
+                poss_match.append(temp) 
 
+    return poss_match
 
 
 def load_arguments():
@@ -49,28 +76,31 @@ def load_arguments():
     """
     import argparse
 
-    p = argparse.ArgumentParser(description="")
-    p.add_argument("--cmd", "-i", required='True',
-                   default="bash",  help="commmand")
-
-    p.add_argument("--cmd", "-i", required='True',
-                   default="bash",  help="commmand")
+    p = argparse.ArgumentParser(
+        description="Utility to quickly and consicely get help about different commands in different tools")
+    p.add_argument("tool", default="bash",
+                   help="specify the tool for which you want to lookup commands")
+    p.add_argument("--cmd", "-c", default=None, nargs='+',
+                   help="Specify command(s) to lookup for the mentioned tool")
 
     arg = p.parse_args()
     return arg
-
-# TODO: Add functions for formating functions and dictionaries
 
 
 def main():
     args = load_arguments()
 
-    cmd = args.cmd
+    # tool is any piece of software for which we want to lookup help
+    tools_available = ['bash', 'docker', 'conda']
+    tool_name = args.tool
+    cmd2check = args.cmd
 
-    from prettyprint import print as print2
+    # before goining forward, let's check we have the docs
+    assert tool_name in tools_available, f"Docs not available for {tool_name}"
 
-    txt = get_doc(cmd)
-    pritn2(txt)
+    docs = get_docs(tool_name)
+    cmd_help = get_cmd_help(docs, cmd2check)
+    pprint(cmd_help)
 
 
 if __name__ == "__main__":
