@@ -4,7 +4,7 @@ import webbrowser
 import sublime
 import sublime_plugin
 import sys
-from test.gitutil import GitUtil, main
+from SublimeTools.gitutil import GitUtil, main
 
 if sys.version_info < (3, 0):
     from urllib import quote as quote_param
