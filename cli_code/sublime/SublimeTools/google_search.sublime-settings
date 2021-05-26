@@ -1,0 +1,8 @@
+// Don't edit this file
+// use the one the User folder
+{
+    "suffix": "",
+    "prefix": "",
+    "default_browser": "", // chrome, firefox, more valid values here https://docs.python.org/2/library/webbrowser.html#webbrowser.register
+    "domain": "https://www.google.com"
+}
