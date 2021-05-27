@@ -77,16 +77,10 @@ def do_search(cmd='', q='', url=''):
 
     else:
         fullUrl = url + '/search?q=%s' % q
-    browser = settings.get('default_browser', '')
 
 
-    if browser:
-        try:
-            webbrowser.get(browser).open(fullUrl)
-        except:
-            webbrowser.open(fullUrl)
-    else:
-        webbrowser.open(fullUrl)
+    browser_open(fullUrl, settings)    
+
   
 
 
