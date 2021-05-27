@@ -17,12 +17,19 @@ def search(q, url=''):
     # Attach the suffix and the prefix
     q = settings.get('prefix', '') + quote_param(q) + settings.get('suffix', '')
 
+
+
     if url == '':
-        fullUrl = settings.get('domain', 'https://www.google.com') + f"/search?q={q}"
+        fullUrl = settings.get('domain', 'https://www.google.com') + "/search?q={q}".format(q=q)
+
+
+    elif  url != '' : 
+        fullUrl = settings.get('domain', 'https://www.google.com') +  "/search?q={q}+sites%3A{url}".format(q=q, url=url)
 
     else:
         fullUrl = url + '/search?q=%s' % q
     browser = settings.get('default_browser', '')
+
 
     if browser:
         try:
@@ -31,7 +38,7 @@ def search(q, url=''):
             webbrowser.open(fullUrl)
     else:
         webbrowser.open(fullUrl)
-
+  
 
 def git_command(path, command_string):
     g = GitUtil(path)
@@ -48,10 +55,13 @@ class TestCommand(sublime_plugin.TextCommand):
         project_path = self.view.window().project_file_name()
         if project_path == None:
             project_path = self.view.window().folders()[0]
+
+
         file_name = self.view.file_name()  # return file path
         for region in self.view.sel():
             if region.empty():
-                return
+                #### Select Full 
+                selected_text = self.view.substr( self.view.line( self.view.sel()[0]))   
             else:
                 if not region.empty():
                     selected_text = self.view.substr(region)
@@ -59,24 +69,29 @@ class TestCommand(sublime_plugin.TextCommand):
             
         query_list = selected_text.split(':')
         if len(query_list) != 2:
-            print('query string is invalid')
-            return
+            query_list = ['gg' , query_list[0] ]
+            #print('query string is invalid')
+            #return
+
         for region in self.view.sel():
             self.view.erase(edit, r=region)
+            # self.view.line( self.view.sel()[0]).erase()
 
         ##########################################################
-        command        = query_list[0].lower()
-        command_string = query_list[1].lower()
+        command        = query_list[0].lower().strip()
+        command_string = query_list[1].lower().strip()
+        print(command)
 
         if command == 'git':
             git_command(project_path, command_string)
 
             
         elif command == 'stack':
-            search(command_string, 'https://stackoverflow.com')
+            search(command_string, 'stackoverflow.com')
 
             
-        else command == 'gg':  ### Default Google
+        else :  
+            ### Default Google
             search(command_string, '')
 
 
