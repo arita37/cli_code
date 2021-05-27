@@ -1,5 +1,5 @@
 
-import os, sys, webbrowser, sublime, sublime_plugin
+import os, sys, webbrowser, sublime, sublime_plugin, subprocess
 from .gitutil import GitUtil, main
 
 if sys.version_info < (3, 0):
@@ -21,17 +21,20 @@ class TestCommand(sublime_plugin.TextCommand):
         for region in self.view.sel():
             if region.empty():
                 #### Select Full 
-                selected_text = self.view.substr( self.view.line( self.view.sel()[0]))   
+                stext = self.view.substr( self.view.line( self.view.sel()[0]))   
             else:
                 if not region.empty():
-                    selected_text = self.view.substr(region)
-            # return selected text
+                    stext = self.view.substr(region)
             
-        query_list = selected_text.split(':')
+
+        #### Format ##############################################
+        stext      = stext.strip()    
+        query_list = stext.split(':')
         if len(query_list) != 2:
-            query_list = ['gg' , query_list[0] ]
+            if 'go ' in stext : query_list = ['go' , query_list[0] ]
+            else              : query_list = ['gg' , query_list[0] ]            
             #print('query string is invalid')
-            #return
+
 
 
         #### Delete ##############################################
@@ -53,7 +56,7 @@ class TestCommand(sublime_plugin.TextCommand):
 
         elif cmd == 'github' : do_search('github', cmd_string, '')
 
-        elif cmd == 'go'     : do_gowebsite('go', cmd_string, '')
+        elif cmd == 'go'     : do_gowebsite('go',  cmd_string, '')
             
         else :                 do_search('google', cmd_string, '')    ### Default Google
 
@@ -103,7 +106,7 @@ def do_gowebsite(cmd='', q='', url=''):
 
     if    'utilmy'   in q : fullUrl = 'https://github.com/arita37/myutil/tree/main/utilmy'
     elif  'cli_code' in q : fullUrl = 'https://github.com/arita37/cli_code/tree/dev/cli_code/sublime/googlesearch'
-
+    elif  'zoom'  in q    : subprocess.call("C:/Program Files (x86)/Zoom/bin/Zoom.exe")
 
 
     else:
