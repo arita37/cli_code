@@ -15,11 +15,11 @@ else:
 def search(q, url=''):
     settings = sublime.load_settings("google_search.sublime-settings")
     # Attach the suffix and the prefix
-    q = settings.get('prefix', '') + quote_param(q) + \
-        settings.get('suffix', '')
+    q = settings.get('prefix', '') + quote_param(q) + settings.get('suffix', '')
+
     if url == '':
-        fullUrl = settings.get(
-            'domain', 'https://www.google.com') + "/search?q=%s" % q
+        fullUrl = settings.get('domain', 'https://www.google.com') + f"/search?q={q}"
+
     else:
         fullUrl = url + '/search?q=%s' % q
     browser = settings.get('default_browser', '')
@@ -57,16 +57,28 @@ class TestCommand(sublime_plugin.TextCommand):
                     selected_text = self.view.substr(region)
             # return selected text
             
-
-        query_list = selected_text.split('::')
+        query_list = selected_text.split(':')
         if len(query_list) != 2:
             print('query string is invalid')
             return
         for region in self.view.sel():
             self.view.erase(edit, r=region)
-        command = query_list[0].lower()
+
+        ##########################################################
+        command        = query_list[0].lower()
         command_string = query_list[1].lower()
+
         if command == 'git':
             git_command(project_path, command_string)
+
+            
         elif command == 'stack':
             search(command_string, 'https://stackoverflow.com')
+
+            
+        else command == 'gg':  ### Default Google
+            search(command_string, '')
+
+
+
+
