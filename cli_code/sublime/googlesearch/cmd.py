@@ -18,7 +18,7 @@ def search(q, url=''):
     q = settings.get('prefix', '') + quote_param(q) + settings.get('suffix', '')
 
     if url == '':
-        fullUrl = settings.get('domain', 'https://www.google.com') + f"/search?q={q}"
+        fullUrl = settings.get('domain', 'https://www.google.com') + "/search?q=%s" % q # f"/search?q={q}" ## for backward compatibility
 
     else:
         fullUrl = url + '/search?q=%s' % q
@@ -76,7 +76,7 @@ class TestCommand(sublime_plugin.TextCommand):
             search(command_string, 'https://stackoverflow.com')
 
             
-        else command == 'gg':  ### Default Google
+        elif command == 'gg':  ### Default Google
             search(command_string, '')
 
 
