@@ -15,7 +15,7 @@ Actions based on the currently selected text/word, in Sublime Text 2/3.
 
  1. `stack: how to add module in python` : 
     - search for 'how to add   module in python in stackoverflow
-    - delete the text `stack::how to add module in python`
+    - delete the text `stack:how to add module in python`
 
  2. `git: any text` :
     - first will add and commit all files with size less than 7 Mb and last edit from with in the last week
@@ -26,7 +26,7 @@ Actions based on the currently selected text/word, in Sublime Text 2/3.
 
 
 ## Details
-we are using this command style `command::subcommand`
+we are using this command style `command:subcommand`
 **you have to follow this style .**
 you need to select the text and press **`ctrl + alt + g`** 
  - `git`
