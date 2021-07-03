@@ -1,0 +1,13 @@
+matplotlib==3.3.4
+phone-gen==2.0.7
+numpy==1.19.5
+pandas==1.1.5
+opencv-python==4.5.2.52
+tifffile==2020.9.3
+validators==0.18.2
+scikit-image==0.17.2
+fire
+loguru
+pyyaml
+wget
+logilab-common

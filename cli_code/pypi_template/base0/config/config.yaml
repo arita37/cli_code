@@ -1,0 +1,15 @@
+- config:    
+    path_config                      : "HOME_USER"
+    
+
+- current_dataset:
+   name :  'mnist'
+
+
+- datasets:
+    mnist:
+       path_raw:
+       path_meta:
+       
+
+

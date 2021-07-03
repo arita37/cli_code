@@ -1,0 +1,134 @@
+name: Build and Test , Package PyPI
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - k
+  pull_request:
+    branches:
+      - k
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+   
+    - name: Set up Python 3.6.*
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6.*
+      
+    - name: Install pipenv
+      uses: dschep/install-pipenv-action@v1
+      
+  
+    - name: Cache pipenv virtualenv
+      id: cache-pipenv
+      uses: actions/cache@v1
+      with:
+        path: /opt/hostedtoolcache/Python/
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**requirements.txt') }}
+
+
+    - name: Install repo requirements  1
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: |
+           pip install -r  requirements.txt
+           conda list
+           pip list
+      
+      
+    - name: Install dev requirements  
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run:  |
+        pip install -r  requirements_dev.txt
+        conda list
+        pip list
+
+
+    - name: Black
+      continue-on-error: true
+      run: |
+           black --check  -l 100 --target-version=py36 mygenerator
+           black --check  -l 100 --target-version=py36 tests
+
+    - name: Pylint
+      continue-on-error: true
+      run: |          
+           pylint mygenerator
+           pylint tests
+
+           
+    - name: test_import
+      run: |
+           python tests/test_import.py
+
+        
+    - name: Package pip install -e .
+      run: |
+          mkdir -p    /home/runner/work/log_tmp/
+          pip install -e .
+          chmod -R 777 . 
+          
+    ########  Runs CLI checks
+    - name: run CLI checks- generate-numbers-sequence
+      # continue-on-error: true
+      run: |
+          generate-numbers-sequence --sequence 123  --min_spacing 4  --max_spacing 10 --image_width 160  --output_path ztmpp/seq/  --config_file default
+
+
+    ########  Runs CLI checks
+    - name: run CLI checks- generate-phone-numbers
+      #continue-on-error: true
+      run: |
+          generate-phone-numbers    --num_images 3  --min_spacing 4  --max_spacing 10 --image_width 300  --output_path ztmpp/phone/  --config_file default
+
+
+    ########  Runs All tests
+    - name: pytest
+      # continue-on-error: true
+      run: |
+          pytest  -vv  --showlocals  --html=data/pytest_report.html --self-contained-html  tests/
+
+
+
+
+    ########  Runs All test       
+    - name: log_gitcommit
+      run: |
+           ls .
+
+
+
+# This Job will upload a Python Package using Twine when a release is created
+  deploy:
+    needs : [build] # List of dependent Jobs 
+    if: success()   # check if all previous (needs) dependent jobs were successfull  then only execute
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+
+    - name: Install dependencies
+      run: |
+        ls . 
+        #python -m pip install --upgrade pip
+        #pip install setuptools wheel twine
+
+
+    - name: Build and publish
+      #env:
+      #  TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+      #  TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: |
+        # echo "$TWINE_USERNAME"
+        # python run_pipy.py
+        # python setup.py sdist bdist_wheel
+        # twine upload dist/*  --username ${{ secrets.PYPI_USERNAME }}     --password ${{ secrets.PYPI_PASSWORD }}  --skip-existing   --repository-url https://upload.pypi.org/legacy/  --verbose   

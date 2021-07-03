@@ -1,0 +1,10 @@
+##### Dev dependencies
+mypy
+data-science-types
+types-PyYAML
+pytest==6.2.4 
+pytest-html==3.1.1 
+pytest-cov
+black
+pylint
+flake8
